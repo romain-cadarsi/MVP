@@ -1,5 +1,54 @@
 {% extends 'base.html.twig' %}
 {% block css %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+        .minicontainer{
+            padding : 180px 100px;
+        }
+        p,a,h1,h2,h3,span,label{
+            font-family: Cabin;
+        }
+        #drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 20px;
+            width: 60px;
+            height: 60px;
+            font-family: sans-serif;
+        }
+        #drop-area.highlight {
+            border-color: purple;
+        }
+        p {
+            margin-top: 0;
+        }
+        .my-form {
+            margin-bottom: 10px;
+        }
+        #gallery {
+            margin-top: 10px;
+        }
+        #gallery img {
+            width: 150px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px;
+            background: #ccc;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .button:hover {
+            background: #ddd;
+        }
+        #fileElem {
+            display: none;
+        }
+    </style>
 {% endblock %}
 {% block bodycontent  %}
     <div style="background-image:url('{{ asset('background.png') }}');width: 100vw ; height: 100vh">
@@ -8,7 +57,58 @@
                 <div class="col-lg-4">
                     <div class="card">
                         <div class="card-body">
-                            <p>Something</p>
+                                <p style="font-family: Cabin;
+font-style: normal;
+font-weight: bold;
+font-size: 30px;
+line-height: 49px;
+letter-spacing: -1px;
+
+color: #424347;">Créer Campagne Participative</p>
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Name</label>
+                                            <div id="drop-area">
+                                                <form class="my-form">
+                                                    <input name = 'image' type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="surname">Surname</label>
+                                            <input type="file" class="form-control" name="surname" value="Smith" placeholder="Enter your Surname">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" name="name" value="John" placeholder="Enter your Name">
+                                        </div>
+                                        <div class="row col-md-6">
+                                            <div class="col-md-6">
+                                                <label for="surname">Prix Promotion</label>
+                                                <input type="text" class="form-control" name="surname" value="Smith" placeholder="Enter your Surname">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="surname">Valeur</label>
+                                                <input type="text" class="form-control" name="surname" value="Smith" placeholder="Enter your Surname">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" name="name" value="John" placeholder="Enter your Name">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="surname">Surname</label>
+                                            <input type="text" class="form-control" name="surname" value="Smith" placeholder="Enter your Surname">
+                                        </div>
+                                    </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -19,4 +119,43 @@
 
     </div>
 
+{% endblock %}
+{% block js %}
+    <script>
+    let dropArea = document.getElementById('drop-area');
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, preventDefaults, false)
+    })
+
+    function preventDefaults (e) {
+    e.preventDefault()
+    e.stopPropagation()
+    }
+    ;['dragenter', 'dragover'].forEach(eventName => {
+    dropArea.addEventListener(eventName, highlight, false)
+    })
+
+    ;['dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, unhighlight, false)
+    })
+
+    function highlight(e) {
+    dropArea.classList.add('highlight')
+    }
+
+    function unhighlight(e) {
+    dropArea.classList.remove('highlight')
+    }
+    dropArea.addEventListener('drop', handleDrop, false)
+
+    function handleDrop(e) {
+    let dt = e.dataTransfer
+    let files = dt.files
+
+    handleFiles(files)
+    }
+    function handleFiles(files) {
+    ([...files]).forEach(uploadFile)
+    }
+    </script>
 {% endblock %}
