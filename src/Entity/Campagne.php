@@ -79,6 +79,21 @@ class Campagne
      */
     private $moyen;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $datetimeRetrait;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nomVendeur;
+
     public function __construct()
     {
         $this->imagesProduit = new ArrayCollection();
@@ -241,6 +256,42 @@ class Campagne
     public function setMoyen(int $moyen): self
     {
         $this->moyen = $moyen;
+
+        return $this;
+    }
+
+    public function getDatetimeRetrait(): ?\DateTimeInterface
+    {
+        return $this->datetimeRetrait;
+    }
+
+    public function setDatetimeRetrait(\DateTimeInterface $datetimeRetrait): self
+    {
+        $this->datetimeRetrait = $datetimeRetrait;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getNomVendeur(): ?string
+    {
+        return $this->nomVendeur;
+    }
+
+    public function setNomVendeur(string $nomVendeur): self
+    {
+        $this->nomVendeur = $nomVendeur;
 
         return $this;
     }
