@@ -1,0 +1,326 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
+    <style>
+        .minicontainer{
+            padding : 50px 50px;
+        }
+        .card{
+            border-radius: 20px !important;
+        }
+        p,a,h1,h2,h3,span,label{
+            font-family: Cabin;
+        }
+        p {
+            margin-top: 0;
+        }
+        .fileElem {
+            position: fixed;
+            top: -5000px;
+            width: 0;
+            height: 0;
+        }
+        .my-form-label{
+            border: 2px dashed #ccc;
+            border-radius: 20px;
+            width: 60px;
+            height: 60px;
+            font-family: sans-serif;
+        }
+        .inputPreview{
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            background-size: cover;
+        }
+        .titleCard{
+            font-family: Cabin;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 30px;
+            line-height: 49px;
+            letter-spacing: -1px;
+            color: #424347;
+        }
+        .minicard{
+            width: 80px;
+            height: 80px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin: 0 auto;
+        }
+        .hidden{
+            display: none;
+        }
+        .form-row{
+            width: 100%;
+        }
+        .my-form-label{
+            margin-right: 5px;
+        }
+        .money-input::after{
+
+            position: absolute;
+            content:"€";
+            bottom: 10px;
+            right: 0px;
+        }
+
+        .radioButton{
+            padding: 20px;
+            border: 2px solid #cecece;
+            border-radius: 20px;
+            font-size: 15px;
+        }
+        .radioInput:checked + label {
+            color: #5BE7C4;
+            border-color: #5BE7C4   ;
+        }
+        .bootstrap-datetimepicker-widget.dropdown-menu {
+            display: block;
+            margin: 2px 0;
+            padding: 4px;
+            width: 20rem;
+        }
+        .flickity-viewport{
+            height: 100% !important;
+        }
+    </style>
+{% endblock %}
+{% block bodycontent  %}
+    <section class="fullscreen" style="background-image:url('{{ asset('background.png') }}');width: 100vw ; height: 200vh;z-index: 0; position:fixed;">
+    </section>
+    <div>
+        <form id="form" method="post" enctype="multipart/form-data" action="/creerCampagne">
+            <div class="minicontainer">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="container" style="padding-right: 0 !important;">
+                                    <p class="titleCard">Créer Campagne Participative</p>
+                                    <div class="space"></div>
+                                    <div class="row">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="name">Logo</label>
+                                                <div id="fileInput1" class="fileInput">
+                                                    <label id="labelInput1" for="fileElem1" class="my-form-label"></label>
+                                                    <input name = 'image1' type="file" class="fileElem" id="fileElem1" accept="image/*">
+                                                </div>
+                                                <div id="inputPreview1" class="inputPreview hidden" style=" width :60px ; height :60px;"></div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="surname">Images Produit</label>
+                                                <div class="row">
+                                                    <div> <div id="fileInput2" class="fileInput">
+                                                            <label id="labelInput2" for="fileElem2" class="my-form-label"></label>
+                                                            <input name='image2' type="file" class="fileElem"  id="fileElem2" accept="image/*">
+                                                        </div>
+                                                        <div id="inputPreview2" class=" inputPreview  hidden" style=" width :60px ; height :60px;"></div>
+                                                    </div>
+                                                    <div>
+                                                        <div id="fileInput3" class="fileInput">
+                                                            <label id="labelInput3" for="fileElem3" class="my-form-label"></label>
+                                                            <input name = 'image3' type="file" class="fileElem"  id="fileElem3" accept="image/*">
+                                                        </div>
+                                                        <div id="inputPreview3" class=" inputPreview hidden" style=" width :60px ; height :60px;"></div>
+                                                    </div>
+                                                    <div><div id="fileInput4" class="fileInput">
+                                                            <label id="labelInput4" for="fileElem4" class="my-form-label"></label>
+                                                            <input name = 'image4' type="file" class="fileElem"  id="fileElem4" accept="image/*">
+                                                        </div>
+                                                        <div id="inputPreview4" class="inputPreview hidden" style=" width :60px ; height :60px;"></div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="titre">Titre</label>
+                                                <input id="titre" type="text" class="form-control money-input" name="titre" placeholder="Chateau Minervois 6 Bouteilles">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <div class="money-input">
+                                                    <label for="prixPromotion">Prix Promotion</label>
+                                                    <input id="prixPromotion" type="number" min="1" step="any" class="form-control" name="prixPromotion" placeholder="5.66">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <div class="money-input">
+                                                    <label for="valeur">Valeur</label>
+                                                    <input id="valeur" type="number" min="1" step="any" class="form-control" name="valeur" placeholder="5.56">
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="vendeur">Vendeur</label>
+                                                <input id="vendeur" type="text" class="form-control" name="vendeur" placeholder="Mon commerce">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="range_slider_1">Nombre de participants</label>
+                                                <input name = "participants" type="hidden" id="range_slider_1" />
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="description">Description</label>
+                                                <textarea id='description' rows="8" class="form-control" name="description" placeholder="Description Produit"></textarea>
+                                                <div>
+                                                    <label for="telephone">Telephone</label>
+                                                    <input type="text" class="form-control" name="telephone" placeholder="">
+                                                </div>
+                                                <div>
+                                                    <label for="email">Adresse Email</label>
+                                                    <input type="email" class="form-control" name="email" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <div>
+                                                    <label for="range_slider_2">Durée de campagne</label>
+                                                    <input name="dureeCampagne" type="hidden" id="range_slider_2" />
+                                                </div>
+                                                <div class="space"></div>
+                                                <div>
+                                                    <input type="radio" id="collect" name="methode" value="collect" class="radioInput invisible" >
+                                                    <label for="collect" class="radioButton text-center"><span class="fa fa-store"></span><br>Collect </label>
+                                                    <input type="radio" id="livraison" name="methode" value="livraison" class="radioInput invisible" >
+                                                    <label for="livraison" class="radioButton text-center"><span class="fa fa-truck"></span><br>Livraison</label>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="jour">Jour / heure de retrait</label>
+                                        <input type="text" name="jourRetrait" class="form-control datetimepicker-input" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="Select date & time" />
+                                    </div>
+                                    <div style="text-align: center; padding-top: 10px;">
+                                        <button id="génerer" type="submit" class="btn btn-primary">Génerer</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4" id="iphonePreview">
+                        {{ include('mvp/includeView.html.twig') }}
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+
+{% endblock %}
+{% block js %}
+    <link href="{{ asset('Template/plugins/range-slider/rangeslider.css') }}" rel="stylesheet">
+    <script src="{{ asset('Template/plugins/range-slider/rangeslider.js') }}"></script>
+    <script src="{{ asset('Template/plugins/moment/moment-with-local.js') }}"></script>
+    <script src="{{ asset('Template/plugins/bootstrap-datetimepicker/tempusdominus-bootstrap-4.js') }}"></script>
+
+    <script>
+        $('#datetimepicker5').datetimepicker({
+            locale : 'fr'
+        });
+        let gr;
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                gr = input
+                reader.onload = function (e) {
+                    let inputpreview = $(input).parent().parent().find('.inputPreview')
+                    $(inputpreview).removeClass('hidden')
+                    $(inputpreview).css('background-image', "url(" + e.target.result + ")")
+
+                    $(input).parent().hide()
+
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(".fileElem").change(function(){
+            readURL(this);
+        });
+
+        $('#range_slider_1').ionRangeSlider({
+            min : 10,
+            max : 400,
+            from : 50
+        });
+        $('#range_slider_2').ionRangeSlider({
+            min : 1,
+            max : 31,
+            from : 5
+        });
+        $('#range_slider_3').ionRangeSlider({
+            min : 1,
+            max : 50,
+            from : 5
+        });
+
+        $('#generer').on('click',function (){
+            $.ajax({
+                url : '/creerCampagne?' + $('#form').serialize()
+            })
+        })
+
+    </script>
+    <script>
+        setTimeout(function (){
+            layer()
+            $(window).resize(function (){
+                layer()
+                $('.carousel').carousel()
+
+            })
+        },150)
+
+
+
+
+        function layer(){
+            let width = $('#iphone').width() - $('#iphone').width() * 0.14;
+            let height =  $('#iphone').height() - $('#iphone').height() * 0.061075661;
+
+            $('#layout').css('width', width+ "px")
+            $('#layout').css('height', height+ "px")
+            $('#layout').css('left', $('#iphonePreview').offset().left +  $('#iphone').width() * 0.12 + "px" )
+            $('#layout').css('top', $('#iphonePreview').offset().top + $('#iphone').height() * 0.061075661 / 2  + "px")
+        }
+
+        $('#prixPromotion').on('keyup',function (){
+            $('#preview-promotion').html($('#prixPromotion').val())
+        })
+
+        $('#titre').on('keyup',function (){
+            $('#preview-titre').html($('#titre').val())
+        })
+
+        $('#description').on('keyup',function (){
+            $('#preview-description').html($('#description').val())
+        })
+
+        let btngenerer = $('#generer')
+        let form = $('#form')
+
+
+
+    </script>
+
+
+{% endblock %}

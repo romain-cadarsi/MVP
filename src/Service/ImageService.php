@@ -1,6 +1,8 @@
 <?php
 namespace App\Service;
 
+use App\Entity\Image;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -8,18 +10,28 @@ class ImageService
 {
     private $kernel;
 
-    public function __construct(KernelInterface $kernel)
+    private $em;
+
+    public function __construct(KernelInterface $kernel, EntityManagerInterface $em)
     {
         $this->kernel = $kernel;
+        $this->em = $em;
     }
 
     function saveToDisk(UploadedFile $image) {
+
+        $imageEntity = new Image();
         $uploadDirectory = 'uploads/images';
         $path = $this->kernel->getProjectDir().'/public/' . $uploadDirectory;
         $imageName = uniqid() . '.' . $image->guessExtension();
         $image->move($path, $imageName);
         $pattern = "/^.*?((?:\w+)+)$/i";
         preg_match($pattern, "$path/$imageName",$matches); // Outputs 1
+        $imageEntity->setName($imageName)
+            ->setPath($path.'/'.$imageName)
+            ->setAlt($imageName);
+        $this->em->persist($imageEntity);
+        $this->em->flush();
         /**if($matches[1] != "webp"){
             if(!file_exists("$path/$imageName.webp")){
                 if($matches[1] == "jpg" || $matches[1] == "JPEG" || $matches[1] == "JPG"){
@@ -37,7 +49,7 @@ class ImageService
             }
         }
         **/
-        return $imageName;
+        return $imageEntity;
     }
 
     function searchFor($fileName){

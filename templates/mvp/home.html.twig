@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
+    <style>
+        .green{
+            color: #0ee6b0;
+        }
+        #textLanding{
+            font-family: Manrope !important;
+            font-size: 4.5em;
+        }
+        #landingImg{
+            height: 80vh;
+        }
+
+        @media all and (min-width: 0px) and (max-width: 1000px){
+            #textLanding{
+                font-size: 3em;
+                text-align: center;
+            }
+
+            #landingImg{
+                width: 100%;
+                height: unset;
+            }
+
+            .groupTextLanding{
+                text-align: center;
+            }
+        }
+
+    </style>
+{% endblock %}
+{% block bodycontent  %}
+
+
+    <section class="fullscreen" style="width: 100vw ; height: 100% ; background-image: url('{{ asset('home-background.png') }}') ; background-size: cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 groupTextLanding">
+                    <div class="space"></div>
+                    <h1 id="textLanding" style="font-weight: 700;">Vente <g class="green"> Groupée</g>.<br><g class="green"> Acheter </g> Ensemble.</h1>
+                    <a href="{{ path('formCampagne') }}" class="btn btn-lg btn-primary"> Commencer </a>
+                </div>
+
+                <div class="col-lg-4">
+                    <img id="landingImg" src="{{ asset('home-iphone.png') }}">
+                </div>
+            </div>
+          
+        </div>
+        
+    </section>
+
+{% endblock %}
+{% block js %}
+
+
+{% endblock %}

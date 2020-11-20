@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
+    <style>
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+{% endblock %}
+{% block bodycontent  %}
+    <div style="width: 100vw; height: 100vh;">
+        <div class="center" style="width: 20vw;height: 6.666vw;background-color: #0ee6b0; margin : 0 auto;border-radius: 20px">
+            <div style="padding: 1vw 2vw">
+                <p style="line-height: 0.6;font-size: 1.5vw;color: white;font-weight: 400;"><span id="action">Action</span></p>
+                <p style="font-size: 2rem;line-height: 0.5;color: white;font-weight: 900;"><span id="avanceenb">5</span>%</p>
+            </div>
+            <div style="position:absolute; top:5vw ; width: 100%; background-color: #8ed2bb;height: 0.5vw;"></div>
+            <div id="avancee" style="position:absolute; top:5vw ; width: 20%; background-color: #06795a;height: 0.5vw;"></div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script>
+        function goTo100(action){
+            $(action).each(function (){
+
+            })
+            $('#avancee').css('width','0%');
+            $('#action').html(action)
+            let percentage = 0;
+            let interval = setInterval(function (){
+                if(percentage > 99){
+                    clearInterval(interval)
+                }
+                else{
+                    percentage += 1;
+                    $('#avancee').css('width',percentage +'%');
+                    $('#avanceenb').html(percentage)
+                }
+            },10)
+        }
+        goTo100("Optimisation du SEO")
+    </script>
+
+
+{% endblock %}

@@ -1,0 +1,48 @@
+<!-- Header -->
+<header id="header" data-transparent="true" data-fullwidth="true" class="light submenu-dark">
+    <div class="header-inner">
+        <div class="container">
+            <!--Logo-->
+            <div id="logo">
+                <a href="{{ path('home') }}">
+                    <span class="logo-default"><img src="{{ asset('logo.png') }}" alt="Shopon"></span>
+                    <span class="logo-dark"><img src="{{ asset('logoNoir.png') }}" alt="Shopon"></span>
+                </a>
+            </div>
+            <!--End: Logo-->
+            <!-- Search -->
+            <div id="search"><a id="btn-search-close" class="btn-search-close" aria-label="Close search form"><i class="icon-x"></i></a>
+                <form class="search-form" action="search-results-page.html" method="get">
+                    <input class="form-control" name="q" type="text" placeholder="Type & Search..." />
+                    <span class="text-muted">Start typing & press "Enter" or "ESC" to close</span>
+                </form>
+            </div>
+            <!-- end: search -->
+            <!--Header Extras-->
+            <div class="header-extras float-right">
+                <ul>
+                    <li>
+                        <!--overlay menu-->
+                        <a id="menu-overlay-trigger" href="#" class="lines-button x toggle-item" data-target="body" data-class="menu-overlay-active">
+                            <span class="lines"></span>
+                        </a>
+                        <!--end: overlay menu-->
+                    </li>
+                </ul >
+            </div>
+            <!--end: Header Extras-->
+            <!--Navigation-->
+            <div id="mainMenu" class="menu-overlay">
+                <div class="container">
+                    <nav>
+                        <ul>
+<li><a href="{{ path('formCampagne') }}"> Créer une Campagne </a></li>
+                                </ul>
+
+                    </nav>
+                </div>
+            </div>
+            <!--end: Navigation-->
+        </div>
+    </div>
+</header>

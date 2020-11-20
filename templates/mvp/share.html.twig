@@ -1,0 +1,204 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
+    <style>
+        .minicontainer{
+            padding : 50px 50px;
+        }
+        .card{
+            border-radius: 20px !important;
+        }
+        p,a,h1,h2,h3,span,label{
+            font-family: Cabin;
+        }
+        p {
+            margin-top: 0;
+        }
+        .fileElem {
+            position: fixed;
+            top: -5000px;
+            width: 0;
+            height: 0;
+        }
+        .my-form-label{
+            border: 2px dashed #ccc;
+            border-radius: 20px;
+            width: 60px;
+            height: 60px;
+            font-family: sans-serif;
+        }
+        .inputPreview{
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            background-size: cover;
+        }
+        .titleCard{
+            font-family: Cabin;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 30px;
+            line-height: 49px;
+            letter-spacing: -1px;
+            color: #424347;
+        }
+        .minicard{
+            width: 80px;
+            height: 80px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin: 0 auto;
+        }
+        .hidden{
+            display: none;
+        }
+        .form-row{
+            width: 100%;
+        }
+        .my-form-label{
+            margin-right: 5px;
+        }
+        .money-input::after{
+
+            position: absolute;
+            content:"€";
+            bottom: 10px;
+            right: 0px;
+        }
+
+        .radioButton{
+            padding: 20px;
+            border: 2px solid #cecece;
+            border-radius: 20px;
+            font-size: 15px;
+        }
+        .radioInput:checked + label {
+            color: #5BE7C4;
+            border-color: #5BE7C4   ;
+        }
+        .bootstrap-datetimepicker-widget.dropdown-menu {
+            display: block;
+            margin: 2px 0;
+            padding: 4px;
+            width: 20rem;
+        }
+        .flickity-page-dots{
+            z-index: 1000 !important;
+        }
+        .carousel img{
+            height: 100% !important;
+        }
+        .carousel .polo-carousel-item{
+            height: 100% !important;
+        }
+        .flickity-viewport{
+            height: 100% !important;
+        }
+
+    </style>
+{% endblock %}
+{% block bodycontent  %}
+    <div style="background-image:url('{{ asset('background.png') }}');width: 100vw ; height: 100vh; position: fixed">
+    </div>
+    <div>
+            <div class="minicontainer">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="container" style="padding-right: 0 !important;">
+                                    <p class="titleCard" style="font-size: 25px; text-align: center">Partages ta campagne</p>
+                                    <div class="space"></div>
+                                    <div class="row">
+                                        <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('whatsapp.png') }}')"></div> </div>
+                                        <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('messenger.png') }}')"></div></div>
+                                        <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('snapchat.png') }}')"></div></div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-1"></div>
+                                        <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('sms.png') }}')"></div></div>
+                                        <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('instagram.png') }}')"></div></div>
+                                        <div class="col-1"></div>
+                                    </div>
+                                    <div class="space"></div>
+                                    <div class="text-center">
+                                        <p class="text-center">https://feziugfbizegbvizebdgvezdbnikzebzebg</p>
+                                        <a class="btn btn-light btn-light-hover" href="{{ path('flyer',{'id' : campagne.id}) }}"> Télecharger le flyer </a>
+                                    </div>
+                                    <p class="titleCard" style="font-size: 25px; text-align: center">Booste ta campagne <span class="fa fa-bolt" style="color: yellow"></span> </p>
+                                    <div class="space"></div>
+                                    <div class="container">
+                                        <input type="hidden" id="range_slider_3" />
+                                    </div>
+                                    <div style="margin : 0 auto ; display: table;text-align: center">
+                                        <img src="{{ asset('smile.png') }}" alt="smile"><p class="titleCard" style="font-size: 25px; text-align: center"><span id="euros">10</span>€ = <span id="impression">5000</span> impressions </p>
+                                    </div>
+                                    <div class="text-center">
+                                    <button class="btn btn-primary"> Regler </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4" id="iphonePreview">
+                            {{ include('mvp/includeView2.html.twig') }}
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+
+{% endblock %}
+{% block js %}
+    <link href="{{ asset('Template/plugins/range-slider/rangeslider.css') }}" rel="stylesheet">
+    <script src="{{ asset('Template/plugins/range-slider/rangeslider.js') }}"></script>
+
+    <script>
+
+
+
+        $('#range_slider_3').ionRangeSlider({
+            min : 1,
+            max : 50,
+            from : 5
+        });
+
+        $('#range_slider_3').on('change', function () {
+            $('#impression').html($('#range_slider_3').val() * 1 * 500)
+            $('#euros').html($('#range_slider_3').val())
+        })
+    </script>
+    <script>
+        setTimeout(function (){
+            layer()
+            $(window).resize(function (){
+                layer()
+                $('.carousel').carousel()
+
+            })
+        },150)
+
+
+
+
+        function layer(){
+            let width = $('#iphone').width() - $('#iphone').width() * 0.14;
+            let height =  $('#iphone').height() - $('#iphone').height() * 0.061075661;
+
+            $('#layout').css('width', width+ "px")
+            $('#layout').css('height', height+ "px")
+            $('#layout').css('left', $('#iphonePreview').offset().left +  $('#iphone').width() * 0.12 + "px" )
+            $('#layout').css('top', $('#iphonePreview').offset().top + $('#iphone').height() * 0.061075661 / 2  + "px")
+        }
+
+
+
+    </script>
+
+
+{% endblock %}

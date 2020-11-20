@@ -15,14 +15,22 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Rock+Salt&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e7cb47b895.js" crossorigin="anonymous"></script>
+    <style>
+        p,a,h1,h2,h3,label,.btn{
+            font-family: Cabin !important;
+        }
+        span{
+            font-family: Cabin;
+        }
+    </style>
     {% block css %}
     {% endblock %}
 </head>
 
-<body>
+<body data-icon="6">
 <!-- Body Inner -->
 <div class="body-inner">
-
+    {{ include('mvp/header.html.twig') }}
     {% block bodycontent %}
     {% endblock %}
 
@@ -36,6 +44,9 @@
 <script src="{{ asset('Template/js/plugins.js') }}"></script>
 <!--Template functions-->
 <script src="{{ asset('Template/js/functions.js') }}"></script>
+<script src="{{ asset('Template/plugins/pageloader/pageloader.js') }}"></script>
+<script src="{{ asset('Template/plugins/pageloader/pageloader.init.js') }}"></script>
+
 {% block js %}
 {% endblock %}
 </body>

@@ -57,7 +57,7 @@ class Campagne
     /**
      * @ORM\Column(type="integer")
      */
-    private $duréeCampagne;
+    private $dureeCampagne;
 
     /**
      * @ORM\Column(type="date")
@@ -75,7 +75,7 @@ class Campagne
     private $ville;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $moyen;
 
@@ -200,14 +200,14 @@ class Campagne
         return $this;
     }
 
-    public function getDuréeCampagne(): ?int
+    public function getDureeCampagne(): ?int
     {
-        return $this->duréeCampagne;
+        return $this->dureeCampagne;
     }
 
-    public function setDuréeCampagne(int $duréeCampagne): self
+    public function setDureeCampagne(int $dureeCampagne): self
     {
-        $this->duréeCampagne = $duréeCampagne;
+        $this->dureeCampagne = $dureeCampagne;
 
         return $this;
     }
@@ -248,12 +248,12 @@ class Campagne
         return $this;
     }
 
-    public function getMoyen(): ?int
+    public function getMoyen(): ?string
     {
         return $this->moyen;
     }
 
-    public function setMoyen(int $moyen): self
+    public function setMoyen(string $moyen): self
     {
         $this->moyen = $moyen;
 
