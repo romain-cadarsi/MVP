@@ -30,7 +30,10 @@
 <body data-icon="6">
 <!-- Body Inner -->
 <div class="body-inner">
-    {{ include('mvp/header.html.twig') }}
+    {% block header %}
+        {{ include('mvp/header.html.twig') }}
+    {% endblock %}
+
     {% block bodycontent %}
     {% endblock %}
 
