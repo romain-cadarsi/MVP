@@ -1,0 +1,45 @@
+<p class="titleCard" style="font-size: 25px; text-align: center">Partages ta campagne</p>
+<div class="space"></div>
+<div class="row">
+    <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('whatsapp.png') }}')"></div> </div>
+    <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('messenger.png') }}')"></div></div>
+    <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('snapchat.png') }}')"></div></div>
+</div>
+<br>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('sms.png') }}')"></div></div>
+    <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('instagram.png') }}')"></div></div>
+    <div class="col-1"></div>
+</div>
+<div class="space"></div>
+<div class="text-center">
+    <p class="text-center">https://feziugfbizegbvizebdgvezdbnikzebzebg</p>
+    <a class="btn btn-light btn-light-hover" href="{{ path('flyer',{'id' : campagne.id}) }}"> Télecharger le flyer </a>
+</div>
+<p class="titleCard" style="font-size: 25px; text-align: center">Booste ta campagne <span class="fa fa-bolt" style="color: yellow"></span> </p>
+<div class="space"></div>
+<div class="container">
+    <input type="hidden" id="range_slider_3" />
+</div>
+<div style="margin : 0 auto ; display: table;text-align: center">
+    <img src="{{ asset('smile.png') }}" alt="smile"><p class="titleCard" style="font-size: 25px; text-align: center"><span id="euros">10</span>€ = <span id="impression">5000</span> impressions </p>
+</div>
+<div class="text-center">
+    <button class="btn btn-primary"> Regler </button>
+</div>
+<script>
+
+
+
+    $('#range_slider_3').ionRangeSlider({
+        min : 1,
+        max : 50,
+        from : 5
+    });
+
+    $('#range_slider_3').on('change', function () {
+        $('#impression').html($('#range_slider_3').val() * 1 * 500)
+        $('#euros').html($('#range_slider_3').val())
+    })
+</script>

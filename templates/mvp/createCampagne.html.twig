@@ -16,6 +16,23 @@
         p {
             margin-top: 0;
         }
+
+        label{
+            color: #424347!important;
+            font-size: 15px !important;
+            line-height: 45px ;
+            font-weight: 500 !important;
+            letter-spacing: -0.2px !important;
+
+        }
+
+        .has-error input, .has-error textarea{
+            border-color: red;
+        }
+
+        .has-success input,.has-success textarea{
+            border-color: #1e7e34;
+        }
         .fileElem {
             position: fixed;
             top: -5000px;
@@ -23,12 +40,14 @@
             height: 0;
         }
         .my-form-label{
-            border: 2px dashed #ccc;
             border-radius: 20px;
             width: 60px;
             height: 60px;
-            font-family: sans-serif;
+
+            background-image: url("{{ asset('addImage.png') }}");
+            background-size: contain;
         }
+
         .inputPreview{
             width: 60px;
             height: 60px;
@@ -71,12 +90,16 @@
         .radioButton{
             padding: 20px;
             border: 2px solid #cecece;
-            border-radius: 20px;
+            border-radius: 10px;
             font-size: 15px;
+            line-height: unset;
         }
         .radioInput:checked + label {
             color: #5BE7C4;
             border-color: #5BE7C4   ;
+        }
+        .remove{
+            text-align: right;
         }
         .bootstrap-datetimepicker-widget.dropdown-menu {
             display: block;
@@ -87,11 +110,38 @@
         .flickity-viewport{
             height: 100% !important;
         }
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        @media all and (max-width: 1000px){
+            .minicontainer{
+                padding: 0px;
+            }
+            #iphonePreview{
+                display: none;
+            }
+        }
     </style>
 {% endblock %}
 {% block bodycontent  %}
-    <section class="fullscreen" style="background-image:url('{{ asset('background.png') }}');width: 100vw ; height: 200vh;z-index: 0; position:fixed;">
+    <section class="fullscreen" style="background-image:url('{{ asset('background.png') }}');width: 100vw ; height: 200vh;z-index: 0; position:fixed; background-size: contain; background-repeat: no-repeat; background-color: #FBF6FF">
     </section>
+    <div id="loader" style="width: 100vw; height: 100vh;position:fixed; background-color: white; z-index: 1000;" class="hidden">
+        <div class="center" style="width: 20vw;height: 6.666vw;background-color: #0ee6b0; margin : 0 auto;border-radius: 20px">
+            <div style="padding: 1vw 2vw">
+                <p style="line-height: 0.6;font-size: 1.5vw;color: white;font-weight: 400;"><span id="action">Action</span></p>
+                <p style="font-size: 2rem;line-height: 0.5;color: white;font-weight: 900;"><span id="avanceenb">5</span>%</p>
+            </div>
+            <div style="position:absolute; top:5vw ; width: 100%; background-color: #8ed2bb;height: 0.5vw;"></div>
+            <div id="avancee" style="position:absolute; top:5vw ; width: 20%; background-color: #06795a;height: 0.5vw;"></div>
+        </div>
+    </div>
     <div>
         <form id="form" method="post" enctype="multipart/form-data" action="{{ path('creerCampagne') }}">
             <div class="minicontainer">
@@ -99,116 +149,161 @@
                     <div class="col-lg-5">
                         <div class="card">
                             <div class="card-body">
-                                <div class="container" style="padding-right: 0 !important;">
+                                <div class="container" id="card-container" style="padding-right: 0 !important;">
                                     <p class="titleCard">Créer Campagne Participative</p>
                                     <div class="space"></div>
                                     <div class="row">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="name">Logo</label>
-                                                <div id="fileInput1" class="fileInput">
-                                                    <label id="labelInput1" for="fileElem1" class="my-form-label"></label>
-                                                    <input name = 'image1' type="file" class="fileElem" id="fileElem1" accept="image/*">
-                                                </div>
-                                                <div id="inputPreview1" class="inputPreview hidden" style=" width :60px ; height :60px;"></div>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="surname">Images Produit</label>
-                                                <div class="row">
-                                                    <div> <div id="fileInput2" class="fileInput">
-                                                            <label id="labelInput2" for="fileElem2" class="my-form-label"></label>
-                                                            <input name='image2' type="file" class="fileElem"  id="fileElem2" accept="image/*">
-                                                        </div>
-                                                        <div id="inputPreview2" class=" inputPreview  hidden" style=" width :60px ; height :60px;"></div>
-                                                    </div>
-                                                    <div>
-                                                        <div id="fileInput3" class="fileInput">
-                                                            <label id="labelInput3" for="fileElem3" class="my-form-label"></label>
-                                                            <input name = 'image3' type="file" class="fileElem"  id="fileElem3" accept="image/*">
-                                                        </div>
-                                                        <div id="inputPreview3" class=" inputPreview hidden" style=" width :60px ; height :60px;"></div>
-                                                    </div>
-                                                    <div><div id="fileInput4" class="fileInput">
-                                                            <label id="labelInput4" for="fileElem4" class="my-form-label"></label>
-                                                            <input name = 'image4' type="file" class="fileElem"  id="fileElem4" accept="image/*">
-                                                        </div>
-                                                        <div id="inputPreview4" class="inputPreview hidden" style=" width :60px ; height :60px;"></div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+
+                                                <label for="name">Image du produit</label>
+                                                <div>
+
+                                                    <div id="fileInput1" class="fileInput">
+                                                        <label id="labelInput1" for="fileElem1" class="my-form-label"></label>
+                                                        <input name = 'image1' type="file" class="fileElem" id="fileElem1" accept="image/*">
                                                     </div>
 
-                                                </div>
+                                                    <div id="inputPreview1" class="inputPreview hidden" style=" width :60px ; height :60px;">
+                                                        <div class="remove"><span class="fa fa-times"></span> </div>
 
+                                                    </div>
+                                                </div>
+                                                <p class="messages"></p>
                                             </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12">
+                                            <div class="form-group">
                                                 <label for="titre">Titre</label>
                                                 <input id="titre" type="text" class="form-control money-input" name="titre" placeholder="Chateau Minervois 6 Bouteilles">
+                                                <p class="messages"></p>
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <div class="money-input">
-                                                    <label for="prixPromotion">Prix Promotion</label>
-                                                    <input id="prixPromotion" type="number" min="1" step="any" class="form-control" name="prixPromotion" placeholder="5.66">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <div class="money-input">
-                                                    <label for="valeur">Valeur</label>
-                                                    <input id="valeur" type="number" min="1" step="any" class="form-control" name="valeur" placeholder="5.56">
-                                                </div>
-                                            </div>
-
-
-
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group">
                                                 <label for="vendeur">Vendeur</label>
                                                 <input id="vendeur" type="text" class="form-control" name="vendeur" placeholder="Mon commerce">
+                                                <p class="messages"></p>
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="range_slider_1">Nombre de participants</label>
-                                                <input name = "participants" type="hidden" id="range_slider_1" />
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group">
                                                 <label for="description">Description</label>
                                                 <textarea id='description' rows="8" class="form-control" name="description" placeholder="Description Produit"></textarea>
+                                                <p class="messages"></p>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label for="datetimepicker5">Jour / heure de retrait</label>
+                                                    <input type="text" name="jourRetrait" class="form-control datetimepicker-input" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="Select date & time" />
+                                                    <p class="messages"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="surname">Images additionnelles</label>
+                                                <div class="row ">
+
+                                                    <div class="form-group col-4">
+                                                        <div>
+                                                            <div id="fileInput2" class="fileInput">
+                                                                <label id="labelInput2" for="fileElem2" class="my-form-label"></label>
+                                                                <input name='image2' type="file" class="fileElem"  id="fileElem2" accept="image/*">
+                                                            </div>
+
+                                                            <div id="inputPreview2" class=" inputPreview  hidden" style=" width :60px ; height :60px;">
+                                                                <div class="remove"><span class="fa fa-times"></span> </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group col-4">
+                                                        <div>
+                                                            <div id="fileInput3" class="fileInput">
+                                                                <label id="labelInput3" for="fileElem3" class="my-form-label"></label>
+                                                                <input name = 'image3' type="file" class="fileElem"  id="fileElem3" accept="image/*">
+                                                            </div>
+                                                            <div id="inputPreview3" class=" inputPreview hidden" style=" width :60px ; height :60px;">
+                                                                <div class="remove"><span class="fa fa-times"></span> </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group col-4"> <div>
+                                                            <div id="fileInput4" class="fileInput">
+                                                                <label id="labelInput4" for="fileElem4" class="my-form-label"></label>
+                                                                <input name = 'image4' type="file" class="fileElem"  id="fileElem4" accept="image/*">
+                                                            </div>
+                                                            <div id="inputPreview4" class="inputPreview hidden" style=" width :60px ; height :60px;">
+                                                                <div class="remove"><span class="fa fa-times"></span> </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-6">
+                                                    <div class="money-input">
+                                                        <label for="prixPromotion">Prix Promotion</label>
+                                                        <input id="prixPromotion" type="number" min="1" step="any" class="form-control" name="prixPromotion" placeholder="5.66">
+                                                        <p class="messages"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-6">
+                                                    <div class="money-input">
+                                                        <label for="valeur">Valeur</label>
+                                                        <input id="valeur" type="number" min="1" step="any" class="form-control" name="valeur" placeholder="5.56">
+                                                        <p class="messages"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nbParticipants">Nombre de participants</label>
+                                                <input name = "participants" type="hidden" id="nbParticipants" />
+                                                <p class="messages"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <div>
+                                                    <label for="dureeCampagne">Durée de campagne</label>
+                                                    <input name="dureeCampagne" type="hidden" id="dureeCampagne" />
+                                                    <p class="messages"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Moyen </label>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <input type="radio" id="collect" name="methode" value="collect" class="radioInput invisible">
+                                                        <label for="collect" class="radioButton text-center"><span class="fa fa-store" aria-hidden="true"></span><br>Collect </label>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input type="radio" id="livraison" name="methode" value="livraison" class="radioInput invisible">
+                                                        <label for="livraison" class="radioButton text-center"><span class="fa fa-truck" aria-hidden="true"></span><br>Livraison</label>
+                                                    </div>
+                                                </div>
+                                                <p class="messages"></p>
+                                            </div>
+                                            <div class="form-group">
                                                 <div>
                                                     <label for="telephone">Telephone</label>
-                                                    <input type="text" class="form-control" name="telephone" placeholder="">
-                                                </div>
-                                                <div>
-                                                    <label for="email">Adresse Email</label>
-                                                    <input type="email" class="form-control" name="email" placeholder="">
+                                                    <input type="text" class="form-control" name="telephone" id="telephone" placeholder="">
+                                                    <p class="messages"></p>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group">
                                                 <div>
-                                                    <label for="range_slider_2">Durée de campagne</label>
-                                                    <input name="dureeCampagne" type="hidden" id="range_slider_2" />
+                                                    <label for="email">Adresse Email </label>
+                                                    <input type="email" class="form-control" name="email" id="email" placeholder="">
+                                                    <p class="messages"></p>
                                                 </div>
-                                                <div class="space"></div>
-                                                <div>
-                                                    <input type="radio" id="collect" name="methode" value="collect" class="radioInput invisible" >
-                                                    <label for="collect" class="radioButton text-center"><span class="fa fa-store"></span><br>Collect </label>
-                                                    <input type="radio" id="livraison" name="methode" value="livraison" class="radioInput invisible" >
-                                                    <label for="livraison" class="radioButton text-center"><span class="fa fa-truck"></span><br>Livraison</label>
-                                                </div>
-
                                             </div>
-
                                         </div>
                                     </div>
-                                    <div class="form-row">
-                                        <label for="jour">Jour / heure de retrait</label>
-                                        <input type="text" name="jourRetrait" class="form-control datetimepicker-input" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="Select date & time" />
-                                    </div>
+
                                     <div style="text-align: center; padding-top: 10px;">
                                         <button id="génerer" type="submit" class="btn btn-primary">Génerer</button>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -216,7 +311,6 @@
                     <div class="col-lg-4" id="iphonePreview">
                         {{ include('mvp/includeView.html.twig') }}
                     </div>
-
                 </div>
             </div>
         </form>
@@ -230,9 +324,26 @@
     <link href="{{ asset('Template/plugins/range-slider/rangeslider.css') }}" rel="stylesheet">
     <script src="{{ asset('Template/plugins/range-slider/rangeslider.js') }}"></script>
     <script src="{{ asset('Template/plugins/moment/moment-with-local.js') }}"></script>
+    <script src="{{ asset('Template/plugins/validate/validate.js') }}"></script>
     <script src="{{ asset('Template/plugins/bootstrap-datetimepicker/tempusdominus-bootstrap-4.js') }}"></script>
 
-    <script>
+    <script defer>
+
+        let livraisonLink = "{{ asset('livraison.png') }}";
+        let collectLink = "{{ asset('collect.png') }}";
+
+        $('#collect').on('click',function(){
+            $('#previewMethod').prop('src', '{{ asset('collect.png') }}')
+        })
+
+        $('#livraison').on('click',function(){
+            $('#previewMethod').prop('src', '{{ asset('livraison.png') }}')
+        })
+
+        $('#nbParticipants').on('change',function (){
+            $('#nbParticipantsPreview').html($('#nbParticipants').val())
+        })
+
         $('#datetimepicker5').datetimepicker({
             locale : 'fr'
         });
@@ -243,8 +354,12 @@
                 gr = input
                 reader.onload = function (e) {
                     let inputpreview = $(input).parent().parent().find('.inputPreview')
-                    $(inputpreview).removeClass('hidden')
+                    $(inputpreview).show()
                     $(inputpreview).css('background-image', "url(" + e.target.result + ")")
+                    if(input.id === "fileElem1"){
+                        $('#preview-featured-image').css('background-image', "url(" + e.target.result + ")")
+                    }
+
 
                     $(input).parent().hide()
 
@@ -253,42 +368,46 @@
             }
         }
 
+        $('.remove').on('click',function (){
+            $(this).parent().hide();
+            let fileInput =  $(this).parent().parent().find('.fileInput')
+
+            fileInput.show().val('')
+            let input = $(fileInput).find('.fileElem')
+            input.val('')
+            if(input.prop('id') === "fileElem1"){
+                $('#preview-featured-image').css('background-image', "url()")
+            }
+        })
+
         $(".fileElem").change(function(){
             readURL(this);
         });
 
-        $('#range_slider_1').ionRangeSlider({
+        $('#nbParticipants').ionRangeSlider({
             min : 10,
             max : 400,
-            from : 50
+            from : 50,
+            postfix : ' personnes'
         });
-        $('#range_slider_2').ionRangeSlider({
+        $('#dureeCampagne').ionRangeSlider({
             min : 1,
             max : 31,
-            from : 5
+            from : 5,
+            postfix: ' jours'
         });
-        $('#range_slider_3').ionRangeSlider({
-            min : 1,
-            max : 50,
-            from : 5
-        });
-
-        $('#generer').on('click',function (){
-            $.ajax({
-                url : '/creerCampagne?' + $('#form').serialize()
-            })
-        })
 
     </script>
-    <script>
-        setTimeout(function (){
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script defer>
+        setInterval(function (){
             layer()
-            $(window).resize(function (){
-                layer()
-                $('.carousel').carousel()
+        },1000)
+        $(window).resize(function (){
+            layer()
+            $('.carousel').carousel()
 
-            })
-        },150)
+        })
 
 
 
@@ -306,7 +425,13 @@
         $('#prixPromotion').on('keyup',function (){
             $('#preview-promotion').html($('#prixPromotion').val())
         })
+        $('#prixPromotion').on('unfocus',function (){
+            $('#preview-promotion').html($('#prixPromotion').val())
+        })
 
+        $('#prixPromotion').on('change',function (){
+            $('#preview-promotion').html($('#prixPromotion').val())
+        })
         $('#titre').on('keyup',function (){
             $('#preview-titre').html($('#titre').val())
         })
@@ -321,6 +446,239 @@
 
 
     </script>
+    <script>
+
+        validate.validators.plusPetitQueLaPromotion = function(value, options, key, attributes) {
+            if(value < $('#prixPromotion').val() *1 ){
+                return " ne peut pas être moins cher que la promotion"
+            }
+        };
+        validate.validators.pasAvantAujourdhui = function(value, options, key, attributes) {
+            if(value < $('#prixPromotion').val() *1 ){
+                return " ne peut pas être moins cher que la promotion"
+            }
+        };
+
+        (function() {
+            // Before using it we must add the parse and format functions
+            // Here is a sample implementation using moment.js
+            validate.extend(validate.validators.datetime, {
+                // The value is guaranteed not to be null or undefined but otherwise it
+                // could be anything.
+                parse: function(value, options) {
+                    return +moment.utc(value);
+                },
+                // Input is a unix timestamp
+                format: function(value, options) {
+                    var format = options.dateOnly ? "YYYY-MM-DD" : "YYYY-MM-DD hh:mm:ss";
+                    return moment.utc(value).format(format);
+                }
+            });
+
+            // These are the constraints used to validate the form
+            var constraints = {
+                email: {
+                    // Email is required
+                    presence: true,
+                    // and must be an email (duh)
+                    email: true,
+                },
+                titre: {
+                    // Password is also required
+                    presence: true,
+                    // And must be at least 5 characters long
+                    length: {
+                        maximum: 50
+                    }
+                },
+                vendeur : {
+                    presence : true,
+                    length: {
+                        maximum: 50
+                    }
+                },
+                description : {
+                    presence : true,
+                    length: {
+                        minimum: 10,
+                        message : " doit être au minimum de 10 caractères"
+                    }
+                },
+                prixPromotion : {
+                    presence : true,
+                    numericality:
+                        {
+                            greaterThan : 0,
+                            noString : true
+                        }
+
+                },
+                valeur : {
+                    presence : true,
+                    numericality: {
+                        noString : true,
+                    },
+                    plusPetitQueLaPromotion : true
+
+                },
+                methode : {
+                    presence : true
+                },
+                telephone : {
+                    presence : true
+                },
+                image1 : {
+                    presence : true
+                }
+
+            };
+
+
+            // Hook up the inputs to validate on the fly
+            var inputs = document.querySelectorAll("input, textarea, select")
+            for (var i = 0; i < inputs.length; ++i) {
+                inputs.item(i).addEventListener("change", function(ev) {
+                    var errors = validate(form, constraints) || {};
+                    showErrorsForInput(this, errors[this.name])
+                });
+            }
+
+            function handleFormSubmit(form, input) {
+                // validate the form against the constraints
+                var errors = validate(form, constraints);
+                // then we update the form to reflect the results
+                showErrors(form, errors || {});
+                return !errors;
+            }
+
+            // Updates the inputs with the validation errors
+            function showErrors(form, errors) {
+                // We loop through all the inputs and show the errors for that input
+                _.each(form.querySelectorAll("input[name], select[name]"), function(input) {
+                    // Since the errors can be null if no errors were found we need to handle
+                    // that
+                    showErrorsForInput(input, errors && errors[input.name]);
+                });
+            }
+
+            // Shows the errors for a specific input
+            function showErrorsForInput(input, errors) {
+                // This is the root of the input
+                var formGroup = closestParent(input.parentNode, "form-group")
+                    // Find where the error messages will be insert into
+                    , messages = formGroup.querySelector(".messages");
+                // First we remove any old messages and resets the classes
+                resetFormGroup(formGroup);
+                // If we have errors
+                if (errors) {
+                    // we first mark the group has having errors
+                    formGroup.classList.add("has-error");
+                    // then we append all the errors
+                    _.each(errors, function(error) {
+                        addError(messages, error);
+                    });
+                } else {
+                    // otherwise we simply mark it as success
+                    formGroup.classList.add("has-success");
+                }
+            }
+
+            // Recusively finds the closest parent that has the specified class
+            function closestParent(child, className) {
+                if (!child || child == document) {
+                    return null;
+                }
+                if (child.classList.contains(className)) {
+                    return child;
+                } else {
+                    return closestParent(child.parentNode, className);
+                }
+            }
+
+            function resetFormGroup(formGroup) {
+                // Remove the success and error classes
+                formGroup.classList.remove("has-error");
+                formGroup.classList.remove("has-success");
+                // and remove any old messages
+                _.each(formGroup.querySelectorAll(".help-block.error"), function(el) {
+                    el.parentNode.removeChild(el);
+                });
+            }
+
+            // Adds the specified error with the following markup
+            // <p class="help-block error">[message]</p>
+            function addError(messages, error) {
+                var block = document.createElement("p");
+                block.classList.add("help-block");
+                block.classList.add("error");
+                block.innerText = error;
+                messages.appendChild(block);
+            }
+            function goTo100(action){
+                $(action).each(function (){
+
+                })
+                $('#avancee').css('width','0%');
+                $('#action').html(action)
+                let percentage = 0;
+                let interval = setInterval(function (){
+                    if(percentage > 99){
+                        clearInterval(interval)
+                    }
+                    else{
+                        percentage += 1;
+                        $('#avancee').css('width',percentage +'%');
+                        $('#avanceenb').html(percentage)
+                    }
+                },15)
+            }
+
+            function launchAnimation(){
+                $('#loader').show();
+                goTo100("Création de la campagne")
+                setTimeout(function (){
+                    goTo100("Création du flyer et des liens de partage")
+                    setTimeout(function (){
+                        goTo100("Optimisation du SEO")
+                        setTimeout(function (){
+                            $('#loader').trigger('animationFinished');
+                        },1500)
+                    },1500)
+                },1500)
+            }
+            let ok = false;
+
+            $("#form").on('submit',function(e) {
+
+                e.preventDefault();
+                e.stopPropagation();
+                if( handleFormSubmit(this)){
+                    launchAnimation()
+                    var formData = new FormData(this);
+                    $.ajax({
+                        url: '{{ path('creerCampagne') }}',
+                        type: 'POST',
+                        data: formData,
+                        success: function (data) {
+                            $('#loader').on('animationFinished',function (){
+                                $('#card-container').html(data)
+                                $('#loader').hide(500)
+                            })
+
+
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+                }
+
+            });
+
+        })();
+
+    </script>
+
 
 
 {% endblock %}

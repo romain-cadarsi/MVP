@@ -13,10 +13,7 @@
     <link href="{{ asset('Template/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('Template/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('Template/plugins/pageloader/pageloader.css') }}" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Rock+Salt&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e7cb47b895.js" crossorigin="anonymous"></script>
     <style>
         p,a,h1,h2,h3,label,.btn{
@@ -32,7 +29,7 @@
 
 <body data-icon="6">
 <!-- Body Inner -->
-<div class="body-inner">
+<div class="body-inner boxed">
     {% block header %}
         {{ include('mvp/header.html.twig') }}
     {% endblock %}
@@ -50,7 +47,6 @@
 <script src="{{ asset('Template/js/plugins.js') }}"></script>
 <!--Template functions-->
 <script src="{{ asset('Template/js/functions.js') }}"></script>
-
 <script src="{{ asset('Template/plugins/pageloader/pageloader.js') }}"></script>
 <script src="{{ asset('Template/plugins/pageloader/pageloader.init.js') }}"></script>
 

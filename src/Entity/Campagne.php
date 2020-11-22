@@ -94,9 +94,21 @@ class Campagne
      */
     private $nomVendeur;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="Campagne", orphanRemoval=true)
+     */
+    private $participations;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Commercant::class, inversedBy="campagnes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $commercant;
+
     public function __construct()
     {
         $this->imagesProduit = new ArrayCollection();
+        $this->participations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -294,5 +306,52 @@ class Campagne
         $this->nomVendeur = $nomVendeur;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Participation[]
+     */
+    public function getParticipations(): Collection
+    {
+        return $this->participations;
+    }
+
+    public function addParticipation(Participation $participation): self
+    {
+        if (!$this->participations->contains($participation)) {
+            $this->participations[] = $participation;
+            $participation->setCampagne($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipation(Participation $participation): self
+    {
+        if ($this->participations->removeElement($participation)) {
+            // set the owning side to null (unless already changed)
+            if ($participation->getCampagne() === $this) {
+                $participation->setCampagne(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCommercant(): ?Commercant
+    {
+        return $this->commercant;
+    }
+
+    public function setCommercant(?Commercant $commercant): self
+    {
+        $this->commercant = $commercant;
+
+        return $this;
+    }
+
+    public function getPourcentageParticipation()
+    {
+        return count($this->getParticipations()) / $this->getNombreParticipants() * 100;
     }
 }

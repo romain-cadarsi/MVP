@@ -1,7 +1,22 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseMobile.html.twig' %}
 {% block css %}
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+        .flickity-page-dots{
+            z-index: 1000 !important;
+        }
+        .carousel img{
+            height: 100% !important;
+        }
+        .carousel .polo-carousel-item{
+            height: 100% !important;
+        }
+
+
+
+    </style>
+
     <style>
         p,a,h1,h2,h3,label{
             font-family: Cabin !important;
@@ -24,73 +39,65 @@
 
 {% endblock %}
 {% block bodycontent  %}
+<div style="background-color: lightgrey ; width: 100vw ; height: 100vh">
+    <div style="width: 450px ; height: auto ; margin: 0 auto">
 
 
-    <img id="iphone" src="{{ asset('iphone.png') }}" alt="iphone" style="position:fixed;z-index: 100 ; height: 80vh">
-    <div id="layout" style="width: 700px; height: 500px;position: absolute;top: 35px;left: 43px;">
-        <div style="height: 40%;width: 100%" class="image-slider">
-            <div class="carousel dots-dark arrows-dark" data-items="1" data-loop="true" data-autoplay="true" data-animate-in="fadeIn" data-animate-out="fadeOut" data-autoplay="1500" data-arrows="false" style="height: 100%">
-                <a href="#">  <img style="height: 100%" src="{{ asset('background.png') }}"></a>
-                <a href="#">  <img style="height: 100%" src="{{ asset('burger.png') }}"> </a>
+            <div id="layout" style="width: 700px; height: 500px;position: fixed;top: 35px;left: 43px; background-color : #D8D8D8;">
+                <div style="height: 40%;width: 100%">
+                    <a href="#"> <div id="preview-featured-image" style=" background-image: url('{{ asset(campagne.logo.asset) }}'); background-size: contain; background-repeat: no-repeat; background-position: center; width: 100%;height: 100%"></div></a>
+                    <img id="previewMethod" style="position: absolute;right: 15px;bottom: calc(60% + 15px); height: 60px ; width: auto">
+                </div>
+                <div style="background-color: #f9f9f9;border-radius: 30px 30px 0 0 ; width: 100% ; height: 60%; overflow-y: scroll; z-index: 1000;">
+                    <div style="padding: 10% 10%; z-index: 1000;">
+                        <img style="width: auto; height: 80px;position: absolute;right: 20px;top: 42%;"src="{{ asset('partager.png') }}">
+                        <h3 style="width : 80%;font-size: 2vh;font-weight: 700;letter-spacing: 0.1px;color: #304c44;" id="preview-titre">
+                            {{ campagne.titre }}</h3>
+                        <p style="font-size: 3.084vh;line-height: 0.5;font-weight: 900;color: #304c44;">€ <span style="color: #54c2a5" id="preview-promotion"> {{ campagne.prixPromotion }} </span> </p>
+                        <p style="color: lightgrey;line-height: 1;letter-spacing: -0.014em;font-weight: 900;font-size: 1.211vh;" id="preview-description">
+                            {{ campagne.description }}</p> <p style="/*! position: absolute; */top: 300px;font-size: 1vw;color: #304c44;left: 80px;line-height: 1.2;font-weight: 700;">Objectif participatif</p>
+                        <div class="barres" style="width: 80%;">
+                            <div style="position: absolute;width: 80%;height: 20px;background-color: #d5d5d5;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
+                            </div>
+
+                            <div style="position: absolute;width: {{ campagne.pourcentageParticipation }}%;height: 20px;background-color: #5be7c4;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
+                            </div>
+                        </div>
+                        <div style="padding-top: 30px;"></div>
+                        <div style="position: relative;/*! left: 80px; */">
+                            <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray; position:absolute;">
+                            </div>
+                            <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray;position: absolute;left: 8%;">
+                            </div>
+                            <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray;position: absolute;left: 16%;">
+                            </div>
+                            <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray;position: absolute;left: 24%;">
+                            </div>
+                            <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray;position: absolute;left: 32%;padding: 2%;font-size: 1.2vh;color: white;background-color: #5ae5c2;font-weight: 600;">
+                                +<d id="nbParticipantsPreview">{{ campagne.nombreParticipants }}</d>
+                            </div>
+                        </div>
+
+                        <div class="text-center" style="padding-top: 7vh;font-size: 1.551vh">
+                            <a id="participer" class="btn btn-lg" style=";width: 70%;border-color: #54c2a5;filter: drop-shadow(0 10px 1rem lightgray);z-index: 5000;"> Participer </a>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
-        </div>
-        <div style="background-color: white;border-radius: 30px 30px 0 0 ; width: 100% ; height: 60%; overflow-y: scroll; z-index: 1000;">
-            <div style="padding: 10% 10%; z-index: 1000;">
-                <h3 style="font-size: 2vh;font-weight: 700;letter-spacing: 0.1px;color: #304c44;"> Chateau Minervois 6 Bouteilles</h3>
-                <p style="font-size: 3.084vh;line-height: 0.5;font-weight: 900;color: #304c44;">€ <span style="color: #54c2a5">5,56 </span> </p>
-                <p style="color: lightgrey;line-height: 1;letter-spacing: -0.014em;font-weight: 900;font-size: 1.211vh;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultrices ut lorem ornare vehicula. Nunc arcu massa, pharetra a sollicitudin congue, varius </p> <p style="/*! position: absolute; */top: 300px;font-size: 1.322vh;color: #304c44;left: 80px;line-height: 1.2;font-weight: 700;">Objectif participatif</p>
-                <div class="barres" style="width: 80%;">
-                    <div style="position: absolute;width: 80%;height: 20px;background-color: #d5d5d5;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
-                    </div>
-
-                    <div style="position: absolute;width: 20%;height: 20px;background-color: #5be7c4;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
-                    </div>
-                </div>
-                <div style="padding-top: 30px;"></div>
-                <div style="position: relative;/*! left: 80px; */font-size: 1.551vh;">
-                    <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray; position:absolute;">
-                    </div>
-                    <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray;position: absolute;left: 8%;">
-                    </div>
-                    <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray;position: absolute;left: 16%;">
-                    </div>
-                    <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray;position: absolute;left: 24%;">
-                    </div>
-                    <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray;position: absolute;left: 32%;padding: 2%;font-size: 1.2vh;color: white;background-color: #5ae5c2;font-weight: 600;">
-                        +76
-                    </div>
-                </div>
-
-                <div class="text-center" style="padding-top: 7vh;font-size: 1.551vh;">
-                    <p class="btn btn-light" style="color: #54c2a5;width: 70%;border-color: #54c2a5;filter: drop-shadow(0 10px 1rem lightgray);"> En attente </p>
-                </div>
-
-            </div>
-        </div>
-    </div>
 
 
 {% endblock %}
 {% block js %}
-    <script>
-        $('#iphone').on('load',function (){
-            layer()
-            $(window).resize(function (){
-                layer()
-            })
+    <script defer>
+
+        $('#participer').on('click',function (){
+            console.log("gzrg")
         })
 
 
 
-        function layer(){
-            let width = $('#iphone').width() - $('#iphone').width() * 0.142857143;
-            let height =  $('#iphone').height() - $('#iphone').height() * 0.061075661;
-            $('#layout').css('width', width+ "px")
-            $('#layout').css('height', height+ "px")
-            $('#layout').css('left',  $('#iphone').width() * 0.142857143 / 2 + "px")
-            $('#layout').css('top', $('#iphone').height() * 0.061075661 /2 + "px")
-        }
 
     </script>
 {% endblock %}

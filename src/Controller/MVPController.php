@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Campagne;
+use App\Entity\Commercant;
+use App\Repository\CampagneRepository;
 use App\Service\ImageService;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,12 +66,12 @@ class MVPController extends AbstractController
             ->setNomVendeur($request->get('vendeur'))
             ->setTitre($request->get('titre'))
             ->setVille('Mèze')
+            ->setCommercant($entityManager->getRepository(Commercant::class)->findOneBy(['email' => $this->getUser()->getUsername()]))
             ;
         $index = 0;
         foreach ($request->files as $file){
             if($index == 0){
                 if(!is_null($file)){
-                    dump($file);
                     $campagne->setLogo($imageService->saveToDisk($file));
                 }
             }
@@ -82,7 +85,13 @@ class MVPController extends AbstractController
         $entityManager->persist($campagne);
         $entityManager->flush();
 
-        return $this->shareCampagne($entityManager,$campagne->getId(),$request  );
+        if($request->isXmlHttpRequest()){
+            return $this->render('mvp/shareAJAXpage.html.twig',[ 'campagne' => $campagne]);
+        }
+        else{
+            return $this->shareCampagne($entityManager,$campagne->getId(),$request);
+        }
+
     }
 
     /**
@@ -113,12 +122,30 @@ class MVPController extends AbstractController
 
 
     /**
-     * @Route("/viewCampagne", name="viewCampagne")
+     * @Route("/viewCampagne/{id}", name="viewCampagne", methods="get")
      */
-    public function viewCampagne(): Response
+    public function viewCampagne($id,EntityManagerInterface $entityManager): Response
     {
-        return $this->render('mvp/view.html.twig', [
-            'controller_name' => 'MVPController',
+        $campagne = $entityManager->getRepository(Campagne::class)->find($id);
+        if($campagne){
+            return $this->render('mvp/view.html.twig', [
+                'campagne' => $campagne,
+            ]);
+        }
+        else{
+            return new Response("Cette page n'existe pas");
+        }
+
+    }
+
+    /**
+     * @Route("/allCampagne", name="allCampagne")
+     */
+    public function allCampagne(CampagneRepository $campagneRepository): Response
+    {
+        $campagnes = $campagneRepository->findAll();
+        return $this->render('mvp/allCampagne.html.twig', [
+            'campagnes' => $campagnes
         ]);
     }
 }
