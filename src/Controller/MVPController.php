@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class MVPController extends AbstractController
 {
@@ -88,7 +89,9 @@ class MVPController extends AbstractController
         $entityManager->flush();
 
         if($request->isXmlHttpRequest()){
-            return $this->render('mvp/shareAJAXpage.html.twig',[ 'campagne' => $campagne]);
+            return new Response(
+                $this->generateUrl('shareCampagne', ['id' => $campagne->getId()],UrlGeneratorInterface::ABSOLUTE_URL)
+            );
         }
         else{
             return $this->shareCampagne($entityManager,$campagne->getId(),$request);
@@ -107,6 +110,7 @@ class MVPController extends AbstractController
         $campagne = $entityManager->getRepository(Campagne::class)->find($campagne);
 
         return $this->render('mvp/share.html.twig', [
+            'link' => $this->generateUrl('viewCampagne', ['id' => $campagne->getId()],UrlGeneratorInterface::ABSOLUTE_URL),
             'campagne' => $campagne
         ]);
     }

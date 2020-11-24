@@ -176,13 +176,17 @@
     <section class="fullscreen" style="background-image:url('{{ asset('background.png') }}');width: 100vw ; height: 200vh;z-index: 0; position:fixed; background-size: contain; background-repeat: no-repeat; background-color: #FBF6FF">
     </section>
     <div id="loader" style="width: 100vw; height: 100vh;position:fixed; background-color: white; z-index: 1000;" class="hidden">
-        <div class="center" style="width: 20vw;height: 6.666vw;background-color: #0ee6b0; margin : 0 auto;border-radius: 20px">
-            <div style="padding: 1vw 2vw">
-                <p style="line-height: 0.6;font-size: 1.5vw;color: white;font-weight: 400;"><span id="action">Action</span></p>
-                <p style="font-size: 2rem;line-height: 0.5;color: white;font-weight: 900;"><span id="avanceenb">5</span>%</p>
+        <div class="center" style="height: auto;background-color: #0ee6b0; margin : 0 auto;border-radius: 20px;width: 300px;">
+            <div style="padding: 20px;">
+                <p style="line-height: 1.2;font-size: 1.5vw;color: white;font-weight: 400;margin-bottom: 20px;"><span id="action" style="font-size: 18px;">Enregistrement de la commande</span></p>
+                <div style="position:relative; height: 25px">
+                    <div style="position:absolute; /*! top:5vw ; */ width: 300px; background-color: #8ed2bb;height: 0.5vh;left: -20px;"></div>
+                    <div id="avancee" style="position: absolute; top: 0; width: 100%; background-color: rgb(6, 121, 90); height: 0.5vh;left: -20px;">
+                    </div>
+
+
+                </div><p style="font-size: 2rem;line-height: 0.5;color: white;font-weight: 900;"><span id="avanceenb">100</span>%</p>
             </div>
-            <div style="position:absolute; top:5vw ; width: 100%; background-color: #8ed2bb;height: 0.5vw;"></div>
-            <div id="avancee" style="position:absolute; top:5vw ; width: 20%; background-color: #06795a;height: 0.5vw;"></div>
         </div>
     </div>
     <div>
@@ -405,6 +409,8 @@
             $('#nbParticipantsPreview').html($('#nbParticipants').val())
         })
 
+
+
         $('#jourRetrait').datetimepicker({
             locale : 'fr'
         });
@@ -510,6 +516,10 @@
 
         $('#description').on('keyup',function (){
             $('#preview-description').html($('#description').val())
+        })
+
+        $('#vendeur').on('keyup',function (){
+            $('#vendeurPreview').html($('#vendeur').val())
         })
 
         let btngenerer = $('#generer')
@@ -737,8 +747,7 @@
                         data: formData,
                         success: function (data) {
                             $('#loader').on('animationFinished',function (){
-                                $('#card-container').html(data)
-                                $('#loader').hide(500)
+                                window.location = data;
                             })
 
 

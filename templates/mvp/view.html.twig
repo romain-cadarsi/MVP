@@ -14,6 +14,12 @@
         }
 
 
+        .participer
+        {
+            line-height: 56px !important ;
+        }
+
+
 
     </style>
 
@@ -79,13 +85,37 @@
             color: #4CD964;
         }
 
+        #mainMenu ul{
+            width: 50%;
+            margin: 0 auto !important;
+            text-align: center;
+        }
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        .minicontainer{
+            padding : 50px 50px;
+        }
         @media all and (max-width: 1000px)
         {
-            .participer {
-                min-height: unset !important;
-                height: 80px !important;
-                padding: 0;
+            #mainMenu ul{
+                width: 100%;
+                margin: 0 auto !important;
+                text-align: center;
             }
+            .participer{
+                line-height: 50px !important;
+                padding : 0 50px 50px !important;
+            }
+            .minicontainer{
+                padding: 0px;
+            }
+
         }
 
     </style>
@@ -140,7 +170,7 @@
                             </div>
                             <p>{{ campagne.description }}</p>
                         </div>
-                        <p style="font-size: 24px;font-weight: 600;line-height: 30px;color: #194238;"> Objectif Participatif  <a data-lightbox="ajax" href="/xhr/helpBoost">
+                        <p style="font-size: 24px;font-weight: 600;line-height: 30px;color: #194238;"> Objectif Participatif  <a data-lightbox="ajax" href="{{ path('helpBoost') }}">
                                 <span class="fa fa-question-circle" style="font-size: 17px;color: grey;" aria-hidden="true"></span></a>
                         </p>
                         <div class="barres" style="width: 80%; position: relative;height: 40px;">
@@ -175,7 +205,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 text-center">
-                                <a class="btn participer" href="#modal-auto-open" style="min-width : 100px; width: 70%;filter: drop-shadow(0 10px 1rem lightgray);min-height: 80px;padding: 25px;" data-lightbox="inline"> Participer</a>
+                                <btn href="#modal-auto-open" data-lightbox="inline" class="btn btn-rounded btn-reveal btn-lg participer"><span>Participer</span><i class="icon-chevron-right"></i></btn>
                             </div>
                         </div>
                     </div>
@@ -203,7 +233,9 @@
             <div class="form-group">  <input hidden name="idCampagne" value="{{ campagne.id }}"></div>
 
         </div>
+            <button title="Close (Esc)" style="color: lightgrey" type="button" class="mfp-close">×</button>
         <div class="text-center" style="padding-top: 20px">
+
             <button type="submit" class="btn btn-lg" style="text-transform: none;font-size: 18px;letter-spacing: -0.16px;font-weight: 700;line-height: 38px;"> Confirmer </button>
         </div>
         </form>
@@ -370,7 +402,7 @@
                     }
                     else{
                         percentage += 1;
-                        $('#avancee').css('width',percentage +'%');
+                        $('#avancee').css('width',(percentage / 100) * 300 +'px');
                         $('#avanceenb').html(percentage)
                     }
                 },15)
@@ -396,7 +428,7 @@
                 e.preventDefault();
                 e.stopPropagation();
                 if( handleFormSubmit(this)){
-
+                    $('.mfp-close').click()
                     launchAnimation()
                     var formData = new FormData(this);
                     $.ajax({

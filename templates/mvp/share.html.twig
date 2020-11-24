@@ -97,7 +97,7 @@
             height: 100% !important;
         }
         @media all and (max-width: 1000px){
-            .minicontainer{
+           .minicontainer{
                 padding: 0px;
             }
             #iphonePreview{
@@ -108,7 +108,7 @@
     </style>
 {% endblock %}
 {% block bodycontent  %}
-    <div style="background-image:url('{{ asset('background.png') }}');width: 100vw ; height: 100vh; position: fixed">
+    <div class="fullscreen" style="background-image:url('{{ asset('background.png') }}');width: 100vw ; height: 100vh; position: fixed">
     </div>
     <div>
             <div class="minicontainer">
@@ -133,7 +133,7 @@
                                     </div>
                                     <div class="space"></div>
                                     <div class="text-center">
-                                        <p class="text-center">https://feziugfbizegbvizebdgvezdbnikzebzebg</p>
+                                        <a  href="{{ link }}"  target="_blank" class="text-center">{{ link }}</a>
                                         <a class="btn btn-light btn-light-hover" href="{{ path('flyer',{'id' : campagne.id}) }}" target="_blank"> Télecharger le flyer </a>
                                     </div>
 

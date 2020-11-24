@@ -75,10 +75,11 @@
                             </a>
                         </div>
                         <div class="post-item-description card card-padded" style="width: 90% !important;">
-                            <h2><a href="{{ path('viewCampagne',{id: campagne.id}) }}" class="darkblue" style="font-weight: 100;">{{ campagne.titre }}
+                            <h2><a href="{{ path('viewCampagne',{id: campagne.id}) }}" class="darkblue" style="font-weight: 100;max-width: 80%;position: relative;display: block;margin-bottom: 0;">{{ campagne.titre }}
                                 </a></h2>
                             <h3 style="position: absolute;right: 20px;top: 20px;" class="darkblue">€{{ campagne.prixPromotion }}</h3>
-                            <p href="{{ path('viewCampagne',{id: campagne.id}) }}" class="">Food</p>
+                            <p href="{{ path('viewCampagne',{id: campagne.id}) }}" class="">{{ campagne.nomVendeur }}</p>
+                            <p> Participation : {{ campagne.nombreParticipations }}/{{ campagne.nombreParticipants }}</p>
                             <div class="barres" style="width: 80%;">
                                 <div style="position: absolute;width: 80%;height: 10%;background-color: #F2F3F5;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
                                 </div>

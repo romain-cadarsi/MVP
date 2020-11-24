@@ -30,15 +30,19 @@
 <img id="iphone" src="{{ asset('iphone.png') }}" alt="iphone" style="position:fixed;z-index: 100 ; height: 80vh">
 <div id="layout" style="width: 700px; height: 500px;position: fixed;top: 35px;left: 43px; background-color : #D8D8D8;">
     <div style="height: 40%;width: 100%">
-        <a href="#"> <div id="preview-featured-image" style=" background-image: url( {{ asset( campagne.logo.asset ) }}); background-size: contain; background-repeat: no-repeat; background-position: center; width: 100%;height: 100%"></div></a>
-        <img id="previewMethod" style="position: absolute;right: 15px;bottom: calc(60% + 15px); height: 60px ; width: auto" src="{% if campagne.moyen == "collect"%}  {{ asset('collect.png') }} {% else %} {{ asset('livraison.png') }} {% endif %}">
+        <a href="#"> <div id="preview-featured-image" style=" background-image: url('{{ asset( campagne.logo.asset ) }}'); background-size: contain; background-repeat: no-repeat; background-position: center; width: 100%;height: 100%"></div></a>
+        <img id="previewMethod" style="position: absolute;right: 15px;bottom: calc(60% + 15px); height: 60px ; width: auto">
     </div>
     <div style="background-color: #f9f9f9;border-radius: 30px 30px 0 0 ; width: 100% ; height: 60%;">
         <div style="padding: 10% 10%; z-index: 1000;">
-            <img style="width: auto; height: 80px;position: absolute;right: 20px;top: 42%;" src="{{ asset('partager.png') }}">
-            <h3 style="width : 80%;font-size: 2vh;font-weight: 700;letter-spacing: 0.1px;color: #304c44;" id="preview-titre">  {{ campagne.titre }}</h3>
-            <p style="font-size: 3.084vh;line-height: 0.5;font-weight: 900;color: #304c44;">€ <span style="color: #54c2a5" id="preview-promotion"> {{ campagne.prixPromotion}} </span> </p>
-            <p style="color: lightgrey;line-height: 1;letter-spacing: -0.014em;font-weight: 900;font-size: 1.211vh;" id="preview-description">
+            <img style="width: auto; height: 80px;position: absolute;right: 20px;top: 42%;"src="{{ asset('partager.png') }}">
+            <h6 style="line-height: 0.1em;font-family: Cabin;font-style: normal;font-weight: 600;font-size: 15px;line-height: 0px;color: #979797;" id="vendeurPreview"> {{ campagne.nomVendeur }}</h6>
+            <h3 style="width : 80%;font-size: 2vh;font-weight: 700;letter-spacing: 0.1px;color: #304c44;" id="preview-titre">{{ campagne.titre }}</h3>
+            <div class="row" style="margin-left: 0;">
+                <p style="font-size: 3.084vh;line-height: 0.5;font-weight: 900;color: #304c44; margin-right: 20px">€ <span style="color: #54c2a5" id="preview-promotion">{{ campagne.prixPromotion }} </span> </p>
+                <p style="font-size: 2.7vh;line-height: 0.5;font-weight: 200;color: lightgrey; text-decoration: line-through">€ <span id="valeurProduit">{{ campagne.valeurProduit}}</span> </p>
+            </div>
+            <p style="color: lightgrey;line-height: 1;letter-spacing: -0.014em;font-weight: 900;font-size: 1.211vh; width: 80%" id="preview-description">
                 {{ campagne.description }} </p> <p style="/*! position: absolute; */top: 300px;font-size: 1vw;color: #304c44;left: 80px;line-height: 1.2;font-weight: 700;">Objectif participatif</p>
             <div class="barres" style="width: 80%;">
                 <div style="position: absolute;width: 80%;height: 15px;background-color: #edeef0;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
@@ -49,13 +53,13 @@
             </div>
             <div style="padding-top: 30px;"></div>
             <div class="imagesParticipations" style="position: relative;/*! left: 80px; */">
-                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray; position:absolute;">
+                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray; position:absolute; background-image: url('{{ asset('Ellipse.png') }}') ; background-size: contain;">
                 </div>
-                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 8%;">
+                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 8%; background-image: url('{{ asset('Ellipse(1).png') }}') ; background-size: contain;">
                 </div>
-                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 16%;">
+                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 16%; background-image: url('{{ asset('Ellipse(2).png') }}') ; background-size: contain;">
                 </div>
-                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 24%;">
+                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 24%; background-image: url('{{ asset('Ellipse(3).png') }}') ; background-size: contain;">
                 </div>
                 <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 32%;padding: 2%;font-size: 1.2vh;color: white;background-color: #5ae5c2;font-weight: 600;">
                     +<d id="nbParticipantsPreview">{{ campagne.nombreParticipations }}</d>
