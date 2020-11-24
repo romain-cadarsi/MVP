@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Campagne;
 use App\Entity\Commercant;
+use App\Entity\Participant;
+use App\Entity\Participation;
 use App\Repository\CampagneRepository;
 use App\Service\ImageService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -148,4 +150,66 @@ class MVPController extends AbstractController
             'campagnes' => $campagnes
         ]);
     }
+
+    /**
+     * @Route("/xhr/helpBoost", name="helpBoost")
+     */
+    public function helpBoost(): Response
+    {
+
+        return $this->render('mvp/boosteTaCampagne.html.twig', [
+        ]);
+    }
+
+    /**
+     * @Route("/xhr/participationPage", name="participationPage")
+     */
+    public function participationPage(): Response
+    {
+
+        return $this->render('mvp/participer.html.twig', [
+        ]);
+    }
+
+    /**
+     * @Route("/xhr/createParticipation", name="createParticipation")
+     */
+    public function createParticipation(Request $request, EntityManagerInterface $entityManager)
+    {
+        $campagne = $entityManager->getRepository(Campagne::class)->find($request->get('idCampagne'));
+        $client = $entityManager->getRepository(Participant::class)->findOneBy(['mail' => $request->get('email')]);
+        if(!$client){
+            $client = new Participant();
+            $client->setTelephone($request->get('telephone'))
+                ->setMail($request->get('email'));
+            $entityManager->persist($client);
+        }
+        $participation = new Participation();
+        $participation->setCampagne($campagne)->setParticipant($client);
+        $entityManager->persist($participation);
+        $entityManager->flush();
+
+
+        return new Response($this->generateUrl('participationEffectue',['id' => $participation->getId()]));
+
+    }
+
+    /**
+     * @Route("/participationEffectue", name="participationEffectue")
+     */
+    public function participationEffectue(Request $request, EntityManagerInterface $entityManager , $id = null): Response
+    {
+        if(is_null($id)){
+           $id = $request->get('id');
+        }
+        $participation = $entityManager->getRepository(Participation::class)->find($id);
+
+        return $this->render('htmlTemplate/page4.html.twig', [
+            'participation' => $participation
+        ]);
+
+
+    }
+
+
 }

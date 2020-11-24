@@ -134,9 +134,14 @@
                                     <div class="space"></div>
                                     <div class="text-center">
                                         <p class="text-center">https://feziugfbizegbvizebdgvezdbnikzebzebg</p>
-                                        <a class="btn btn-light btn-light-hover" href="{{ path('flyer',{'id' : campagne.id}) }}"> Télecharger le flyer </a>
+                                        <a class="btn btn-light btn-light-hover" href="{{ path('flyer',{'id' : campagne.id}) }}" target="_blank"> Télecharger le flyer </a>
                                     </div>
-                                    <p class="titleCard" style="font-size: 25px; text-align: center">Booste ta campagne <span class="fa fa-bolt" style="color: yellow"></span> </p>
+
+                                    <p class="titleCard" style="font-size: 25px; text-align: center">Booste ta campagne
+                                        <span class="fa fa-bolt" style="color: #FFB023;padding: 0 10px;font-size: 40px;">
+
+                                        </span><a data-lightbox="ajax" href="{{ path('helpBoost') }}">
+                                            <span class="fa fa-question-circle" style="font-size: 17px;color: grey;"></span></a> </p>
                                     <div class="space"></div>
                                     <div class="container">
                                         <input type="hidden" id="range_slider_3" />
@@ -145,13 +150,13 @@
                                         <img src="{{ asset('smile.png') }}" alt="smile"><p class="titleCard" style="font-size: 25px; text-align: center"><span id="euros">10</span>€ = <span id="impression">5000</span> impressions </p>
                                     </div>
                                     <div class="text-center">
-                                    <button class="btn btn-primary"> Regler </button>
+                                    <button class="btn btn-primary" style="min-width: 200px;width: 50%;min-height: 50px;height: 10%;font-size: 24px;font-family: Roboto !important ; text-transform: none "> Regler </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4"></div>
+                    <div class="col-lg-3"></div>
                     <div class="col-lg-4" id="iphonePreview">
                             {{ include('mvp/includeView2.html.twig') }}
                     </div>

@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <style>
         .minicontainer{
             padding : 50px 50px;
@@ -28,10 +29,24 @@
 
         .has-error input, .has-error textarea{
             border-color: red;
+            color: red;
+        }
+        .has-error .messages p{
+            color: red;
         }
 
         .has-success input,.has-success textarea{
-            border-color: #1e7e34;
+            border-color: #4CD964;
+            color: #4CD964;
+        }
+
+        .has-success .input::after{
+            content: "✓";
+            position: relative;
+            left: calc(100% - 30px);
+            font-size: 27px;
+            top: -30px;
+            color: #4CD964;
         }
         .fileElem {
             position: fixed;
@@ -79,12 +94,14 @@
         .my-form-label{
             margin-right: 5px;
         }
-        .money-input::after{
+        .money-input .input::after{
 
-            position: absolute;
+            position: relative;
             content:"€";
-            bottom: 10px;
-            right: 0px;
+            top: -30px;
+            right: 10px;
+            font-size: 20px;
+            left: calc(100% - 30px);
         }
 
         .radioButton{
@@ -95,8 +112,9 @@
             line-height: unset;
         }
         .radioInput:checked + label {
-            color: #5BE7C4;
+            color: #5BE7C4 !important;
             border-color: #5BE7C4   ;
+            background-color: rgba(91, 231, 196, 0.11);
         }
         .remove{
             text-align: right;
@@ -118,7 +136,32 @@
             -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
         }
+        .no-border
+        {
+            border: none !important;
+            box-shadow: none !important;
+        }
 
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .irs-bar-edge {
+            background: #59e3c0 !important;
+        }
+        .irs-line-left , .irs-line-right, .irs-bar-edge
+        {
+            border-radius: 50px;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
         @media all and (max-width: 1000px){
             .minicontainer{
                 padding: 0px;
@@ -147,10 +190,10 @@
             <div class="minicontainer">
                 <div class="row">
                     <div class="col-lg-5">
-                        <div class="card">
+                        <div class="card no-border">
                             <div class="card-body">
                                 <div class="container" id="card-container" style="padding-right: 0 !important;">
-                                    <p class="titleCard">Créer Campagne Participative</p>
+                                    <p class="titleCard text-center ">Créer Campagne Participative</p>
                                     <div class="space"></div>
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -161,7 +204,10 @@
 
                                                     <div id="fileInput1" class="fileInput">
                                                         <label id="labelInput1" for="fileElem1" class="my-form-label"></label>
-                                                        <input name = 'image1' type="file" class="fileElem" id="fileElem1" accept="image/*">
+                                                        <div class="input">
+                                                            <input name = 'image1' type="file" class="fileElem" id="fileElem1" accept="image/*">
+                                                        </div>
+
                                                     </div>
 
                                                     <div id="inputPreview1" class="inputPreview hidden" style=" width :60px ; height :60px;">
@@ -173,12 +219,16 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="titre">Titre</label>
+                                                <div class="input">
                                                 <input id="titre" type="text" class="form-control money-input" name="titre" placeholder="Chateau Minervois 6 Bouteilles">
+                                                </div>
                                                 <p class="messages"></p>
                                             </div>
                                             <div class="form-group">
                                                 <label for="vendeur">Vendeur</label>
+                                                <div class="input">
                                                 <input id="vendeur" type="text" class="form-control" name="vendeur" placeholder="Mon commerce">
+                                                </div>
                                                 <p class="messages"></p>
                                             </div>
                                             <div class="form-group">
@@ -188,22 +238,25 @@
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group">
-                                                    <label for="datetimepicker5">Jour / heure de retrait</label>
-                                                    <input type="text" name="jourRetrait" class="form-control datetimepicker-input" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="Select date & time" />
-                                                    <p class="messages"></p>
+                                                    <label for="jourRetrait">Jour / heure de retrait</label>
+                                                    <div class="input">
+                                                    <input type="text" name="jourRetrait" class="form-control datetimepicker-input" id="jourRetrait" data-toggle="datetimepicker" data-target="#jourRetrait" placeholder="Select date & time" />
+                                                    </div>
+                                                        <p class="messages"></p>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <div class="form-group">
+                                            <div class="form-group" style="margin-bottom: 0px !important;">
                                                 <label for="surname">Images additionnelles</label>
-                                                <div class="row ">
+                                                <div class="row " >
 
                                                     <div class="form-group col-4">
                                                         <div>
                                                             <div id="fileInput2" class="fileInput">
                                                                 <label id="labelInput2" for="fileElem2" class="my-form-label"></label>
+
                                                                 <input name='image2' type="file" class="fileElem"  id="fileElem2" accept="image/*">
                                                             </div>
 
@@ -241,18 +294,22 @@
                                                 </div>
 
                                             </div>
-                                            <div class="form-row">
+                                            <div class="form-row" >
                                                 <div class="form-group col-6">
                                                     <div class="money-input">
                                                         <label for="prixPromotion">Prix Promotion</label>
+                                                        <div class="input">
                                                         <input id="prixPromotion" type="number" min="1" step="any" class="form-control" name="prixPromotion" placeholder="5.66">
+                                                        </div>
                                                         <p class="messages"></p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-6">
                                                     <div class="money-input">
                                                         <label for="valeur">Valeur</label>
+                                                        <div class="input">
                                                         <input id="valeur" type="number" min="1" step="any" class="form-control" name="valeur" placeholder="5.56">
+                                                        </div>
                                                         <p class="messages"></p>
                                                     </div>
                                                 </div>
@@ -286,14 +343,18 @@
                                             <div class="form-group">
                                                 <div>
                                                     <label for="telephone">Telephone</label>
+                                                    <div class="input">
                                                     <input type="text" class="form-control" name="telephone" id="telephone" placeholder="">
+                                                    </div>
                                                     <p class="messages"></p>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div>
                                                     <label for="email">Adresse Email </label>
+                                                    <div class="input">
                                                     <input type="email" class="form-control" name="email" id="email" placeholder="">
+                                                    </div>
                                                     <p class="messages"></p>
                                                 </div>
                                             </div>
@@ -301,7 +362,7 @@
                                     </div>
 
                                     <div style="text-align: center; padding-top: 10px;">
-                                        <button id="génerer" type="submit" class="btn btn-primary">Génerer</button>
+                                        <button style="min-width: 200px;width: 50%;min-height: 50px;height: 10%;font-size: 24px;font-family: Roboto !important ; text-transform: none " id="génerer" type="submit" class="btn btn-primary">Génerer</button>
                                     </div>
                                 </div>
                             </div>
@@ -344,7 +405,7 @@
             $('#nbParticipantsPreview').html($('#nbParticipants').val())
         })
 
-        $('#datetimepicker5').datetimepicker({
+        $('#jourRetrait').datetimepicker({
             locale : 'fr'
         });
         let gr;
@@ -431,6 +492,17 @@
 
         $('#prixPromotion').on('change',function (){
             $('#preview-promotion').html($('#prixPromotion').val())
+        })
+
+        $('#valeur').on('keyup',function (){
+            $('#valeurProduit').html($('#valeur').val())
+        })
+        $('#valeur').on('unfocus',function (){
+            $('#valeurProduit').html($('#valeur').val())
+        })
+
+        $('#valeur').on('change',function (){
+            $('#valeurProduit').html($('#valeur').val())
         })
         $('#titre').on('keyup',function (){
             $('#preview-titre').html($('#titre').val())
@@ -529,7 +601,11 @@
                 },
                 image1 : {
                     presence : true
+                },
+                jourRetrait : {
+                    presence : true
                 }
+
 
             };
 

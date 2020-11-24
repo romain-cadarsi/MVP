@@ -6,6 +6,7 @@ use App\Repository\CampagneRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\This;
 
 /**
  * @ORM\Entity(repositoryClass=CampagneRepository::class)
@@ -353,5 +354,14 @@ class Campagne
     public function getPourcentageParticipation()
     {
         return count($this->getParticipations()) / $this->getNombreParticipants() * 100;
+    }
+
+    public function getPourcentageParticipation80()
+    {
+        return (count($this->getParticipations()) / $this->getNombreParticipants() * 100) * 0.8;
+    }
+
+    public function getNombreParticipations(){
+        return count($this->getParticipations());
     }
 }

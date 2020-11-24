@@ -70,20 +70,20 @@
                 <div class="post-item border" style="padding: 0px 20px 20px 0px; position: absolute; left: 0px; top: 0px;">
                     <div class="post-item-wrap">
                         <div class="post-image">
-                            <a href="#">
-                                <div style="width: 200px;height: 250px;background-image: url('{{ asset(campagne.logo.asset) }}') ; background-repeat: no-repeat;background-position: center ; background-size: contain"></div>
+                            <a href="{{ path('viewCampagne',{id: campagne.id}) }}">
+                                <div style="width: 200px; margin : 0 auto;height: 250px;background-image: url('{{ asset(campagne.logo.asset) }}') ; background-repeat: no-repeat;background-position: center ; background-size: contain"></div>
                             </a>
                         </div>
                         <div class="post-item-description card card-padded" style="width: 90% !important;">
-                            <h2><a href="#" class="darkblue" style="font-weight: 100;">{{ campagne.titre }}
+                            <h2><a href="{{ path('viewCampagne',{id: campagne.id}) }}" class="darkblue" style="font-weight: 100;">{{ campagne.titre }}
                                 </a></h2>
                             <h3 style="position: absolute;right: 20px;top: 20px;" class="darkblue">€{{ campagne.prixPromotion }}</h3>
-                            <p href="#" class="">Food</p>
+                            <p href="{{ path('viewCampagne',{id: campagne.id}) }}" class="">Food</p>
                             <div class="barres" style="width: 80%;">
                                 <div style="position: absolute;width: 80%;height: 10%;background-color: #F2F3F5;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
                                 </div>
 
-                                <div style="position: absolute;width: 20%;height: 10%;background-color: #5be7c4;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
+                                <div style="position: absolute;width: {{ campagne.getPourcentageParticipation80 }}%;height: 10%;background-color: #5be7c4;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
                                 </div>
                             </div>
 

@@ -23,36 +23,40 @@
             <a href="#"> <div id="preview-featured-image" style=" background-image: url(''); background-size: contain; background-repeat: no-repeat; background-position: center; width: 100%;height: 100%"></div></a>
             <img id="previewMethod" style="position: absolute;right: 15px;bottom: calc(60% + 15px); height: 60px ; width: auto">
     </div>
-    <div style="background-color: #f9f9f9;border-radius: 30px 30px 0 0 ; width: 100% ; height: 60%; overflow-y: scroll; z-index: 1000;">
+    <div style="background-color: #f9f9f9;border-radius: 30px 30px 0 0 ; width: 100% ; height: 60%;">
         <div style="padding: 10% 10%; z-index: 1000;">
             <img style="width: auto; height: 80px;position: absolute;right: 20px;top: 42%;"src="{{ asset('partager.png') }}">
+            <h6 style="line-height: 0.1em;font-family: Cabin;font-style: normal;font-weight: 600;font-size: 15px;line-height: 0px;color: #979797;" id="vendeurPreview">Caviste Meze</h6>
             <h3 style="width : 80%;font-size: 2vh;font-weight: 700;letter-spacing: 0.1px;color: #304c44;" id="preview-titre"> Chateau Minervois 6 Bouteilles</h3>
-            <p style="font-size: 3.084vh;line-height: 0.5;font-weight: 900;color: #304c44;">€ <span style="color: #54c2a5" id="preview-promotion">5,56 </span> </p>
-            <p style="color: lightgrey;line-height: 1;letter-spacing: -0.014em;font-weight: 900;font-size: 1.211vh;" id="preview-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultrices ut lorem ornare vehicula. Nunc arcu massa, pharetra a sollicitudin congue, varius </p> <p style="/*! position: absolute; */top: 300px;font-size: 1vw;color: #304c44;left: 80px;line-height: 1.2;font-weight: 700;">Objectif participatif</p>
+            <div class="row" style="margin-left: 0;">
+                <p style="font-size: 3.084vh;line-height: 0.5;font-weight: 900;color: #304c44; margin-right: 20px">€ <span style="color: #54c2a5" id="preview-promotion">5,56 </span> </p>
+                <p style="font-size: 2.7vh;line-height: 0.5;font-weight: 200;color: lightgrey; text-decoration: line-through">€ <span id="valeurProduit">5,56 </span> </p>
+            </div>
+            <p style="color: lightgrey;line-height: 1;letter-spacing: -0.014em;font-weight: 900;font-size: 1.211vh; width: 80%" id="preview-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultrices ut lorem ornare vehicula. Nunc arcu massa, pharetra a sollicitudin congue, varius </p> <p style="/*! position: absolute; */top: 300px;font-size: 1vw;color: #304c44;left: 80px;line-height: 1.2;font-weight: 700;">Objectif participatif</p>
             <div class="barres" style="width: 80%;">
-                <div style="position: absolute;width: 80%;height: 20px;background-color: #d5d5d5;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
+                <div style="position: absolute;width: 80%;height: 15px;background-color: #edeef0;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
                 </div>
 
-                <div style="position: absolute;width: 20%;height: 20px;background-color: #5be7c4;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
+                <div style="position: absolute;width: 20%;height: 15px;background-color: #5be7c4;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
                 </div>
             </div>
             <div style="padding-top: 30px;"></div>
-            <div style="position: relative;/*! left: 80px; */">
-                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray; position:absolute;">
+            <div class="imagesParticipations" style="position: relative;/*! left: 80px; */">
+                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray; position:absolute; background-image: url('{{ asset('Ellipse.png') }}') ; background-size: contain;">
                 </div>
-                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray;position: absolute;left: 8%;">
+                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 8%; background-image: url('{{ asset('Ellipse(1).png') }}') ; background-size: contain;">
                 </div>
-                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray;position: absolute;left: 16%;">
+                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 16%; background-image: url('{{ asset('Ellipse(2).png') }}') ; background-size: contain;">
                 </div>
-                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray;position: absolute;left: 24%;">
+                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 24%; background-image: url('{{ asset('Ellipse(3).png') }}') ; background-size: contain;">
                 </div>
-                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 2px solid gray;position: absolute;left: 32%;padding: 2%;font-size: 1.2vh;color: white;background-color: #5ae5c2;font-weight: 600;">
+                <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 32%;padding: 2%;font-size: 1.2vh;color: white;background-color: #5ae5c2;font-weight: 600;">
                     +<d id="nbParticipantsPreview">50</d>
                 </div>
             </div>
 
             <div class="text-center" style="padding-top: 7vh;font-size: 1.551vh">
-                <p class="btn btn-light" style="color: #54c2a5;width: 70%;border-color: #54c2a5;filter: drop-shadow(0 10px 1rem lightgray);"> En attente </p>
+                <p class="btn" style="min-width : 100px ; width: 70%;filter: drop-shadow(0 10px 1rem lightgray);"> Participer </p>
             </div>
 
         </div>
