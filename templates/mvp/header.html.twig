@@ -21,6 +21,15 @@
             <!--Header Extras-->
             <div class="header-extras float-right">
                 <ul>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li >
+                            <img style="width: 30px ; height: 30px ; border-radius: 30px" src="{{ app.user.pictureUrl }}">
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ path('app_login') }}"> Se connecter</a>
+                        </li>
+                    {% endif %}
                     <li>
                         <!--overlay menu-->
                         <a id="menu-overlay-trigger" href="#" class="lines-button x toggle-item" data-target="body" data-class="menu-overlay-active">
@@ -41,6 +50,13 @@
                             <li><a href="{{ path('formCampagne') }}"> Créer une Campagne </a></li>
                             <div class="space"></div>
                             <li><a href="{{ path('allCampagne') }}"> Toutes les Offres </a></li>
+
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <div class="space"></div>
+                                <li >
+                                    <a href="{{ path('app_logout') }}"> Se déconnecter </a>
+                                </li>
+                            {% endif %}
                         </ul>
 
                     </nav>

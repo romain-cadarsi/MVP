@@ -75,6 +75,7 @@ class CommercantAuthenticator extends AbstractFormLoginAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        $credentials['password'] = $credentials['mdp'];
         // Check the user's password or other credentials and return true or false
         // If there are no credentials to check, you can just return true
         $entite = $this->entityManager->getRepository(Commercant::class)->findOneBy(['email' => $credentials['email'] ]);

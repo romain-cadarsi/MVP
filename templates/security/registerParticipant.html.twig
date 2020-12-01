@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block bodycontent %}
+    <section class="fullscreen" ><div class="parallax-container img-loaded" data-velocity="-.140"></div>
+        <div class="container">
+            <div>
+                <div class="row card">
+                    <div class="col-lg-6 center p-40 background-white b-r-6">
+                        <form class="form-transparent-grey" action="{{ path('createParticipant') }}">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3>Créer votre compte participant</h3>
+                                    <p>Créer votre compte Shoppon pour pouvoir participer à des offres groupées qui privilégient les petits commerçants et votre porte monnaie !</p>
+                                </div>
+                                <div class="col-lg-6 form-group">
+                                    <label class="sr-only" for="prenom">Prénom</label>
+                                    <input type="text" value="" name="prenom" placeholder="Prenom" id="prenom" class="form-control" required>
+                                </div>
+                                <div class="col-lg-6 form-group">
+                                    <label class="sr-only" for="nom">Nom de famille</label>
+                                    <input type="text" value="" name="nom" id="nom" placeholder="Nom" class="form-control" required>
+                                </div>
+                                <div class="col-lg-6 form-group">
+                                    <label class="sr-only" for="pseudo">Pseudo</label>
+                                    <input type="text" value="" name="pseudo" id="pseudo" placeholder="Pseudo" class="form-control" required>
+                                </div>
+                                <div class="col-lg-6 form-group">
+                                    <label class="sr-only" for="mdp">Mot de passe</label>
+                                    <input type="password" value="" name="mdp" id="mdp" placeholder="Mot de passe" class="form-control" required>
+                                </div>
+                                <div class="col-lg-6 form-group">
+                                    <label class="sr-only" for="email">Email</label>
+                                    <input type="email" value=""  name="email" id="email" placeholder="Email" class="form-control" required>
+                                </div>
+                                <div class="col-lg-12 form-group">
+                                    <button class="btn" type="submit">Créer mon compte</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

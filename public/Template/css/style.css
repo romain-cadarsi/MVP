@@ -4709,7 +4709,7 @@ Portfolio
     .post-item.border .post-item-wrap {
       border: 1px solid #f2f2f2; }
     .post-item.border > .post-item-wrap > .post-item-description {
-      padding: 24px !important;
+      padding: 13px;
       width: 100% !important; }
   .post-item.quote .post-item-wrap {
     background-color: #5be7c4;

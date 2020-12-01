@@ -52,6 +52,15 @@
 
 {% block js %}
 {% endblock %}
+<script>
+    {% for label, messages in app.flashes %}
+    {% for message in messages %}
+    INSPIRO.elements.notification("{{ message }}","",'{{ label }}')
+    {% endfor %}
+    {% endfor %}
+
+
+</script>
 </body>
 
 </html>

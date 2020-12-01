@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\This;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity(repositoryClass=CampagneRepository::class)
@@ -309,6 +310,14 @@ class Campagne
         return $this;
     }
 
+    public function getFinCampagne(){
+        return date_add($this->debutCampagne,date_interval_create_from_date_string($this->getDureeCampagne() . ' days'));
+    }
+
+    public function isValid(){
+        return $this->getFinCampagne() > new \DateTime();
+
+    }
     /**
      * @return Collection|Participation[]
      */
@@ -353,15 +362,26 @@ class Campagne
 
     public function getPourcentageParticipation()
     {
-        return count($this->getParticipations()) / $this->getNombreParticipants() * 100;
+        return $this->getNombreParticipations() / $this->getNombreParticipants() * 100;
     }
 
     public function getPourcentageParticipation80()
     {
-        return (count($this->getParticipations()) / $this->getNombreParticipants() * 100) * 0.8;
+        return ($this->getNombreParticipations() / $this->getNombreParticipants() * 100) * 0.8;
     }
 
     public function getNombreParticipations(){
-        return count($this->getParticipations());
+        $totalCount = 0 ;
+        foreach ($this->getParticipations() as $participation){
+            $totalCount+= $participation->getQuantity();
+        }
+        return $totalCount;
+    }
+
+    public function getDiscount()
+    {
+        $v = $this->getValeurProduit();
+        $p = $this->getPrixPromotion();
+        return intval((($v-$p) / $v )* 100);
     }
 }

@@ -33,6 +33,11 @@ class Commercant implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pictureUrl;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -114,5 +119,20 @@ class Commercant implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getPictureUrl(): ?string
+    {
+        if($this->pictureUrl == "0" || is_null($this->pictureUrl) || empty($this->pictureUrl)){
+            return "/silhouette.png";
+        }
+        else return $this->pictureUrl;
+    }
+
+    public function setPictureUrl(string $pictureUrl): self
+    {
+        $this->pictureUrl = $pictureUrl;
+
+        return $this;
     }
 }

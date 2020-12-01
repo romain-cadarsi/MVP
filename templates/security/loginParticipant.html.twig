@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block bodycontent %}
+    <section class="fullscreen" ><div class="parallax-container img-loaded" data-velocity="-.140"></div>
+        <div class="container">
+            <div>
+                <div class="row card">
+                    <div class="col-lg-6 center p-40 background-white b-r-6">
+                        <form class="form-transparent-grey" action="{{ path('connectCheck') }}">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3>Connectez vous à votre compte Shoppon</h3>
+                                </div>
+                                <div class="col-lg-12 form-group">
+                                    <label class="sr-only" for="email">Email</label>
+                                    <input type="email" value=""  name="email" id="email" placeholder="Email" class="form-control" required>
+                                </div>
+                                <div class="col-lg-12 form-group">
+                                    <label class="sr-only" for="mdp">Mot de passe</label>
+                                    <input type="password" value="" name="mdp" id="mdp" placeholder="Mot de passe" class="form-control" required>
+                                </div>
+                                <div class="col-lg-12 form-group">
+                                    <button class="btn col" type="submit">Se connecter</button>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row"> <div class="separator col-5"></div> <span class="col-2 text-center" style="margin-top: 25px;"> ou </span>  <div class="separator col-5"></div></div>
+
+                                    <a class="btn btn-slide" data-width="200" href="{{ path('connect_facebook_start') }}" style="background-color: #3b5998!important; border-color: #3b5998 !important;">
+                                        <i class="fa fa-facebook"></i>
+                                        <span>Connexion Facebook</span>
+                                    </a>
+                                    <div class="space"></div>
+                                </div>
+                                <p class="small">Vous n'êtes pas encore inscris sur Shoppon? <a href="{{ path('registerParticipant') }}">Créez votre compte !</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

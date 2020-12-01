@@ -6,15 +6,22 @@ use App\Entity\Campagne;
 use App\Entity\Commercant;
 use App\Entity\Participant;
 use App\Entity\Participation;
+use App\Entity\User;
 use App\Repository\CampagneRepository;
+use App\Security\CommercantAuthenticator;
+use App\Security\FacebookAuthenticator;
 use App\Service\ImageService;
+use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\This;
+use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class MVPController extends AbstractController
 {
@@ -130,12 +137,14 @@ class MVPController extends AbstractController
     /**
      * @Route("/viewCampagne/{id}", name="viewCampagne", methods="get")
      */
-    public function viewCampagne($id,EntityManagerInterface $entityManager): Response
+    public function viewCampagne($id,EntityManagerInterface $entityManager, Request $request): Response
     {
         $campagne = $entityManager->getRepository(Campagne::class)->find($id);
+        $backUrl = $request->headers->get('referer');
         if($campagne){
             return $this->render('mvp/view.html.twig', [
                 'campagne' => $campagne,
+                'backurl' => $backUrl
             ]);
         }
         else{
@@ -150,9 +159,16 @@ class MVPController extends AbstractController
     public function allCampagne(CampagneRepository $campagneRepository): Response
     {
         $campagnes = $campagneRepository->findAll();
+        $campagnesValides = [];
+        foreach ($campagnes as $campagne){
+            if($campagne->isValid()){
+                array_push($campagnesValides,$campagne);
+            }
+        }
         return $this->render('mvp/allCampagne.html.twig', [
-            'campagnes' => $campagnes
+            'campagnes' => $campagnesValides
         ]);
+
     }
 
     /**
@@ -160,7 +176,6 @@ class MVPController extends AbstractController
      */
     public function helpBoost(): Response
     {
-
         return $this->render('mvp/boosteTaCampagne.html.twig', [
         ]);
     }
@@ -178,23 +193,28 @@ class MVPController extends AbstractController
     /**
      * @Route("/xhr/createParticipation", name="createParticipation")
      */
-    public function createParticipation(Request $request, EntityManagerInterface $entityManager)
+    public function createParticipation(Request $request, EntityManagerInterface $entityManager, MailService $mailService)
     {
         $campagne = $entityManager->getRepository(Campagne::class)->find($request->get('idCampagne'));
-        $client = $entityManager->getRepository(Participant::class)->findOneBy(['mail' => $request->get('email')]);
-        if(!$client){
-            $client = new Participant();
-            $client->setTelephone($request->get('telephone'))
-                ->setMail($request->get('email'));
-            $entityManager->persist($client);
-        }
+        $quantity = $request->get("quantity");
+        $user = $this->getUser();
         $participation = new Participation();
-        $participation->setCampagne($campagne)->setParticipant($client);
+        $participation->setQuantity($quantity);
+        $participation->setCampagne($campagne)->setParticipant($user);
         $entityManager->persist($participation);
         $entityManager->flush();
+        $response = $mailService->mailConfirmation($participation,$this->renderView('mvp/mailConfirmation.html.twig'));
+        if($response == "0"){
+            return new Response($this->generateUrl('participationEffectue',['id' => $participation->getId()]));
+        }
+        else return new Response("L'envoi du mail à échoué",500);
+    }
 
-
-        return new Response($this->generateUrl('participationEffectue',['id' => $participation->getId()]));
+    /**
+     * @Route("/xhr/connect", name="connect")
+     */
+    public function connect(Request $request, EntityManagerInterface $entityManager, MailService $mailService)
+    {
 
     }
 
@@ -211,9 +231,89 @@ class MVPController extends AbstractController
         return $this->render('htmlTemplate/page4.html.twig', [
             'participation' => $participation
         ]);
-
-
     }
+
+    /**
+     * @Route("/register/participant", name="registerParticipant")
+     */
+    public function registerParticipant(): Response
+    {
+        return $this->render('security/registerParticipant.html.twig', [
+        ]);
+    }
+
+    /**
+     * @Route("/register/participant/create", name="createParticipant")
+     */
+    public function createParticipant(Request $request,FacebookAuthenticator $facebookAuthenticator, EntityManagerInterface $entityManager): Response
+    {
+        $entity = $entityManager->getRepository(Participant::class)->findOneBy(['email' => $request->get('email')]);
+        if(!is_null($entity)){
+            $this->addFlash('warning','Il semble que vous ayez déjà un compte, essayez de vous connecter à la place');
+            $this->redirect($request->headers->get('referer'));
+        }
+        else{
+            $participant = new Participant();
+            $participant->setUsername($request->get('pseudo'))
+                ->setNom($request->get('nom'))
+                ->setPrenom($request->get('prenom'))
+                ->setPassword($facebookAuthenticator->encodePassword($participant,$request->get('mdp')))
+                ->setEmail($request->get('email'))
+                ->setFacebookId('0')
+                ->setPictureUrl('0')
+                ->setVerified(false);
+            $entityManager->persist($participant);
+            $entityManager->flush();
+
+            $token = new UsernamePasswordToken($participant, $participant->getPassword(), 'public', $participant->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+            $this->addFlash('success', "Bienvenu chez Shoppon " . $participant->getUsername() . " ! Vous pouvez maintenant prendre place à des offres groupées");
+            return $this->redirectToRoute('allCampagne');
+        }
+
+        return $this->render('security/registerParticipant.html.twig', [
+        ]);
+    }
+
+    /**
+     * @Route("/connect/check", name="connectCheck")
+     */
+    public function connectCheck(Request $request,FacebookAuthenticator $facebookAuthenticator, EntityManagerInterface $entityManager, CommercantAuthenticator $commercantAuthenticator)
+    {
+        $credentials = $request->query->all();
+        $participant = $entityManager->getRepository(Participant::class)->findOneBy(['email' => $credentials['email']]);
+        if(is_null($participant)){
+            $commercant = $entityManager->getRepository(Commercant::class)->findOneBy(['email' => $credentials['email']]);
+            if(is_null($commercant)){
+                $this->addFlash("danger", "Votre adresse mail ou votre mot de passe n'est pas correct");
+                return $this->redirectToRoute('app_login');
+            }
+            else{
+                if ($commercantAuthenticator->checkCredentials($credentials,$commercant)){
+                    $token = new UsernamePasswordToken($commercant, $commercant->getTelephone(), 'public', $commercant->getRoles());
+                    $this->get('security.token_storage')->setToken($token);
+                    $this->addFlash('success', "Bienvenu chez Shoppon " . $commercant->getEmail() . " ! Vous pouvez maintenant créer des offres groupées ! ");
+                    return $this->redirectToRoute('formCampagne');
+                }
+            }
+
+        }
+        else{
+            if($facebookAuthenticator->checkPassword($participant,$credentials['mdp'])){
+                $token = new UsernamePasswordToken($participant, $participant->getPassword(), 'public', $participant->getRoles());
+                $this->get('security.token_storage')->setToken($token);
+                $this->addFlash('success', "Bienvenu chez Shoppon " . $participant->getUsername() . " ! Vous pouvez maintenant prendre place à des offres groupées");
+                return $this->redirectToRoute('allCampagne');
+            }
+            else{
+                $this->addFlash('danger','Votre mot de passe est incorrect');
+                $this->redirect($request->headers->get('referer'));
+            }
+        }
+            return $this->redirectToRoute('app_login');
+    }
+
+
 
 
 }

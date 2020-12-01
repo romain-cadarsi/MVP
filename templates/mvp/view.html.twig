@@ -2,7 +2,8 @@
 {% block css %}
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <style>
+
+<style>
         .flickity-page-dots{
             z-index: 1000 !important;
         }
@@ -18,13 +19,7 @@
         {
             line-height: 56px !important ;
         }
-
-
-
-    </style>
-
-    <style>
-        p,a,h1,h2,h3,label{
+        p,a,h1,h2,h3,h4,h5,h6,label{
             font-family: Cabin !important;
         }
         span{
@@ -47,8 +42,8 @@
             color: #c6c9cd;
             right: 0;
             top: 10px;
-            font-size: 13px;
-            font-weight: 400;
+            font-size: 18px;
+            font-weight: 600;
         }
         li {
             display: inline-block;
@@ -101,8 +96,154 @@
         .minicontainer{
             padding : 50px 50px;
         }
+        .barres{
+            width: 80%;
+        }
+
+        .barres>div{
+            height: 20px;
+        }
+        .price-desc>.product-price{
+            font-size: 3.084vh;
+            line-height: 0.5;
+            font-weight: 900;
+            color: #54c2a5;
+        }
+        #preview-titre{
+            font-size: 2vh;
+        }
+        .product-header-actions>a{
+            padding: unset;
+        }
+        .product-header-actions>a>img{
+            width: 100%;
+        }
+
+        .ma-unset{
+            margin : unset !important;
+        }
+
+        .product-page-actions
+        {
+            color: white !important;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            background-color: #0ee6b0;
+            opacity: 0.3;
+            position: absolute;
+            z-index: 100;
+            border-radius: 40px;
+            transition: 0.3s all;
+        }
+
+        .product-page-actions:hover{
+            opacity: 1;
+        }
+        .product-page-actions:hover > span{
+            opacity: 1;
+        }
+        .product-page-actions > span{
+            transition: 0.3s all;
+        }
+
+        .action-back{
+            top: 20px;
+            left: 20px;
+        }
+
+        .action-share{
+            top: 20px;
+            right: 20px;
+        }
+        #product-description
+        {
+            color:  #C2BECB !important;
+        }
+        .imagesParticipations>div
+        {
+            width: 4vh;
+            height: 4vh;
+            border-radius: 50px;
+            background-color: white;
+            position: absolute;
+            background-size: contain;
+            font-weight: 600;
+            font-size: 1.2vh;
+        }
+        #product-page
+        {
+            background-color: #f9f9f9;
+        }
+
+        .preview-image-product{
+            width: auto !important;
+            margin:  0 auto;
+        }
+
+        #previewMethod{
+            width: 70px;
+            height: 70px;
+            width: auto;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        .price-desc>.product-pricee>p{
+            margin-top: 0;
+            text-align: left;
+            font-size: 4.5vh;
+            font-weight: 500 ;
+            width: unset;
+            padding-right: 15px;
+            line-height:  0 ;
+            color: #4CC5A6;
+        }
+        .price-desc>.product-reviews{
+            font-size: 2.959vh;
+            line-height: 5px;
+        }
+
+        .price-desc
+        {
+            margin-top: 30px;
+        }
+
+
         @media all and (max-width: 1000px)
         {
+            .price-desc
+            {
+                margin-top: 0;
+            }
+
+            #previewMethod{
+                height: 40px;
+                width: 40px;
+            }
+            #product-page{
+                background-color: #E5E5E5;
+            }
+            .imagesParticipations>div
+            {
+                width: 40px;
+                height: 40px;
+                font-size: 15px;
+
+            }
+            #preview-titre{
+                font-size: 3.4vh;
+            }
+            .price-desc{
+                padding : 15px 0 ;
+            }
+
+            .barres>div{
+                height: 10px;
+            }
+            .barres{
+                width: 100%;
+            }
             #mainMenu ul{
                 width: 100%;
                 margin: 0 auto !important;
@@ -114,6 +255,23 @@
             }
             .minicontainer{
                 padding: 0px;
+            }
+            .product .product-image > a, .product .product-image img {
+                height: 100%;
+                width: auto;
+                margin : 0 auto;
+            }
+            .product .product-image {
+                height: 30vh;
+            }
+
+            .price-desc{
+                display: flex;
+            }
+            .product-card{
+                background-color: white;
+                padding-top: 20px;
+                border-radius: 40px 40px 0 0 ;
             }
 
         }
@@ -136,15 +294,17 @@
             </div>
         </div>
     </div>
-    <section id="product-page" class="product-page p-b-0" style="border-radius: 20px">
-        <div class="container">
-            <div class="product">
-                <div class="row m-b-40">
-                    <div class="col-lg-5">
-                        <div class="product-image">
-                          <img src="/{{ campagne.logo.asset }}">
-                            <img id="previewMethod" style="position: absolute;right: 0;bottom: 0; height: 60px ; width: auto" src="{% if campagne.moyen == "collect"%}  {{ asset('collect.png') }} {% else %} {{ asset('livraison.png') }} {% endif %}">
-                            <div id="countdown" style="color: white; position:absolute; top: 0; left: 0; background-color: #5be7c4;border-radius: 20px;height: 50px; text-align: center">
+    <section id="product-page" class="product-page p-b-0" >
+        <a href="{{ backurl }}" class="product-page-actions action-back"><span class="fa fa-arrow-left center"></span></a>
+        <a href="#" class="product-page-actions action-share"><span class="fa fa-share-alt center"></span> </a>
+        <div class="product">
+            <div class="row m-b-40">
+                <div class="col-lg-5 " style="padding-bottom: 20px">
+                    <div class="container">
+                        <div class="product-image" >
+                            <div class="preview-image-product" style="background-image: url('/{{ campagne.logo.asset }}') ; background-size: contain;background-repeat: no-repeat;"></div>
+                            <img id="previewMethod" src="{% if campagne.moyen == "collect"%}  {{ asset('collect.png') }} {% else %} {{ asset('livraison.png') }} {% endif %}">
+                            <div id="countdown" style="color: white; position:absolute; bottom: 0; left: 0; background-color: #5be7c4;border-radius: 10px;height: 50px; text-align: center">
                                 <ul>
                                     <li style="font-size: 9px;filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));"><span style="font-size: 22px;letter-spacing: -0.003em;font-weight: 900;" id="days"></span>Jours</li>
                                     <span style="font-size: 16px;line-height: 0px;position: relative;bottom: 10px; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2))">:</span>
@@ -155,96 +315,114 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-7">
+                </div>
+
+                <div class="col-lg-7 product-card">
+                    <div class="container description-container">
+
                         <div class="product-description" style="position:relative;">
-                            <h6 style="line-height: 0.1em;font-family: Cabin;font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;color: #73c9cf;" >Meze  <span class="fa fa-map-marker"></span> </h6>
-                            <h6 style="line-height: 0.1em;font-family: Cabin;font-style: normal;font-weight: 400;font-size: 15px;line-height: 20px;color: #979797;">
-                                {{ campagne.nomVendeur }}</h6>
-                            <div class="product-title">
+                            <div class="product-header row">
+                                <div class="product-header-description col-8" style="padding-right: 0px;">
+                                    <h6 style="font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;color: #73c9cf; " class="ma-unset" >
+                                        Meze  <span class="fa fa-map-marker"></span>
+                                    </h6>
+                                    <h6 style="font-style: normal;font-weight: 400;font-size: 13px;line-height: 20px;color: #979797;" class="ma-unset">
+                                        {{ campagne.nomVendeur }}</h6>
+                                    <div class="product-title">
+                                        <h3  style="width : 80%;font-weight: 700;letter-spacing: 0.1px;color: #304c44;" id="preview-titre">{{ campagne.titre }}</h3>
+                                    </div>
+                                    <div class="price-desc row">
+                                        <div class="product-pricee col-6">
+                                            <p>
+                                            <span style="color: black">€ </span>
+                                            {{ campagne.prixPromotion }}
+                                            </p>
+                                        </div>
 
-                                <h3  style="width : 80%;font-size: 2vh;font-weight: 700;letter-spacing: 0.1px;color: #304c44;" id="preview-titre">{{ campagne.titre }}</h3>
-                            </div>
-                            <div class="product-price"><ins style="font-size: 3.084vh;line-height: 0.5;font-weight: 900;color: #54c2a5;">€ {{ campagne.prixPromotion }}</ins>
-                            </div>
+                                        <div class="product-reviews col-6"><ins href="#" style="text-decoration: line-through ; color:#C2BECB;" > € {{ campagne.valeurProduit }}</ins>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-header-actions col-4 row" style="padding : unset">
+                                    <a  class="col-5">
 
-                            <div class="product-reviews"><a href="#" style="text-decoration: line-through"> € {{ campagne.valeurProduit }}</a>
-                            </div>
-                            <p>{{ campagne.description }}</p>
-                        </div>
-                        <p style="font-size: 24px;font-weight: 600;line-height: 30px;color: #194238;"> Objectif Participatif  <a data-lightbox="ajax" href="{{ path('helpBoost') }}">
-                                <span class="fa fa-question-circle" style="font-size: 17px;color: grey;" aria-hidden="true"></span></a>
-                        </p>
-                        <div class="barres" style="width: 80%; position: relative;height: 40px;">
-                            <div style="position: absolute;width: 100%;height: 20px;background-color: #F2F3F5;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
-                            </div>
+                                    </a>
+                                    <a href="#" class="col-5">
+                                        <img src="{{ asset('partager.png') }}" alt="partager">
+                                    </a>
 
-                            <div style="position: absolute;width: {{ campagne.pourcentageParticipation }}%;height: 20px;background-color: #5be7c4;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
-                            </div>
-                        </div>
-                        <div class="imagesParticipations" style="position: relative;height: 60px/*! left: 80px; */">
-                            <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray; position:absolute; background-image: url('{{ asset('Ellipse.png') }}') ; background-size: contain;">
-                            </div>
-                            <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 4% ;background-image: url('{{ asset('Ellipse(1).png') }}') ; background-size: contain;">
-                            </div>
-                            <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 8%;background-image: url('{{ asset('Ellipse(2).png') }}') ; background-size: contain;">
-                            </div>
-                            <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 12%;background-image: url('{{ asset('Ellipse(3).png') }}') ; background-size: contain;">
-                            </div>
-                            <div style="width: 4vh;height: 4vh;border-radius: 50px;background-color: white;border: 1px solid gray;position: absolute;left: 16%;padding: 2%;font-size: 1.2vh;color: white;background-color: #5ae5c2;font-weight: 600;">
-                                +<d id="nbParticipantsPreview">{{ campagne.nombreParticipations }}</d>
-                            </div>
-                        </div>                        <div class="row">
+                                </div>
 
+                            </div>
+                            <div class="product-description-body">
+                                <p id="product-description">{{ campagne.description }}</p>
+                                <div class="objectif-participatif">
+                                    <p style="font-size: 24px;font-weight: 600;line-height: 30px;color: #194238;"> Objectif Participatif
+                                        <a data-lightbox="ajax" href="{{ path('helpBoost') }}"><span class="fa fa-question-circle" style="font-size: 17px;color: grey;" aria-hidden="true"></span></a>
+                                    </p>
+                                    <div class="barres" style=" position: relative;height: 40px;">
+                                        <div style="position: absolute;width: 100%;background-color: #F2F3F5;border-radius: 20px">
+                                        </div>
 
-                            <div class="col-lg-6">
-                                <div class="cart-product-quantity" style="text-align: right;">
-                                    <div class="quantity m-l-5" style="margin-bottom: 20px;">
-                                        <input type="button" class="minus" value="-">
-                                        <input type="text" class="qty" value="1" style="border: none;text-align: right;background-color: rgba(178, 254, 235, 1);">
-                                        <input type="button" class="plus" value="+">
+                                        <div style="position: absolute;width: {{ campagne.pourcentageParticipation }}%;background-color: #5be7c4;border-radius: 20px;">
+                                        </div>
+                                    </div>
+                                    <div class="imagesParticipations" style="position: relative;height: 60px/*! left: 80px; */">
+                                        <div style=" background-image: url('{{ asset('Ellipse.png') }}')">
+                                        </div>
+                                        <div style="left: 4% ;background-image: url('{{ asset('Ellipse(1).png') }}')">
+                                        </div>
+                                        <div style="left: 8%;background-image: url('{{ asset('Ellipse(2).png') }}') ">
+                                        </div>
+                                        <div style="left: 12%;background-image: url('{{ asset('Ellipse(3).png') }}')">
+                                        </div>
+                                        <div style="left: 16%;color: white;background-color: #5ae5c2">
+                                            <span id="nbParticipantsPreview" class="center">+{{ campagne.nombreParticipations }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="product-action">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="cart-product-quantity" style="text-align: right;">
+                                            <div class="quantity m-l-5" style="margin-bottom: 20px;">
+                                                <input type="button" class="minus" value="-">
+                                                <input type="text" class="qty" value="1" style="border: none;text-align: right;background-color: rgba(178, 254, 235, 1);">
+                                                <input type="button" class="plus" value="+">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 text-center">
+                                        <button id="participer" class="btn btn-rounded btn-reveal btn-lg participer" style="text-transform: none ; font-size: 28px;font-weight: 700; letter-spacing: -0.03px ; border-radius: 5px !important;" ><span>Participer <img src="{{ asset('shoppingCart.png') }}"></span><i class="icon-chevron-right"></i></button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 text-center">
-                                <btn href="#modal-auto-open" data-lightbox="inline" class="btn btn-rounded btn-reveal btn-lg participer"><span>Participer</span><i class="icon-chevron-right"></i></btn>
-                            </div>
+
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
     </section>
-    <div id="modal-auto-open" class="modal modal-active mfp-hide">
-        <form id="form">
-        <div class="row">
-            <div class="col-6 form-group">
-                <label for="telephone" style="width: 100%;font-weight: 600;font-size: 18px;text-align: left; color: rgba(66, 67, 71, 1)">Telephone</label>
-                <div class="input">
-                <input type="text" id="telephone" name="telephone" class="form-control" style="width: 80%;text-align: left;">
-                </div>
-                <p class="messages"></p>
-            </div>
-            <div class="col-6 form-group">
-                <label for="email" style="width: 100%;font-weight: 600;font-size: 18px;text-align: left; color: rgba(66, 67, 71, 1)">Email</label>
-                <div class="input">
-                <input type="email" id="email" name="email" class="form-control" style="width: 80%">
-                </div>
-                <p class="messages"></p>
-            </div>
-            <div class="form-group">  <input hidden name="idCampagne" value="{{ campagne.id }}"></div>
-
-        </div>
-            <button title="Close (Esc)" style="color: lightgrey" type="button" class="mfp-close">×</button>
-        <div class="text-center" style="padding-top: 20px">
-
-            <button type="submit" class="btn btn-lg" style="text-transform: none;font-size: 18px;letter-spacing: -0.16px;font-weight: 700;line-height: 38px;"> Confirmer </button>
-        </div>
-        </form>
-    </div>
 
 {% endblock %}
 {% block js %}
     <script defer>
+        $('.minus').on('click',function (){
+            if($('.qty').val() > 1 ){
+                $('.qty').val($('.qty').val() * 1 - 1)
+            }
+        })
+
+        $('.plus').on('click',function (){
+            $('.qty').val($('.qty').val() * 1 + 1)
+        })
+
+        $('.product-image').find('.preview-image-product').css('height',$('.description-container').height() + 'px')
 
 
 
@@ -252,6 +430,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="{{ asset('Template/plugins/validate/validate.js') }}"></script>
     <script>
+        let isConnected = {% if is_granted('ROLE_USER') %} true {% else %} false {% endif %};
+        let canParticipate = true;
         (function () {
             const second = 1000,
                 minute = second * 60,
@@ -264,6 +444,10 @@
 
                     let now = new Date().getTime(),
                         distance = countDown - now;
+                    if(distance < 0 ){
+                        distance = 0;
+                        $('#countdown').css('background-color','#d22222')
+                    }
 
                     document.getElementById("days").innerText = Math.floor(distance / (day));
                     document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour));
@@ -271,6 +455,11 @@
                     //seconds
                 }, 0)
         }());
+        $('.participer').on('click',function (event){
+            event.preventDefault();
+            event.stopPropagation();
+        })
+
     </script>
 
     <script>
@@ -409,6 +598,26 @@
                 },15)
             }
 
+            $('#participer').on('click',function () {
+                if(isConnected){
+                    $.ajax({
+                        url: '{{ path('createParticipation') }}' + '?idCampagne=' + {{ campagne.id }} + '&quantity=' + $('.qty').val(),
+                        type: 'POST',
+                        success: function (data){
+                            window.location = data;
+                        },
+                        error : function (){
+                            INSPIRO.elements.notification("Echec de l'envoi de mail","Une erreur est survenue pendant l'envoi de mail, néanmoins, votre participation est prise en compte")
+                        }
+                    })
+                }
+                else
+                {
+                    window.location = '{{ path('app_login') }}'
+                }
+
+            })
+
             function launchAnimation(){
                 $('#loader').show();
                 goTo100("Création de la participation")
@@ -438,7 +647,7 @@
                         data: formData,
                         success: function (data) {
                             $('#loader').on('animationFinished',function (){
-                               window.location = data
+                                window.location = data
                             })
 
 
