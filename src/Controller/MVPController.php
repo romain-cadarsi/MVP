@@ -6,7 +6,6 @@ use App\Entity\Campagne;
 use App\Entity\Commercant;
 use App\Entity\Participant;
 use App\Entity\Participation;
-use App\Entity\User;
 use App\Repository\CampagneRepository;
 use App\Security\CommercantAuthenticator;
 use App\Security\FacebookAuthenticator;
@@ -83,15 +82,16 @@ class MVPController extends AbstractController
             if($index == 0){
                 if(!is_null($file)){
                     $campagne->setLogo($imageService->saveToDisk($file));
+                    $index += 1 ;
                 }
             }
             else{
                 if(!is_null($file)){
-                    $campagne->addImagesProduit($imageService->saveToDisk($file));
+                    $campagne->addImagesAdditionnelle($imageService->saveAdditionnalImageToDisk($file,$campagne));
+                    $index += 1;
                 }
             }
         }
-
         $entityManager->persist($campagne);
         $entityManager->flush();
 
@@ -311,6 +311,14 @@ class MVPController extends AbstractController
             }
         }
             return $this->redirectToRoute('app_login');
+    }
+
+    /**
+     * @Route("/testMail", name="testMail")
+     */
+    public function testMail(MailService $mailService): Response
+    {
+
     }
 
 

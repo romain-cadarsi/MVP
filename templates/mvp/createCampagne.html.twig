@@ -67,7 +67,9 @@
             width: 60px;
             height: 60px;
             border-radius: 20px;
-            background-size: cover;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         .titleCard{
             font-family: Cabin;
@@ -224,14 +226,14 @@
                                             <div class="form-group">
                                                 <label for="titre">Titre</label>
                                                 <div class="input">
-                                                <input id="titre" type="text" class="form-control money-input" name="titre" placeholder="Chateau Minervois 6 Bouteilles">
+                                                    <input id="titre" type="text" class="form-control money-input" name="titre" placeholder="Chateau Minervois 6 Bouteilles">
                                                 </div>
                                                 <p class="messages"></p>
                                             </div>
                                             <div class="form-group">
                                                 <label for="vendeur">Vendeur</label>
                                                 <div class="input">
-                                                <input id="vendeur" type="text" class="form-control" name="vendeur" placeholder="Mon commerce">
+                                                    <input id="vendeur" type="text" class="form-control" name="vendeur" placeholder="Mon commerce">
                                                 </div>
                                                 <p class="messages"></p>
                                             </div>
@@ -244,9 +246,9 @@
                                                 <div class="form-group">
                                                     <label for="jourRetrait">Jour / heure de retrait</label>
                                                     <div class="input">
-                                                    <input type="text" name="jourRetrait" class="form-control datetimepicker-input" id="jourRetrait" data-toggle="datetimepicker" data-target="#jourRetrait" placeholder="Select date & time" />
+                                                        <input type="text" name="jourRetrait" class="form-control datetimepicker-input" id="jourRetrait" data-toggle="datetimepicker" data-target="#jourRetrait" placeholder="Select date & time" />
                                                     </div>
-                                                        <p class="messages"></p>
+                                                    <p class="messages"></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -260,8 +262,9 @@
                                                         <div>
                                                             <div id="fileInput2" class="fileInput">
                                                                 <label id="labelInput2" for="fileElem2" class="my-form-label"></label>
-
-                                                                <input name='image2' type="file" class="fileElem"  id="fileElem2" accept="image/*">
+                                                                <div class="input">
+                                                                    <input name='image2' type="file" class="fileElem"  id="fileElem2" accept="image/*">
+                                                                </div>
                                                             </div>
 
                                                             <div id="inputPreview2" class=" inputPreview  hidden" style=" width :60px ; height :60px;">
@@ -275,7 +278,9 @@
                                                         <div>
                                                             <div id="fileInput3" class="fileInput">
                                                                 <label id="labelInput3" for="fileElem3" class="my-form-label"></label>
-                                                                <input name = 'image3' type="file" class="fileElem"  id="fileElem3" accept="image/*">
+                                                                <div class="input">
+                                                                    <input name = 'image3' type="file" class="fileElem"  id="fileElem3" accept="image/*">
+                                                                </div>
                                                             </div>
                                                             <div id="inputPreview3" class=" inputPreview hidden" style=" width :60px ; height :60px;">
                                                                 <div class="remove"><span class="fa fa-times"></span> </div>
@@ -286,7 +291,9 @@
                                                     <div class="form-group col-4"> <div>
                                                             <div id="fileInput4" class="fileInput">
                                                                 <label id="labelInput4" for="fileElem4" class="my-form-label"></label>
-                                                                <input name = 'image4' type="file" class="fileElem"  id="fileElem4" accept="image/*">
+                                                                <div class="input">
+                                                                    <input name = 'image4' type="file" class="fileElem"  id="fileElem4" accept="image/*">
+                                                                </div>
                                                             </div>
                                                             <div id="inputPreview4" class="inputPreview hidden" style=" width :60px ; height :60px;">
                                                                 <div class="remove"><span class="fa fa-times"></span> </div>
@@ -303,7 +310,7 @@
                                                     <div class="money-input">
                                                         <label for="prixPromotion">Prix Promotion</label>
                                                         <div class="input">
-                                                        <input id="prixPromotion" type="number" min="1" step="any" class="form-control" name="prixPromotion" placeholder="5.66">
+                                                            <input id="prixPromotion" type="number" min="1" step="any" class="form-control" name="prixPromotion" placeholder="5.66">
                                                         </div>
                                                         <p class="messages"></p>
                                                     </div>
@@ -312,7 +319,7 @@
                                                     <div class="money-input">
                                                         <label for="valeur">Valeur</label>
                                                         <div class="input">
-                                                        <input id="valeur" type="number" min="1" step="any" class="form-control" name="valeur" placeholder="5.56">
+                                                            <input id="valeur" type="number" min="1" step="any" class="form-control" name="valeur" placeholder="5.56">
                                                         </div>
                                                         <p class="messages"></p>
                                                     </div>
@@ -348,7 +355,7 @@
                                                 <div>
                                                     <label for="telephone">Telephone</label>
                                                     <div class="input">
-                                                    <input type="text" class="form-control" name="telephone" id="telephone" placeholder="">
+                                                        <input type="text" class="form-control" name="telephone" id="telephone" placeholder="">
                                                     </div>
                                                     <p class="messages"></p>
                                                 </div>
@@ -357,7 +364,7 @@
                                                 <div>
                                                     <label for="email">Adresse Email </label>
                                                     <div class="input">
-                                                    <input type="email" class="form-control" name="email" id="email" placeholder="">
+                                                        <input type="email" class="form-control" name="email" id="email" placeholder="">
                                                     </div>
                                                     <p class="messages"></p>
                                                 </div>
@@ -414,21 +421,17 @@
         $('#jourRetrait').datetimepicker({
             locale : 'fr'
         });
-        let gr;
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-                gr = input
                 reader.onload = function (e) {
-                    let inputpreview = $(input).parent().parent().find('.inputPreview')
+                    let inputpreview = $(input).parent().parent().parent().find('.inputPreview')
                     $(inputpreview).show()
                     $(inputpreview).css('background-image', "url(" + e.target.result + ")")
                     if(input.id === "fileElem1"){
                         $('#preview-featured-image').css('background-image', "url(" + e.target.result + ")")
                     }
-
-
-                    $(input).parent().hide()
+                    $(input).parent().parent().hide()
 
                 }
                 reader.readAsDataURL(input.files[0]);

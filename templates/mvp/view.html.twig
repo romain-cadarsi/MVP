@@ -160,6 +160,10 @@
         {
             color:  #C2BECB !important;
         }
+        .product-image{
+            overflow: visible !important;
+        }
+
         .imagesParticipations>div
         {
             width: 4vh;
@@ -196,25 +200,98 @@
             font-weight: 500 ;
             width: unset;
             padding-right: 15px;
-            line-height:  0 ;
+            line-height:  1em;
             color: #4CC5A6;
+            margin-bottom : 0px;
         }
         .price-desc>.product-reviews{
             font-size: 2.959vh;
-            line-height: 5px;
+            line-height: 1em;
+        }
+        .price-desc>.product-reviews>ins{
+           position: absolute;
+            bottom: 0
         }
 
         .price-desc
         {
             margin-top: 30px;
         }
+        .product .container{
+            height: 100%;
+        }
+
+        .product .product-image{
+            height : 100%;
+        }
+
+        .slider-item-div{
+            background-size: contain ;
+            background-position:center;
+            background-repeat: no-repeat;
+            height: 100%
+        }
+
+        .flickity-page-dots .dot::after{
+            background-color: #5BE7C4 !important;
+        }
+        .flickity-page-dots .dot{
+            background-color: #cccccc;
+        }
+        .flickity-page-dots{
+            bottom : -50px !important;
+        }
+
+        .timeline::before{
+            border : 2px solid #5BE7C4;
+        }
+
+        .no-margin-top{
+            margin-top : unset !important;
+        }
+
+        .no-margin-bottom{
+            margin-bottom : unset !important;
+        }
+        #how{
+            background-color: #f9f9f9;
+        }
+
+        .timeline-item h4
+        {
+            color: #5BE7C4;
+            text-transform: none;
+            font-size: 28px;
+        }
+
+        #FAQ
+        {
+            background-color: #C5F9EC;
+        }
+        .reponse{
+            color: black;
+        }
+
 
 
         @media all and (max-width: 1000px)
         {
+            #how{
+                background-color: white;
+                margin-bottom: 200px;
+            }
+
+
+            .flickity-page-dots{
+                bottom : -50px !important;
+            }
             .price-desc
             {
                 margin-top: 0;
+            }
+            .last-timeline-item
+            {
+                position: absolute;
             }
 
             #previewMethod{
@@ -297,12 +374,20 @@
     <section id="product-page" class="product-page p-b-0" >
         <a href="{{ backurl }}" class="product-page-actions action-back"><span class="fa fa-arrow-left center"></span></a>
         <a href="#" class="product-page-actions action-share"><span class="fa fa-share-alt center"></span> </a>
-        <div class="product">
-            <div class="row m-b-40">
+        <div class="product no-margin-bottom">
+            <div class="row">
                 <div class="col-lg-5 " style="padding-bottom: 20px">
                     <div class="container">
                         <div class="product-image" >
-                            <div class="preview-image-product" style="background-image: url('/{{ campagne.logo.asset }}') ; background-size: contain;background-repeat: no-repeat;"></div>
+                            <div class="preview-image-product-pers" style="height: 100%">
+                                <div class="carousel dots-inside arrows-visible arrows-only" data-items="1" data-loop="true" data-autoplay="true" data-lightbox="gallery" style="height: 100%">
+
+                                    <div class = "slider-item-div" style="background-image: url('{{ asset(campagne.logo.asset) }}') ;" ></div>
+                                    {% for additionnal in campagne.imagesAdditionnelles %}
+                                        <div class = "slider-item-div" style="background-image: url('{{ asset(additionnal.asset) }}') ;" ></div>
+                                    {% endfor %}
+                                </div>
+                            </div>
                             <img id="previewMethod" src="{% if campagne.moyen == "collect"%}  {{ asset('collect.png') }} {% else %} {{ asset('livraison.png') }} {% endif %}">
                             <div id="countdown" style="color: white; position:absolute; bottom: 0; left: 0; background-color: #5be7c4;border-radius: 10px;height: 50px; text-align: center">
                                 <ul>
@@ -401,12 +486,78 @@
                             </div>
 
                         </div>
-                    </div>
 
+                    </div>
 
                 </div>
             </div>
         </div>
+    </section>
+    <section id="how" style=" overflow: visible">
+        <div class="container">
+            <ul class="timeline">
+                <!--Timeline item-->
+                <li class="timeline-item no-margin-top">
+                    <div class="timeline-icon">1</div>
+                    <h4>Participez</h4>
+                    <p>Vous commandez un bon d'achat dans le commerce de votre choix. Faites-vous plaisir avec un bon d'achat chez vos commerçants préférés: restaurant, boutique, déco ou cadeaux </p>
+                </li>
+                <!--end: Timeline item-->
+                <!--Timeline item-->
+                <li class="timeline-item">
+                    <div class="timeline-icon">2</div>
+                    <h4>Partagez</h4>
+                    <p>Plus les participations sont nombreuses sur l'offre, plus cette dernière a des chances d'atteindre son objectif, </p>
+                </li>
+                <!--end: Timeline item-->
+                <!--Timeline item-->
+                <li class="timeline-item">
+                    <div class="timeline-icon">3</div>
+                    <h4>Soutenez</h4>
+                    <p>Nous versons directement l'argent au commerçant. Votre action permet de soutenir vos commerçants dans cette période difficile.</p>
+                </li>
+                <!--end: Timeline item-->
+                <!--Timeline item-->
+                <li class="timeline-item">
+                    <div class="timeline-icon">4</div>
+                    <div class="last-timeline-item">
+                        <h4>Were we are now</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem
+                            ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales
+                            vehicula....</p>
+                    </div>
+
+                </li>
+                <!--end: Timeline item-->
+            </ul>
+        </div>
+    </section>
+    <section id="FAQ">
+    <div class="container">
+        <h3 style="color:#5BE7C4; font-size: 48px "> FAQ</h3>
+        <h5> Questions /Réponses</h5>
+        <div class="faq">
+            <p>  ➡️ Comment le commerçant est-il informé de mon achat ? </p>
+            <p class="reponse"> Le commerçant est informé dans les 48h maximum par mail. </p>
+        </div>
+        <div class="faq">
+            <p>  ➡️ Quand le commerçant reçoit-il l'argent de ma commande ?  </p>
+            <p class="reponse"> L'argent est versé au commerçant sous une semaine environ, sans aucun frais, l’Essor Palaisien prend en charge 100% des frais liés à la transaction. </p>
+        </div>
+        <div class="faq">
+            <p>  ➡️ Combien de temps mon bon d'achat est-il valable ?  </p>
+            <p class="reponse"> Votre bon d'achat est valable 6 mois à partir de la date d'achat </p>
+        </div>
+        <div class="faq">
+            <p>  ➡️ Comment acheter un bon d'achat pour l'offrir à une tierce personne ? </p>
+            <p class="reponse"> Vous devez indiquer le nom de la personne à qui vous souhaitez offrir un bon cadeau dans votre panier dans la note de commande (il suffira ensuite de lui transférer l'email de confirmation).</p>
+        </div>
+        <div class="faq">
+            <p>  ➡️ Que faire si je n'ai pas reçu l'email de confirmation contenant mon bon d'achat ? </p>
+            <p class="reponse"> Vérifiez systématiquement vos e-mails indésirables. Vous recevez une confirmation par mail. </p>
+        </div>
+    </div>
     </section>
 
 {% endblock %}

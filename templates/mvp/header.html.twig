@@ -25,10 +25,7 @@
                         <li >
                             <img style="width: 30px ; height: 30px ; border-radius: 30px" src="{{ app.user.pictureUrl }}">
                         </li>
-                    {% else %}
-                        <li>
-                            <a href="{{ path('app_login') }}"> Se connecter</a>
-                        </li>
+
                     {% endif %}
                     <li>
                         <!--overlay menu-->
@@ -56,6 +53,11 @@
                                 <li >
                                     <a href="{{ path('app_logout') }}"> Se déconnecter </a>
                                 </li>
+                                {% else %}
+                                    <div class="space"></div>
+                                    <li >
+                                        <a href="{{ path('app_login') }}"> Se connecter </a>
+                                    </li>
                             {% endif %}
                         </ul>
 

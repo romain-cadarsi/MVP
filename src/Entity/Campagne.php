@@ -37,11 +37,6 @@ class Campagne
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Image::class)
-     */
-    private $imagesProduit;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $prixPromotion;
@@ -107,10 +102,16 @@ class Campagne
      */
     private $commercant;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ImagesAdditionnelles::class, mappedBy="campagne", orphanRemoval=true)
+     */
+    private $imagesAdditionnelles;
+
+
     public function __construct()
     {
-        $this->imagesProduit = new ArrayCollection();
         $this->participations = new ArrayCollection();
+        $this->imagesAdditionnelles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,30 +151,6 @@ class Campagne
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Image[]
-     */
-    public function getImagesProduit(): Collection
-    {
-        return $this->imagesProduit;
-    }
-
-    public function addImagesProduit(Image $imagesProduit): self
-    {
-        if (!$this->imagesProduit->contains($imagesProduit)) {
-            $this->imagesProduit[] = $imagesProduit;
-        }
-
-        return $this;
-    }
-
-    public function removeImagesProduit(Image $imagesProduit): self
-    {
-        $this->imagesProduit->removeElement($imagesProduit);
 
         return $this;
     }
@@ -384,4 +361,35 @@ class Campagne
         $p = $this->getPrixPromotion();
         return intval((($v-$p) / $v )* 100);
     }
+
+    /**
+     * @return Collection|ImagesAdditionnelles[]
+     */
+    public function getImagesAdditionnelles(): Collection
+    {
+        return $this->imagesAdditionnelles;
+    }
+
+    public function addImagesAdditionnelle(ImagesAdditionnelles $imagesAdditionnelle): self
+    {
+        if (!$this->imagesAdditionnelles->contains($imagesAdditionnelle)) {
+            $this->imagesAdditionnelles[] = $imagesAdditionnelle;
+            $imagesAdditionnelle->setCampagne($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImagesAdditionnelle(ImagesAdditionnelles $imagesAdditionnelle): self
+    {
+        if ($this->imagesAdditionnelles->removeElement($imagesAdditionnelle)) {
+            // set the owning side to null (unless already changed)
+            if ($imagesAdditionnelle->getCampagne() === $this) {
+                $imagesAdditionnelle->setCampagne(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
