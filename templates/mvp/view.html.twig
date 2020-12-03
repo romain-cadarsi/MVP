@@ -1,7 +1,15 @@
 {% extends 'baseMobile.html.twig' %}
+  {% block meta %}
+      <meta name=”twitter:card” content=”summary” />
+      <meta name=”twitter:site” content=”@shoppon.fr” />
+      <meta name=”twitter:title” content=”{{ campagne.titre }}” />
+      <meta name=”twitter:description” content=”{{ campagne.description }}” />
+      <meta name=”twitter:image” content=”{{ campagne.logo.asset }}”
+  {% endblock %}
 {% block css %}
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
 
 <style>
         .flickity-page-dots{
@@ -12,6 +20,13 @@
         }
         .carousel .polo-carousel-item{
             height: 100% !important;
+        }
+        .minicard{
+            width: 80px;
+            height: 80px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin: 0 auto;
         }
 
 
@@ -559,7 +574,36 @@
         </div>
     </div>
     </section>
-
+    <a class="btn" data-target="#modal-share" data-toggle="modal" href="#">Large Modal</a>
+    <div class="modal fade" id="modal-share" tabindex="-1" role="modal" aria-labelledby="modal-share" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="modal-label-3" class="modal-title">Partagez cette campagne</h4>
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                </div>
+                <div class="modal-body">
+                    <p class="titleCard" style="font-size: 25px; text-align: center">Partages cette campagne à ton entourage !</p>
+                    <div class="space"></div>
+                    <div class="row">
+                        <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('whatsapp.png') }}')"></div> </div>
+                        <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('messenger.png') }}')"></div></div>
+                        <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('snapchat.png') }}')"></div></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('sms.png') }}')"></div></div>
+                        <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('instagram.png') }}')"></div></div>
+                        <div class="col-1"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-b" type="button">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block js %}
     <script defer>

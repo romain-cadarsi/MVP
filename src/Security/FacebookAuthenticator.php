@@ -101,7 +101,8 @@ class FacebookAuthenticator extends SocialAuthenticator
                     ->setRoles(['ROLE_USER'])
                     ->setUsername($username)
                     ->setPassword($this->encoder->encodePassword($user,bin2hex(openssl_random_pseudo_bytes(4))))
-                    ->setPictureUrl($facebookUser->getPictureUrl());
+                    ->setPictureUrl($facebookUser->getPictureUrl())
+                    ->setVerified(false);
 
 
             }

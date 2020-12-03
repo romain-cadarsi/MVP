@@ -7,6 +7,8 @@
     <meta name="author" content="Cadarsir" />
     <meta name="description" content="Metadescription">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% block meta %}
+    {% endblock %}
     <!-- Document title -->
     <title>MVP</title>
     <!-- Stylesheets & Fonts -->
@@ -25,6 +27,9 @@
     </style>
     {% block css %}
     {% endblock %}
+    <!—- ShareThis BEGIN -—>
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5fc807ec9f696a00116c506c&product=sticky-share-buttons" async="async"></script>
+    <!—- ShareThis END -—>
 </head>
 
 <body data-icon="6" class="boxed" style="background-color: #f9f9f9">

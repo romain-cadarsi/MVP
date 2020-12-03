@@ -9,7 +9,6 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Campagne|null find($id, $lockMode = null, $lockVersion = null)
  * @method Campagne|null findOneBy(array $criteria, array $orderBy = null)
- * @method Campagne[]    findAll()
  * @method Campagne[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class CampagneRepository extends ServiceEntityRepository
@@ -17,6 +16,11 @@ class CampagneRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Campagne::class);
+    }
+
+    public function findAll()
+    {
+        return $this->findBy(array(), array('id' => 'DESC'));
     }
 
     // /**
