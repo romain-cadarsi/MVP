@@ -1,22 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="author" content="Cadarsir" />
-    <meta name="description" content="Metadescription">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {% block meta %}
-    {% endblock %}
-    <!-- Document title -->
-    <title>MVP</title>
-    <!-- Stylesheets & Fonts -->
-    <link href="{{ asset('Template/css/plugins.css') }}" rel="stylesheet">
-    <link href="{{ asset('Template/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Rock+Salt&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/e7cb47b895.js" crossorigin="anonymous"></script>
+
+    {% include('mvp/includes/includeMeta.html.twig') %}
+
     <style>
         p,a,h1,h2,h3,label,.btn{
             font-family: Cabin !important;
@@ -27,46 +15,33 @@
     </style>
     {% block css %}
     {% endblock %}
-    <!—- ShareThis BEGIN -—>
-    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5fc807ec9f696a00116c506c&product=sticky-share-buttons" async="async"></script>
-    <!—- ShareThis END -—>
 </head>
 
-<body data-icon="6" class="boxed" style="background-color: #f9f9f9">
+<body data-icon="6" data-icon-color="#0ee6b0" class="boxed" style="background-color: white">
 <!-- Body Inner -->
-<div class="body-inner " >
+<div class="body-inner" >
     {% block header %}
-        {{ include('mvp/header.html.twig') }}
+        {{ include('mvp/component/header.html.twig') }}
     {% endblock %}
+
+    {% include('mvp/component/search.html.twig') %}
 
     {% block bodycontent %}
     {% endblock %}
 
+
+
 </div>
+{% include('mvp/component/footer.html.twig') %}
 <!-- end: Body Inner -->
 <!-- Scroll top -->
 <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
 <!--Plugins-->
 
-<script src="{{ asset('Template/js/jquery.js') }}"></script>
-<script src="{{ asset('Template/js/plugins.js') }}"></script>
-<!--Template functions-->
-<script src="{{ asset('Template/js/functions.js') }}"></script>
-<script src="{{ asset('Template/plugins/pageloader/pageloader.js') }}"></script>
-<script src="{{ asset('Template/plugins/pageloader/pageloader.init.js') }}"></script>
+{% include('mvp/includes/includeJS.html.twig') %}
 
-{% block js %}
-{% endblock %}
-<script>
-    {% for label, messages in app.flashes %}
-    {% for message in messages %}
-    INSPIRO.elements.notification("{{ message }}","",'{{ label }}')
-    {% endfor %}
-    {% endfor %}
+{% block js %}{% endblock %}
 
-
-</script>
-<script src="//code.tidio.co/7qoxrarewrghzq8qhtvue4dq1nfh4v9y.js" async></script>
 </body>
 
 </html>

@@ -97,7 +97,7 @@
             height: 100% !important;
         }
         @media all and (max-width: 1000px){
-           .minicontainer{
+            .minicontainer{
                 padding: 0px;
             }
             #iphonePreview{
@@ -111,58 +111,50 @@
     <div class="fullscreen" style="background-image:url('{{ asset('background.png') }}');width: 100vw ; height: 100vh; position: fixed">
     </div>
     <div>
-            <div class="minicontainer">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="container" style="padding-right: 0 !important;">
-                                    <p class="titleCard" style="font-size: 25px; text-align: center">Partages ta campagne</p>
-                                    <div class="space"></div>
-                                    <div class="row">
-                                        <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('whatsapp.png') }}')"></div> </div>
-                                        <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('messenger.png') }}')"></div></div>
-                                        <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('snapchat.png') }}')"></div></div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-1"></div>
-                                        <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('sms.png') }}')"></div></div>
-                                        <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('instagram.png') }}')"></div></div>
-                                        <div class="col-1"></div>
-                                    </div>
-                                    <div class="space"></div>
-                                    <div class="text-center">
-                                        <a  href="{{ link }}"  target="_blank" class="text-center">{{ link }}</a>
-                                        <br>
-                                        <a class="btn btn-light btn-light-hover" href="{{ path('flyer',{'id' : campagne.id}) }}" target="_blank"> Télecharger le flyer </a>
-                                    </div>
-
-                                    <p class="titleCard" style="font-size: 25px; text-align: center">Booste ta campagne
-                                        <span class="fa fa-bolt" style="color: #FFB023;padding: 0 10px;font-size: 40px;">
-
-                                        </span><a data-lightbox="ajax" href="{{ path('helpBoost') }}">
-                                            <span class="fa fa-question-circle" style="font-size: 17px;color: grey;"></span></a> </p>
-                                    <div class="space"></div>
-                                    <div class="container">
-                                        <input type="hidden" id="range_slider_3" />
-                                    </div>
-                                    <div style="margin : 0 auto ; display: table;text-align: center">
-                                        <img src="{{ asset('smile.png') }}" alt="smile"><p class="titleCard" style="font-size: 25px; text-align: center"><span id="euros">10</span>€ = <span id="impression">5000</span> impressions </p>
-                                    </div>
-                                    <div class="text-center">
-                                    <button class="btn btn-primary" style="min-width: 200px;width: 50%;min-height: 50px;height: 10%;font-size: 24px;font-family: Roboto !important ; text-transform: none "> Regler </button>
-                                    </div>
+        <div class="minicontainer">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="container" style="padding-right: 0 !important;">
+                                <p class="titleCard" style="font-size: 25px; text-align: center">Partages ta campagne</p>
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('whatsapp.png') }}')"></div> </div>
+                                    <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('messenger.png') }}')"></div></div>
+                                    <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('snapchat.png') }}')"></div></div>
                                 </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('sms.png') }}')"></div></div>
+                                    <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('instagram.png') }}')"></div></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="space"></div>
+                                <div class="text-center">
+                                    <a  href="{{ link }}"  target="_blank" class="text-center">{{ link }}</a>
+                                    <br>
+                                    <a class="btn btn-light btn-light-hover" href="{{ path('flyer',{'id' : campagne.id}) }}" target="_blank"> Télecharger le flyer </a>
+                                </div>
+
+                                <div class="space"></div>
+                                <div class="space"></div>
+                                <div class="space"></div>
+                                <div class="space"></div>
+                                <div class="space"></div>
+                                <div class="space"></div>
+
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-4" id="iphonePreview">
-                            {{ include('mvp/includeView2.html.twig') }}
-                    </div>
+                </div>
+                <div class="col-lg-3"></div>
+                <div class="col-lg-4" id="iphonePreview">
+                    {{ include('mvp/includeView2.html.twig') }}
                 </div>
             </div>
+        </div>
     </div>
 
 

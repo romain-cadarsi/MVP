@@ -1,0 +1,21 @@
+<script src="{{ asset('Template/js/jquery.js') }}"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="{{ asset('Template/js/plugins.js') }}"></script>
+<script src="{{ asset('js/slick.min.js') }}"></script>
+<!--Template functions-->
+<script src="{{ asset('Template/js/functions.js') }}"></script>
+<script src="{{ asset('Template/plugins/pageloader/pageloader.js') }}"></script>
+<script src="{{ asset('Template/plugins/pageloader/pageloader.init.js') }}"></script>
+<script>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            INSPIRO.elements.notification("{{ message }}","",'{{ label }}')
+        {% endfor %}
+    {% endfor %}
+
+    function closeSearch() {
+        $('body').removeClass("search-open");
+    }
+    $('.btn-search-close').on('click',function (){closeSearch()})
+</script>
+<script src="//code.tidio.co/7qoxrarewrghzq8qhtvue4dq1nfh4v9y.js" async></script>

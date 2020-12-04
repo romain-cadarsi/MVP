@@ -7,6 +7,10 @@ use App\Entity\Commercant;
 use App\Entity\Participant;
 use App\Entity\Participation;
 use App\Repository\CampagneRepository;
+use App\Repository\CategorieRepository;
+use App\Repository\MasterCategorieRepository;
+use App\Repository\ParticipantRepository;
+use App\Repository\ParticipationRepository;
 use App\Security\CommercantAuthenticator;
 use App\Security\FacebookAuthenticator;
 use App\Service\ImageService;
@@ -25,7 +29,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class MVPController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/commercant", name="landingCommercant")
      */
     public function index(): Response
     {
@@ -141,10 +145,12 @@ class MVPController extends AbstractController
     {
         $campagne = $entityManager->getRepository(Campagne::class)->find($id);
         $backUrl = $request->headers->get('referer');
+        $shareLink = $this->generateUrl('viewCampagne',['id' => $campagne->getId()],UrlGeneratorInterface::ABSOLUTE_URL);
         if($campagne){
             return $this->render('mvp/view.html.twig', [
                 'campagne' => $campagne,
-                'backurl' => $backUrl
+                'backurl' => $backUrl,
+                'shareLink' => $shareLink
             ]);
         }
         else{
@@ -154,10 +160,13 @@ class MVPController extends AbstractController
     }
 
     /**
-     * @Route("/allCampagne", name="allCampagne")
+     * @Route("/", name="home")
      */
-    public function allCampagne(CampagneRepository $campagneRepository): Response
+    public function allCampagne(CampagneRepository $campagneRepository,CategorieRepository $categorieRepository, MasterCategorieRepository $masterCategorieRepository): Response
     {
+        $mostAdvancedCampagne = $campagneRepository->getMostAdvancedCampagne();
+        $categories = $categorieRepository->findBy([],["id" => 'DESC'],8);
+        $masterCategories = $masterCategorieRepository->findBy([],['id' => 'DESC']);
         $campagnes = $campagneRepository->findAll();
         $campagnesValides = [];
         foreach ($campagnes as $campagne){
@@ -166,7 +175,10 @@ class MVPController extends AbstractController
             }
         }
         return $this->render('mvp/allCampagne.html.twig', [
-            'campagnes' => $campagnesValides
+            'mostAdvancedCampagne' => $mostAdvancedCampagne,
+            'campagnes' => $campagnesValides,
+            'categoriesBag' => array_chunk($categories,2),
+            'masterCategories' => $masterCategories
         ]);
 
     }
@@ -227,9 +239,11 @@ class MVPController extends AbstractController
            $id = $request->get('id');
         }
         $participation = $entityManager->getRepository(Participation::class)->find($id);
-
-        return $this->render('htmlTemplate/page4.html.twig', [
-            'participation' => $participation
+        $idCampagne = $participation->getId();
+        $url = $shareLink = $this->generateUrl('viewCampagne',['id' => $idCampagne],UrlGeneratorInterface::ABSOLUTE_URL);
+        return $this->render('mvp/payerParticipation.html.twig',[
+            'participation' => $participation,
+            'shareLink' => $url
         ]);
     }
 
@@ -320,6 +334,20 @@ class MVPController extends AbstractController
     {
 
     }
+
+    /**
+     * @Route("/search", name="search")
+     */
+    public function search(Request $request): Response
+    {
+        $word = $request->get('q');
+        $campagnes = $this->getDoctrine()->getRepository(Campagne::class)->searchForKeyWords($word);
+        return $this->render('mvp/search.html.twig',[
+            'campagnes' => $campagnes,
+            'word' => $word
+        ]);
+    }
+
 
 
 

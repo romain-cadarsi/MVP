@@ -11,8 +11,8 @@
             </div>
             <!--End: Logo-->
             <!-- Search -->
-            <div id="search"><a id="btn-search-close" class="btn-search-close" aria-label="Close search form"><i class="icon-x"></i></a>
-                <form class="search-form" action="search-results-page.html" method="get">
+            <div id="search"><a id="btn-search-close" class="btn-search-close" aria-label="Close search form" onclick="closeSearch()"><i class="icon-x"></i></a>
+                <form class="search-form" action="{{ path('search') }}" method="get">
                     <input class="form-control" name="q" type="text" placeholder="Type & Search..." />
                     <span class="text-muted">Start typing & press "Enter" or "ESC" to close</span>
                 </form>
@@ -42,11 +42,9 @@
                 <div class="container">
                     <nav>
                         <ul>
-                            <li><a href="{{ path('home') }}"> Accueil </a></li>
+                            <li><a href="{{ path('home') }}"> MarketPlace </a></li>
                             <div class="space"></div>
-                            <li><a href="{{ path('formCampagne') }}"> Créer une Campagne </a></li>
-                            <div class="space"></div>
-                            <li><a href="{{ path('allCampagne') }}"> Toutes les Offres </a></li>
+                            <li><a href="{{ path('landingCommercant') }}"> Shoppon Commerçant </a></li>
 
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <div class="space"></div>

@@ -23,6 +23,43 @@ class CampagneRepository extends ServiceEntityRepository
         return $this->findBy(array(), array('id' => 'DESC'));
     }
 
+    public function searchForKeyWords($words){
+        $campagnesIds = [];
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $sql = "SELECT DISTINCT id FROM `campagne` where titre like :words OR description like :words order by debut_campagne desc ";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array('words' => "%".$words."%"));
+        $result = $stmt->fetchAll();
+        if(!empty($result)){
+            foreach ($result as $id){
+                array_push($campagnesIds,$id['id']);
+            }
+        }
+        return $this->findBy(['id' => $campagnesIds],["debutCampagne" => "desc"]);
+    }
+
+    public function getMostAdvancedCampagne(){
+        $campagnesIds = [];
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $sql = "SELECT c.id
+FROM campagne c
+Join participation p on p.campagne_id = c.id
+GROUP BY c.id
+ORDER BY SUM(p.quantity) DESC
+LIMIT 8";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        if(!empty($result)){
+            foreach ($result as $id){
+                array_push($campagnesIds,$id['id']);
+            }
+        }
+        return $this->findBy(['id' => $campagnesIds]);
+    }
+
     // /**
     //  * @return Campagne[] Returns an array of Campagne objects
     //  */

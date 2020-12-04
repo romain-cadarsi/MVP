@@ -1,0 +1,260 @@
+{% extends 'baseMobile.html.twig' %}
+  {% block meta %}
+      <meta name=”twitter:card” content=”summary” />
+      <meta name=”twitter:site” content=”@shoppon.fr” />
+      <meta name=”twitter:title” content=”{{ campagne.titre }}” />
+      <meta name=”twitter:description” content=”{{ campagne.description }}” />
+      <meta name=”twitter:image” content=”{{ campagne.logo.asset }}”
+  {% endblock %}
+{% block css %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+
+        html {
+            font-family: 'Cabin', sans-serif;
+            background-color: #ccc;
+        }
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            padding: 1rem 0rem;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        .container.special {
+            width: 420px;
+            margin: 0rem auto;
+            padding: 2rem 0rem;
+            background-color: #fff;
+        }
+
+        .c-0 {
+            margin: 1rem auto;
+            display: block;
+        }
+        h3 {
+            margin-bottom: .5rem;
+            text-align: center;
+            color: #5be7c4;
+        }
+        .small {
+            text-align: center;
+            font-size: .7rem;
+            color: #bbb;
+            margin-bottom: 1.8rem;
+        }
+        .c-1 {
+            border : 1px solid #5be7c4;
+            padding: .6rem;
+            border-radius: .6rem;
+        }
+        .c1-content h5 {
+            width: 90%;
+        }
+        .c1-content .mon{
+            margin-top: 1rem;
+        }
+        .c1c-1 {
+            display: flex;
+            margin-top: 1rem;
+            border: 1px solid #5be7c4;
+            align-items: center;
+            border-radius: .6rem;
+        }
+        .c1c-1 i, .c1c-1 p {
+            padding: .4rem .8rem;
+            color: #909bb1;
+        }
+        .bgblue {
+            background-color: #5be7c4;
+        }
+        .binn{
+            margin-left: 6rem;
+        }
+        .pp2 {
+            margin-right: .4rem;
+            padding: .3rem .8rem;
+            padding-left: 1rem;
+        }
+        .ppp {
+            margin-right: .4rem;
+            padding: .3rem .6rem;
+        }
+        .pppr {
+            background-color: #5be7c4;
+        }
+        .c-1 {
+            display: flex;
+            justify-content: space-between;
+            margin: 0rem 2rem;
+            margin-bottom: 2rem;
+        }
+        .c-11 {
+            display: flex;
+            justify-content: space-between;
+            margin: 0rem 2rem;
+            margin-bottom: 2rem;
+        }
+        .c-2 {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+        .c-2 img {
+            padding: .7rem;
+            background-color: #f7f6fb;
+            border-radius: 5rem;
+            margin: 0rem 1rem;
+        }
+        .c-2 img {
+            padding: .7rem;
+            background-color: #f7f6fb;
+            border-radius: 5rem;
+            margin: 0rem 1rem;
+        }
+        .c-3 {
+            margin-bottom: .6rem;
+        }
+        h4  {
+            padding-left: 1rem;
+        }
+        .c-4 {
+            display: flex;
+            padding: 0rem 1rem;
+            margin-bottom: 2rem;
+        }
+        .c-4 img {
+            padding: 0rem .3rem;
+        }
+        .c-4 p {
+            padding: 0rem .3rem;
+        }
+        .map {
+            display: block;
+            margin: 0rem auto;
+            margin-bottom: 2rem;
+        }
+
+        .c-5 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5be7c4;
+            font-weight: bold;
+        }
+        .c-5 img {
+            padding: .8rem;
+        }
+        .btn {
+            background-color: #5be7c4;
+            padding: .6rem 1.4rem;
+            border-radius: 1rem;
+            color: white;
+            box-shadow: 0rem .5rem 1rem #5be7c488;
+            border: 0;
+            display: block;
+            margin: 0rem auto;
+            margin-bottom: 2rem;
+        }
+
+        .c3-content {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            padding-left: 2rem;
+        }
+        .c3-content1 i {
+            color: #5be7c4;
+            background-color: #f7f6fb;
+            padding: .7rem;
+            border-radius: 2rem;
+        }
+
+        .c3-content2 p {
+            font-size: .8rem;
+        }
+        .minicard{
+            width: 80px;
+            height: 80px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin: 0 auto;
+        }
+    </style>
+
+
+{% endblock %}
+{% block bodycontent  %}
+    <div class="container special">
+        <div class="content">
+            <img src="{{ asset('imgs/tick2.png') }}" class="c-0" alt="">
+            <h3>Demande de participation enregistrée</h3>
+            <h3>Votre participation sera validée dès que le paiement sera verifié</h3>
+            <p class="small">Order number: #9876543</p>
+            <div class="c-1">
+                <div  style="height: 60px ; width: 60px; background-image: url('/{{ participation.campagne.logo.asset }}') ; background-size: cover ;" ></div>
+                <div class="c1-content">
+                    <h5>{{ participation.campagne.titre }}</h5>
+                    <h5 class="mon">{{ participation.campagne.prixPromotion }}  €</h5>
+
+                </div>
+                <div class="c1-content2">
+                    <div class="c1c-1">
+                        <p>x{{ participation.quantity }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="c-11">
+                <p>Total</p>
+                <p>{{ participation.campagne.prixPromotion * participation.quantity }} euros</p>
+            </div>
+            <a class="btn">Payer {{ participation.campagne.prixPromotion * participation.quantity }} € </a>
+            <div class="space"></div>
+
+            <div class="c3-content">
+                <div class="c3-content1">
+                    <a href="#"><i class="fas fa-phone-alt fa-2x"></i></a>
+                </div>
+                <div class="c3-content2">
+                    <div class="c-3">
+                        <h4>{{ participation.campagne.nomVendeur }}</h4>
+                    </div>
+                    <div class="c-4">
+                        <i class="fas fa-store"></i>
+                        <p>Ouvert</p>
+                        <i class="far fa-clock"></i>
+                        <p>07:30AM ~ 10:00AM ~ 01:00PM</p>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="c-5">
+                <div class="face">
+                    <img src="{{ asset('imgs/smile.png') }}" alt="">
+                </div>
+                <div class="f-text">
+                    <p>
+                        Inviter des amis
+                    </p>
+                    <p>
+                        et leur faire profiter
+                    </p>
+                </div>
+            </div>
+            <a data-target="#modal-share" data-toggle="modal" class="product-page-actions action-share"><button class="btn">Inviter</button></a>
+        </div>
+    </div>
+<div class="space"></div>
+    {% include ('mvp/component/shareIt.html.twig') %}
+{% endblock %}
+{% block js %}
+{% endblock %}

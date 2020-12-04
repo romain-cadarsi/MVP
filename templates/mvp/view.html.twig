@@ -7,8 +7,7 @@
       <meta name=”twitter:image” content=”{{ campagne.logo.asset }}”
   {% endblock %}
 {% block css %}
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
 
 
 <style>
@@ -201,12 +200,11 @@
         }
 
         #previewMethod{
+            margin-top: 20px;
             width: 70px;
             height: 70px;
-            width: auto;
-            position: absolute;
-            right: 0;
-            bottom: 0;
+            float: right;
+
         }
         .price-desc>.product-pricee>p{
             margin-top: 0;
@@ -310,8 +308,8 @@
             }
 
             #previewMethod{
-                height: 40px;
-                width: 40px;
+                height: 60px;
+                width: 60px;
             }
             #product-page{
                 background-color: #E5E5E5;
@@ -388,7 +386,7 @@
     </div>
     <section id="product-page" class="product-page p-b-0" >
         <a href="{{ backurl }}" class="product-page-actions action-back"><span class="fa fa-arrow-left center"></span></a>
-        <a href="#" class="product-page-actions action-share"><span class="fa fa-share-alt center"></span> </a>
+        <a data-target="#modal-share" data-toggle="modal" class="product-page-actions action-share"><span class="fa fa-share-alt center"></span> </a>
         <div class="product no-margin-bottom">
             <div class="row">
                 <div class="col-lg-5 " style="padding-bottom: 20px">
@@ -403,7 +401,7 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            <img id="previewMethod" src="{% if campagne.moyen == "collect"%}  {{ asset('collect.png') }} {% else %} {{ asset('livraison.png') }} {% endif %}">
+
                             <div id="countdown" style="color: white; position:absolute; bottom: 0; left: 0; background-color: #5be7c4;border-radius: 10px;height: 50px; text-align: center">
                                 <ul>
                                     <li style="font-size: 9px;filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));"><span style="font-size: 22px;letter-spacing: -0.003em;font-weight: 900;" id="days"></span>Jours</li>
@@ -421,13 +419,17 @@
                     <div class="container description-container">
 
                         <div class="product-description" style="position:relative;">
+                            <div>
+                                <h6 style="font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;color: #73c9cf; float: right " class="ma-unset" >
+                                    Meze  <span class="fa fa-map-marker"></span>
+                                </h6>
+                                <h6 style="font-style: normal;font-weight: 400;font-size: 13px;line-height: 20px;color: #979797;" class="ma-unset">
+                                    {{ campagne.nomVendeur }}
+                                </h6>
+                            </div>
                             <div class="product-header row">
                                 <div class="product-header-description col-8" style="padding-right: 0px;">
-                                    <h6 style="font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;color: #73c9cf; " class="ma-unset" >
-                                        Meze  <span class="fa fa-map-marker"></span>
-                                    </h6>
-                                    <h6 style="font-style: normal;font-weight: 400;font-size: 13px;line-height: 20px;color: #979797;" class="ma-unset">
-                                        {{ campagne.nomVendeur }}</h6>
+
                                     <div class="product-title">
                                         <h3  style="width : 80%;font-weight: 700;letter-spacing: 0.1px;color: #304c44;" id="preview-titre">{{ campagne.titre }}</h3>
                                     </div>
@@ -444,11 +446,11 @@
                                     </div>
                                 </div>
                                 <div class="product-header-actions col-4 row" style="padding : unset">
-                                    <a  class="col-5">
+                                    <a  class="col-6">
 
                                     </a>
-                                    <a href="#" class="col-5">
-                                        <img src="{{ asset('partager.png') }}" alt="partager">
+                                    <a class="col-6">
+                                        <img id="previewMethod" alt="methode de livraison"  src="{% if campagne.moyen == "collect"%}  {{ asset('collect.png') }} {% else %} {{ asset('livraison.png') }} {% endif %}">
                                     </a>
 
                                 </div>
@@ -495,7 +497,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 text-center">
-                                        <button id="participer" class="btn btn-rounded btn-reveal btn-lg participer" style="text-transform: none ; font-size: 28px;font-weight: 700; letter-spacing: -0.03px ; border-radius: 5px !important;" ><span>Participer <img src="{{ asset('shoppingCart.png') }}"></span><i class="icon-chevron-right"></i></button>
+                                        <button id="participer" class="btn btn-rounded btn-reveal btn-lg participer" style="text-transform: none ; font-size: 28px;font-weight: 700; letter-spacing: -0.03px ; border-radius: 30px !important;" ><span>Acheter {{ campagne.prixPromotion}}€ <img src="{{ asset('shoppingCart.png') }}"></span><i class="icon-chevron-right"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -575,35 +577,8 @@
     </div>
     </section>
 
-    <div class="modal fade" id="modal-share" tabindex="-1" role="modal" aria-labelledby="modal-share" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 id="modal-label-3" class="modal-title">Partagez cette campagne</h4>
-                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                </div>
-                <div class="modal-body">
-                    <p class="titleCard" style="font-size: 25px; text-align: center">Partages cette campagne à ton entourage !</p>
-                    <div class="space"></div>
-                    <div class="row">
-                        <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('whatsapp.png') }}')"></div> </div>
-                        <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('messenger.png') }}')"></div></div>
-                        <div class="col-4"><div class="minicard" style="background-image: url('{{ asset('snapchat.png') }}')"></div></div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-1"></div>
-                        <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('sms.png') }}')"></div></div>
-                        <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('instagram.png') }}')"></div></div>
-                        <div class="col-1"></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button data-dismiss="modal" class="btn btn-b" type="button">Fermer</button>
-                </div>
-            </div>
-        </div>
-    </div>
+   {% include ('mvp/component/shareIt.html.twig') %}
+
 {% endblock %}
 {% block js %}
     <script defer>

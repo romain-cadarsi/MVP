@@ -1,0 +1,28 @@
+<div class="modal fade" id="modal-share" tabindex="-1" role="modal" aria-labelledby="modal-share" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="modal-label-3" class="modal-title">Partagez cette campagne</h4>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
+            <div class="modal-body">
+                <p class="titleCard" style="font-size: 25px; text-align: center">Partages cette campagne à ton entourage !</p>
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-6"><a href="https://wa.me/?text={{ shareLink }}"><div class="minicard" style="background-image: url('{{ asset('whatsapp.png') }}')"></div> </a></div>
+                    <div class="col-6"><a href="http://www.facebook.com/dialog/send?app_id=114153173761206&link={{ shareLink }}&redirect_uri={{ shareLink }}"> <div class="minicard" style="background-image: url('{{ asset('messenger.png') }}')"></div></a></div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('sms.png') }}')"></div></div>
+                    <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('instagram.png') }}')"></div></div>
+                    <div class="col-1"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-b" type="button">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
