@@ -783,6 +783,7 @@
                 }
                 else
                 {
+                    document.cookie = "referer=" + window.location+";path=/;";
                     window.location = '{{ path('app_login') }}'
                 }
 

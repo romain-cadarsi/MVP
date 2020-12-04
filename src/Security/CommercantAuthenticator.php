@@ -3,7 +3,9 @@
 namespace App\Security;
 
 use App\Entity\Commercant;
+use App\Entity\Participant;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -91,6 +93,12 @@ class CommercantAuthenticator extends AbstractFormLoginAuthenticator
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
+        }
+        dump($request->getUser());
+        die();
+        if(array_search("ROLE_ADMIN",$this->entityManager->getRepository(Commercant::class)->findBy(['email' => $request->getUser()]))
+        || array_search("ROLE_ADMIN",$this->entityManager->getRepository(Participant::class)->findBy(['email' => $request->getUser()]))){
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));

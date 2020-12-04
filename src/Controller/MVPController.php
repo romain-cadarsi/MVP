@@ -306,8 +306,17 @@ class MVPController extends AbstractController
                 if ($commercantAuthenticator->checkCredentials($credentials,$commercant)){
                     $token = new UsernamePasswordToken($commercant, $commercant->getTelephone(), 'public', $commercant->getRoles());
                     $this->get('security.token_storage')->setToken($token);
+                    if(array_search("ROLE_ADMIN",$commercant->getRoles())){
+                        $this->addFlash('success', "Bienvenu administrateur.");
+                        return $this->redirectToRoute('admin');
+                    }
+
                     $this->addFlash('success', "Bienvenu chez Shoppon " . $commercant->getEmail() . " ! Vous pouvez maintenant créer des offres groupées ! ");
                     return $this->redirectToRoute('formCampagne');
+                }
+                else{
+                    $this->addFlash("danger", "Votre adresse mail ou votre mot de passe n'est pas correct");
+                    return $this->redirectToRoute('app_login');
                 }
             }
 
@@ -317,7 +326,11 @@ class MVPController extends AbstractController
                 $token = new UsernamePasswordToken($participant, $participant->getPassword(), 'public', $participant->getRoles());
                 $this->get('security.token_storage')->setToken($token);
                 $this->addFlash('success', "Bienvenu chez Shoppon " . $participant->getUsername() . " ! Vous pouvez maintenant prendre place à des offres groupées");
-                return $this->redirectToRoute('allCampagne');
+                if($request->cookies->get('referer')){
+                    return $this->redirect($request->cookies->get('referer'));
+                }else{
+                    return $this->redirectToRoute('home');
+                }
             }
             else{
                 $this->addFlash('danger','Votre mot de passe est incorrect');

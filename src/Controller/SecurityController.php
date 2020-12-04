@@ -32,6 +32,10 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
 
+        if(!empty($authenticationUtils->getLastAuthenticationError())){
+            $this->addFlash('danger',$authenticationUtils->getLastAuthenticationError());
+        }
+
         return $this->render('security/loginParticipant.html.twig');
     }
 
