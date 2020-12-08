@@ -29,7 +29,7 @@ class Commercant implements UserInterface
     private $telephone;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="json", nullable=false)
      */
     private $roles = [];
 
