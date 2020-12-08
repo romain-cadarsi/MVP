@@ -290,6 +290,9 @@
         .objectif-participatif>p{
             font-size: 24px
         }
+        .comments .comment {
+            background-color: #f9f9f9;
+        }
 
 
 
@@ -297,6 +300,12 @@
         {
             .objectif-participatif>p{
                 font-size: 18px
+            }
+            .comments .comment {
+                background-color: white;
+            }
+            .commentaryContainer{
+                background-color: white;
             }
             #how{
                 background-color: white;
@@ -385,289 +394,304 @@
 
 {% endblock %}
 {% block bodycontent  %}
-    <div id="loader" style="width: 100vw; height: 100vh;position:fixed ; top: 0 ; left :0 ; background-color: white; z-index: 1000;" class="hidden">
-        <div class="center" style="height: auto;background-color: #0ee6b0; margin : 0 auto;border-radius: 20px;width: 300px;">
-            <div style="padding: 20px;">
-                <p style="line-height: 1.2;font-size: 1.5vw;color: white;font-weight: 400;margin-bottom: 20px;"><span id="action" style="font-size: 18px;">Enregistrement de la commande</span></p>
-                <div style="position:relative; height: 25px">
-                    <div style="position:absolute; /*! top:5vw ; */ width: 300px; background-color: #8ed2bb;height: 0.5vh;left: -20px;"></div>
-                    <div id="avancee" style="position: absolute; top: 0; width: 100%; background-color: rgb(6, 121, 90); height: 0.5vh;left: -20px;">
-                    </div>
+<div id="loader" style="width: 100vw; height: 100vh;position:fixed ; top: 0 ; left :0 ; background-color: white; z-index: 1000;" class="hidden">
+    <div class="center" style="height: auto;background-color: #0ee6b0; margin : 0 auto;border-radius: 20px;width: 300px;">
+        <div style="padding: 20px;">
+            <p style="line-height: 1.2;font-size: 1.5vw;color: white;font-weight: 400;margin-bottom: 20px;"><span id="action" style="font-size: 18px;">Enregistrement de la commande</span></p>
+            <div style="position:relative; height: 25px">
+                <div style="position:absolute; /*! top:5vw ; */ width: 300px; background-color: #8ed2bb;height: 0.5vh;left: -20px;"></div>
+                <div id="avancee" style="position: absolute; top: 0; width: 100%; background-color: rgb(6, 121, 90); height: 0.5vh;left: -20px;">
+                </div>
 
 
-                </div><p style="font-size: 2rem;line-height: 0.5;color: white;font-weight: 900;"><span id="avanceenb">100</span>%</p>
-            </div>
+            </div><p style="font-size: 2rem;line-height: 0.5;color: white;font-weight: 900;"><span id="avanceenb">100</span>%</p>
         </div>
     </div>
-    <section id="product-page" class="product-page p-b-0" >
-        <a href="{{ backurl }}" class="product-page-actions action-back"><span class="fa fa-arrow-left center"></span></a>
-        <a data-target="#modal-share" data-toggle="modal" class="product-page-actions action-share"><span class="fa fa-share-alt center"></span> </a>
-        <div class="product no-margin-bottom">
-            <div class="row">
-                <div class="col-lg-5 " style="padding-bottom: 20px">
-                    <div class="container">
-                        <div class="product-image" >
-                            <div class="preview-image-product-pers" style="height: 100%">
-                                <div class="carousel dots-inside arrows-visible arrows-only" data-items="1" data-loop="true" data-autoplay="true" data-lightbox="gallery" style="height: 100%">
+</div>
+<section id="product-page" class="product-page p-b-0" >
+    <a href="{{ backurl }}" class="product-page-actions action-back"><span class="fa fa-arrow-left center"></span></a>
+    <a data-target="#modal-share" data-toggle="modal" class="product-page-actions action-share"><span class="fa fa-share-alt center"></span> </a>
+    <div class="product no-margin-bottom">
+        <div class="row">
+            <div class="col-lg-5 " style="padding-bottom: 20px">
+                <div class="container">
+                    <div class="product-image" >
+                        <div class="preview-image-product-pers" style="height: 100%">
+                            <div class="carousel dots-inside arrows-visible arrows-only" data-items="1" data-loop="true" data-autoplay="true" data-lightbox="gallery" style="height: 100%">
 
-                                    <div class = "slider-item-div" style="background-image: url('{{ asset(campagne.logo.asset) }}') ;" ></div>
-                                    {% for additionnal in campagne.imagesAdditionnelles %}
-                                        <div class = "slider-item-div" style="background-image: url('{{ asset(additionnal.asset) }}') ;" ></div>
+                                <div class = "slider-item-div" style="background-image: url('{{ asset(campagne.logo.asset) }}') ;" ></div>
+                                {% for additionnal in campagne.imagesAdditionnelles %}
+                                    <div class = "slider-item-div" style="background-image: url('{{ asset(additionnal.asset) }}') ;" ></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div id="countdown" style="color: white; position:absolute; bottom: 0; left: 0; background-color: #5be7c4;border-radius: 10px;height: 50px; text-align: center">
+                            <ul>
+                                <li style="font-size: 9px;filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));"><span style="font-size: 22px;letter-spacing: -0.003em;font-weight: 900;" id="days"></span>Jours</li>
+                                <span style="font-size: 16px;line-height: 0px;position: relative;bottom: 10px; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2))">:</span>
+                                <li style="font-size: 9px;filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));"><span style="font-size: 22px;letter-spacing: -0.003em;font-weight: 900;" id="hours"></span>Heures</li>
+                                <span style="font-size: 16px;line-height: 0px;position: relative;bottom: 10px;filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2))">:</span>
+                                <li style="font-size: 9px;filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));"><span style="font-size: 22px;letter-spacing: -0.003em;font-weight: 900;" id="minutes"></span>Minutes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 product-card">
+                <div class="container description-container">
+
+                    <div class="product-description" style="position:relative;">
+                        <div>
+                            <h6 style="font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;color: #73c9cf; float: right " class="ma-unset" >
+                                Meze  <span class="fa fa-map-marker"></span>
+                            </h6>
+                            <h6 style="font-style: normal;font-weight: 400;font-size: 13px;line-height: 20px;color: #979797;" class="ma-unset">
+                                {{ campagne.nomVendeur }}
+                            </h6>
+                        </div>
+                        <div class="product-header row">
+                            <div class="product-header-description col-11" style="padding-right: 0px;">
+
+                                <div class="product-title">
+                                    <h3  style="width : 80%;font-weight: 700;letter-spacing: 0.1px;color: #304c44;" id="preview-titre">{{ campagne.titre }}</h3>
+                                </div>
+                                <div class="price-desc row">
+                                    <div class="product-pricee col-6">
+                                        <p>
+                                            <span style="color: black">€ </span>
+                                            {{ campagne.prixPromotion }}
+                                        </p>
+                                    </div>
+
+                                    <div class="product-reviews col-6"><ins href="#" style="text-decoration: line-through ; color:#C2BECB;" > € {{ campagne.valeurProduit }}</ins>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-header-actions col-1 row" style="padding : unset">
+                                <a  class="col-6">
+
+                                </a>
+                                <a class="col-6">
+                                    <img id="previewMethod" alt="methode de livraison"  src="{% if campagne.moyen == "collect"%}  {{ asset('collect.png') }} {% else %} {{ asset('livraison.png') }} {% endif %}">
+                                </a>
+
+                            </div>
+
+                        </div>
+                        <div class="product-description-body">
+                            <p id="product-description">{{ campagne.description }}</p>
+                            <div class="objectif-participatif">
+                                <p style="font-weight: 600;line-height: 30px;color: #194238;"> Objectif Participatif
+                                    <a data-lightbox="ajax" href="{{ path('helpBoost') }}"><span class="fa fa-question-circle" style="font-size: 17px;color: grey;" aria-hidden="true"></span></a>
+                                </p>
+                                <div class="barres" style=" position: relative;height: 40px;">
+                                    <div style="position: absolute;width: 100%;background-color: #F2F3F5;border-radius: 20px">
+                                    </div>
+
+                                    <div style="position: absolute;width: {{ campagne.pourcentageParticipation }}%;background-color: #5be7c4;border-radius: 20px;">
+                                    </div>
+                                </div>
+                                <div class="imagesParticipations" style="position: relative;height: 60px/*! left: 80px; */">
+                                    <div style=" background-image: url('{{ asset('Ellipse.png') }}')">
+                                    </div>
+                                    <div style="left: 4% ;background-image: url('{{ asset('Ellipse(1).png') }}')">
+                                    </div>
+                                    <div style="left: 8%;background-image: url('{{ asset('Ellipse(2).png') }}') ">
+                                    </div>
+                                    <div style="left: 12%;background-image: url('{{ asset('Ellipse(3).png') }}')">
+                                    </div>
+                                    <div style="left: 16%;color: white;background-color: #5ae5c2">
+                                        <span id="nbParticipantsPreview" class="center">+{{ campagne.nombreParticipations }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="product-action">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="cart-product-quantity" style="text-align: right;">
+                                        <div class="quantity m-l-5" style="margin-bottom: 20px;">
+                                            <input type="button" class="minus" value="-">
+                                            <input type="text" class="qty" value="1" style="border: none;text-align: right;background-color: rgba(178, 254, 235, 1);">
+                                            <input type="button" class="plus" value="+">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 text-center">
+                                    <button id="participer" class="btn btn-rounded btn-reveal btn-lg participer" style="text-transform: none ;font-weight: 700; letter-spacing: -0.03px ; border-radius: 30px !important;" ><span>Acheter {{ campagne.prixPromotion}}€ <img src="{{ asset('shoppingCart.png') }}"></span><i class="icon-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container commentaryContainer">
+                <div class="separator"></div>
+                <div class="">
+                    <div class="ac-item">
+                        <h5 class="ac-title">  Questions sur le produit <span style="color: #0ee6b0">({{ comments | length }})</span> {% if commercantReponse %}| Petit vin à répondu <span class="fa fa-crown" style="color: yellow"></span>{% endif %} </h5>
+                        <div class="" >
+                            <div class="comments" id="comments">
+
+                                <div class="comment-list">
+                                    {% for comment in comments %}
+                                    <div class="comment">
+                                        <div class="image"><img alt="" src="{{ comment.getUser.pictureUrl }}" class="avatar"></div>
+                                        <div class="text">
+                                            <h5 class="name">{{ comment.getUser.pseudo }} {% if campagne.commercant == comment.getUser %}<span class="fa fa-crown" style="color: yellow"></span> {% endif %} </h5>
+                                            <span class="comment_date">{{ comment.datetime | date('à H:i , d M') }}</span>
+                                            <a class="comment-reply-link"  style="cursor: pointer" data-related="{{ comment.id }}" data-name="{{ comment.getUser.pseudo }}">Répondre</a>
+                                            <div class="text_holder">
+                                                <p>{{ comment.commentary }}</p>
+                                            </div>
+                                        </div>
+                                        {% for linkedComment in comment.commentaries %}
+                                        <div class="comment">
+                                            <div class="image"><img alt="" src="{{ linkedComment.getUser.pictureUrl }}" class="avatar"></div>
+                                            <div class="text">
+                                                <h5 class="name">{{ linkedComment.getUser.pseudo }} {% if campagne.commercant == linkedComment.getUser %}<span class="fa fa-crown" style="color: yellow"></span> {% endif %} </h5>
+                                                <span class="comment_date">{{ linkedComment.datetime | date('à H:i , d M') }}</span>
+                                                <a class="comment-reply-link"  style="cursor: pointer" data-related="{{ linkedComment.id }}" data-name="{{ linkedComment.getUser.pseudo }}">Répondre</a>
+                                                <div class="text_holder">
+                                                    <p>{{ linkedComment.commentary }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
                                     {% endfor %}
                                 </div>
-                            </div>
-
-                            <div id="countdown" style="color: white; position:absolute; bottom: 0; left: 0; background-color: #5be7c4;border-radius: 10px;height: 50px; text-align: center">
-                                <ul>
-                                    <li style="font-size: 9px;filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));"><span style="font-size: 22px;letter-spacing: -0.003em;font-weight: 900;" id="days"></span>Jours</li>
-                                    <span style="font-size: 16px;line-height: 0px;position: relative;bottom: 10px; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2))">:</span>
-                                    <li style="font-size: 9px;filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));"><span style="font-size: 22px;letter-spacing: -0.003em;font-weight: 900;" id="hours"></span>Heures</li>
-                                    <span style="font-size: 16px;line-height: 0px;position: relative;bottom: 10px;filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2))">:</span>
-                                    <li style="font-size: 9px;filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));"><span style="font-size: 22px;letter-spacing: -0.003em;font-weight: 900;" id="minutes"></span>Minutes</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-7 product-card">
-                    <div class="container description-container">
-
-                        <div class="product-description" style="position:relative;">
-                            <div>
-                                <h6 style="font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;color: #73c9cf; float: right " class="ma-unset" >
-                                    Meze  <span class="fa fa-map-marker"></span>
-                                </h6>
-                                <h6 style="font-style: normal;font-weight: 400;font-size: 13px;line-height: 20px;color: #979797;" class="ma-unset">
-                                    {{ campagne.nomVendeur }}
-                                </h6>
-                            </div>
-                            <div class="product-header row">
-                                <div class="product-header-description col-11" style="padding-right: 0px;">
-
-                                    <div class="product-title">
-                                        <h3  style="width : 80%;font-weight: 700;letter-spacing: 0.1px;color: #304c44;" id="preview-titre">{{ campagne.titre }}</h3>
+                                <a style="font-size: 1em;font-weight : 600;cursor: pointer" onclick="showAllCommentary();" id="showCommentary"> Voir toutes les questions <span class="fa fa-arrow-down"></span></a>
+                                    <div class="spinner-border text-success hidden" id="commentary-loading" role="status">
+                                        <span class="sr-only">Chargement...</span>
                                     </div>
-                                    <div class="price-desc row">
-                                        <div class="product-pricee col-6">
-                                            <p>
-                                                <span style="color: black">€ </span>
-                                                {{ campagne.prixPromotion }}
-                                            </p>
-                                        </div>
-
-                                        <div class="product-reviews col-6"><ins href="#" style="text-decoration: line-through ; color:#C2BECB;" > € {{ campagne.valeurProduit }}</ins>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-header-actions col-1 row" style="padding : unset">
-                                    <a  class="col-6">
-
-                                    </a>
-                                    <a class="col-6">
-                                        <img id="previewMethod" alt="methode de livraison"  src="{% if campagne.moyen == "collect"%}  {{ asset('collect.png') }} {% else %} {{ asset('livraison.png') }} {% endif %}">
-                                    </a>
-
-                                </div>
-
-                            </div>
-                            <div class="product-description-body">
-                                <p id="product-description">{{ campagne.description }}</p>
-                                <div class="objectif-participatif">
-                                    <p style="font-weight: 600;line-height: 30px;color: #194238;"> Objectif Participatif
-                                        <a data-lightbox="ajax" href="{{ path('helpBoost') }}"><span class="fa fa-question-circle" style="font-size: 17px;color: grey;" aria-hidden="true"></span></a>
-                                    </p>
-                                    <div class="barres" style=" position: relative;height: 40px;">
-                                        <div style="position: absolute;width: 100%;background-color: #F2F3F5;border-radius: 20px">
-                                        </div>
-
-                                        <div style="position: absolute;width: {{ campagne.pourcentageParticipation }}%;background-color: #5be7c4;border-radius: 20px;">
-                                        </div>
-                                    </div>
-                                    <div class="imagesParticipations" style="position: relative;height: 60px/*! left: 80px; */">
-                                        <div style=" background-image: url('{{ asset('Ellipse.png') }}')">
-                                        </div>
-                                        <div style="left: 4% ;background-image: url('{{ asset('Ellipse(1).png') }}')">
-                                        </div>
-                                        <div style="left: 8%;background-image: url('{{ asset('Ellipse(2).png') }}') ">
-                                        </div>
-                                        <div style="left: 12%;background-image: url('{{ asset('Ellipse(3).png') }}')">
-                                        </div>
-                                        <div style="left: 16%;color: white;background-color: #5ae5c2">
-                                            <span id="nbParticipantsPreview" class="center">+{{ campagne.nombreParticipations }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="product-action">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="cart-product-quantity" style="text-align: right;">
-                                            <div class="quantity m-l-5" style="margin-bottom: 20px;">
-                                                <input type="button" class="minus" value="-">
-                                                <input type="text" class="qty" value="1" style="border: none;text-align: right;background-color: rgba(178, 254, 235, 1);">
-                                                <input type="button" class="plus" value="+">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 text-center">
-                                        <button id="participer" class="btn btn-rounded btn-reveal btn-lg participer" style="text-transform: none ;font-weight: 700; letter-spacing: -0.03px ; border-radius: 30px !important;" ><span>Acheter {{ campagne.prixPromotion}}€ <img src="{{ asset('shoppingCart.png') }}"></span><i class="icon-chevron-right"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="separator"></div>
-                            <div class="accordion accordion-simple">
-                                <div class="ac-item">
-                                    <h5 class="ac-title">  Questions sur le produit <span style="color: #0ee6b0">({{ comments | length }})</span> {% if commercantReponse %}| Petit vin à répondu <span class="fa fa-crown" style="color: yellow"></span>{% endif %} </h5>
-                                    <div class="ac-content" style="display: none;">
-                                        <div class="comments" id="comments">
-
-                                            <div class="comment-list">
-                                                {% macro recursiveComments(comment,campagne) %}
-                                                    <div class="comment">
-                                                        <div class="image"><img alt="" src="{{ comment.getUser.pictureUrl }}" class="avatar"></div>
-                                                        <div class="text">
-                                                            <h5 class="name">{{ comment.getUser.pseudo }} {% if campagne.commercant == comment.getUser %}<span class="fa fa-crown" style="color: yellow"></span> {% endif %} </h5>
-                                                            <span class="comment_date">{{ comment.datetime | date('à H:i , d M') }}</span>
-                                                            <a class="comment-reply-link"  style="cursor: pointer" data-related="{{ comment.id }}" data-name="{{ comment.getUser.pseudo }}">Répondre</a>
-                                                            <div class="text_holder">
-                                                                <p>{{ comment.commentary }}</p>
-                                                            </div>
-                                                        </div>
-                                                        {% if comment.commentaries |length %}
-                                                            {% for linkedComment in comment.commentaries %}
-                                                                {{ _self.recursiveComments(linkedComment,campagne) }}
-                                                            {% endfor %}
+                                <div class="respond-form" id="respond">
+                                    <div class="respond-comment">
+                                        Poser une <span>Question</span></div>
+                                    <h5 id="respondTo"></h5>
+                                    {% if is_granted('ROLE_USER') %}
+                                        <form class="form-gray-fields" action="{{ path('createCommentary') }}">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control required"  name="comment" rows="9" placeholder="Posez votre question" id="comment" aria-required="true">
+                                                        <input type="text" hidden id="linkedCommentary" name="linkedCommentary">
+                                                        {% if is_granted('ROLE_COMMERCANT') %}
+                                                            <input type="text" hidden  name="commercantId" value="{{ app.user.id }}">
+                                                        {% else %}
+                                                            <input type="text" hidden  name="participantId" value="{{ app.user.id }}">
                                                         {% endif %}
+                                                        <input type="text" hidden  name="campagneId" value="{{ campagne.id }}">
                                                     </div>
-                                                {% endmacro %}
-
-                                                {% if comments %}
-                                                {% for comment in comments %}
-                                                    <!-- Comment -->
-                                                            {{ _self.recursiveComments(comment,campagne) }}
-                                                {% endfor %}
-                                                {% endif %}
-
+                                                </div>
                                             </div>
-                                            <div class="respond-form" id="respond">
-                                                <div class="respond-comment">
-                                                    Poser une <span>Question</span></div>
-                                                <h5 id="respondTo"></h5>
-                                                {% if is_granted('ROLE_USER') %}
-                                                <form class="form-gray-fields" action="{{ path('createCommentary') }}">
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control required"  name="comment" rows="9" placeholder="Posez votre question" id="comment" aria-required="true">
-                                                                <input type="text" hidden id="linkedCommentary" name="linkedCommentary">
-                                                                {% if is_granted('ROLE_COMMERCANT') %}
-                                                                    <input type="text" hidden  name="commercantId" value="{{ app.user.id }}">
-                                                                {% else %}
-                                                                    <input type="text" hidden  name="participantId" value="{{ app.user.id }}">
-                                                                {% endif %}
-                                                                <input type="text" hidden  name="campagneId" value="{{ campagne.id }}">
-                                                            </div>
-                                                        </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group text-center">
+                                                        <button class="btn" type="submit">Poser la question</button>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <div class="form-group text-center">
-                                                                <button class="btn" type="submit">Poser la question</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                                {% else %}
-                                                <a class="btn" href="{{ path('app_login') }}">Se connecter</a>
-                                                {% endif %}
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </form>
+                                    {% else %}
+                                        <a class="btn" href="{{ path('app_login') }}">Se connecter</a>
+                                    {% endif %}
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
             </div>
-        </div>
-    </section>
-    <section id="how" style=" overflow: visible">
-        <div class="container">
-            <ul class="timeline">
-                <!--Timeline item-->
-                <li class="timeline-item no-margin-top">
-                    <div class="timeline-icon">1</div>
-                    <h4>Participez</h4>
-                    <p>Vous commandez un bon d'achat dans le commerce de votre choix. Faites-vous plaisir avec un bon d'achat chez vos commerçants préférés: restaurant, boutique, déco ou cadeaux </p>
-                </li>
-                <!--end: Timeline item-->
-                <!--Timeline item-->
-                <li class="timeline-item">
-                    <div class="timeline-icon">2</div>
-                    <h4>Partagez</h4>
-                    <p>Plus les participations sont nombreuses sur l'offre, plus cette dernière a des chances d'atteindre son objectif, </p>
-                </li>
-                <!--end: Timeline item-->
-                <!--Timeline item-->
-                <li class="timeline-item">
-                    <div class="timeline-icon">3</div>
-                    <h4>Soutenez</h4>
-                    <p>Nous versons directement l'argent au commerçant. Votre action permet de soutenir vos commerçants dans cette période difficile.</p>
-                </li>
-                <!--end: Timeline item-->
-                <!--Timeline item-->
-                <li class="timeline-item">
-                    <div class="timeline-icon">4</div>
-                    <div class="last-timeline-item">
-                        <h4>Were we are now</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem
-                            ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales
-                            vehicula....</p>
-                    </div>
 
-                </li>
-                <!--end: Timeline item-->
-            </ul>
         </div>
-    </section>
-    <section id="FAQ">
-        <div class="container">
-            <h3 style="color:#5BE7C4; font-size: 48px "> FAQ</h3>
-            <h5> Questions /Réponses</h5>
-            <div class="faq">
-                <p>  ➡️ Comment le commerçant est-il informé de mon achat ? </p>
-                <p class="reponse"> Le commerçant est informé dans les 48h maximum par mail. </p>
-            </div>
-            <div class="faq">
-                <p>  ➡️ Quand le commerçant reçoit-il l'argent de ma commande ?  </p>
-                <p class="reponse"> L'argent est versé au commerçant sous une semaine environ, sans aucun frais, l’Essor Palaisien prend en charge 100% des frais liés à la transaction. </p>
-            </div>
-            <div class="faq">
-                <p>  ➡️ Combien de temps mon bon d'achat est-il valable ?  </p>
-                <p class="reponse"> Votre bon d'achat est valable 6 mois à partir de la date d'achat </p>
-            </div>
-            <div class="faq">
-                <p>  ➡️ Comment acheter un bon d'achat pour l'offrir à une tierce personne ? </p>
-                <p class="reponse"> Vous devez indiquer le nom de la personne à qui vous souhaitez offrir un bon cadeau dans votre panier dans la note de commande (il suffira ensuite de lui transférer l'email de confirmation).</p>
-            </div>
-            <div class="faq">
-                <p>  ➡️ Que faire si je n'ai pas reçu l'email de confirmation contenant mon bon d'achat ? </p>
-                <p class="reponse"> Vérifiez systématiquement vos e-mails indésirables. Vous recevez une confirmation par mail. </p>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
+<section id="how" style=" overflow: visible">
+    <div class="container">
+        <ul class="timeline">
+            <!--Timeline item-->
+            <li class="timeline-item no-margin-top">
+                <div class="timeline-icon">1</div>
+                <h4>Participez</h4>
+                <p>Vous commandez un bon d'achat dans le commerce de votre choix. Faites-vous plaisir avec un bon d'achat chez vos commerçants préférés: restaurant, boutique, déco ou cadeaux </p>
+            </li>
+            <!--end: Timeline item-->
+            <!--Timeline item-->
+            <li class="timeline-item">
+                <div class="timeline-icon">2</div>
+                <h4>Partagez</h4>
+                <p>Plus les participations sont nombreuses sur l'offre, plus cette dernière a des chances d'atteindre son objectif, </p>
+            </li>
+            <!--end: Timeline item-->
+            <!--Timeline item-->
+            <li class="timeline-item">
+                <div class="timeline-icon">3</div>
+                <h4>Soutenez</h4>
+                <p>Nous versons directement l'argent au commerçant. Votre action permet de soutenir vos commerçants dans cette période difficile.</p>
+            </li>
+            <!--end: Timeline item-->
+            <!--Timeline item-->
+            <li class="timeline-item">
+                <div class="timeline-icon">4</div>
+                <div class="last-timeline-item">
+                    <h4>Were we are now</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem
+                        ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales
+                        vehicula....</p>
+                </div>
 
-    {% include ('mvp/component/shareIt.html.twig') %}
+            </li>
+            <!--end: Timeline item-->
+        </ul>
+    </div>
+</section>
+<section id="FAQ">
+    <div class="container">
+        <h3 style="color:#5BE7C4; font-size: 48px "> FAQ</h3>
+        <h5> Questions /Réponses</h5>
+        <div class="faq">
+            <p>  ➡️ Comment le commerçant est-il informé de mon achat ? </p>
+            <p class="reponse"> Le commerçant est informé dans les 48h maximum par mail. </p>
+        </div>
+        <div class="faq">
+            <p>  ➡️ Quand le commerçant reçoit-il l'argent de ma commande ?  </p>
+            <p class="reponse"> L'argent est versé au commerçant sous une semaine environ, sans aucun frais, l’Essor Palaisien prend en charge 100% des frais liés à la transaction. </p>
+        </div>
+        <div class="faq">
+            <p>  ➡️ Combien de temps mon bon d'achat est-il valable ?  </p>
+            <p class="reponse"> Votre bon d'achat est valable 6 mois à partir de la date d'achat </p>
+        </div>
+        <div class="faq">
+            <p>  ➡️ Comment acheter un bon d'achat pour l'offrir à une tierce personne ? </p>
+            <p class="reponse"> Vous devez indiquer le nom de la personne à qui vous souhaitez offrir un bon cadeau dans votre panier dans la note de commande (il suffira ensuite de lui transférer l'email de confirmation).</p>
+        </div>
+        <div class="faq">
+            <p>  ➡️ Que faire si je n'ai pas reçu l'email de confirmation contenant mon bon d'achat ? </p>
+            <p class="reponse"> Vérifiez systématiquement vos e-mails indésirables. Vous recevez une confirmation par mail. </p>
+        </div>
+    </div>
+</section>
+
+{% include ('mvp/component/shareIt.html.twig') %}
 
 {% endblock %}
 {% block js %}
     <script defer>
+        function showAllCommentary(){
+            $('#commentary-loading').show();
+            $.ajax({
+                url: "{{ path('allCommentary') }}?idCampagne={{ campagne.id }}"
+            }).done(function (data){
+                $('.comment-list').html(data)
+                $('#commentary-loading').hide();
+                $('#showCommentary').hide();
+            })
+
+        }
         $('.comment-reply-link').on('click',function (e){
             $('#linkedCommentary').val($(e.target).data('related'))
             $('#respondTo').html('> Répondre à ' + $(e.target).data('name') )

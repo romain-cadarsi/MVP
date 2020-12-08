@@ -150,13 +150,12 @@ class MVPController extends AbstractController
         $campagne = $entityManager->getRepository(Campagne::class)->find($id);
         $backUrl = $request->headers->get('referer');
         $shareLink = $this->generateUrl('viewCampagne',['id' => $campagne->getId()],UrlGeneratorInterface::ABSOLUTE_URL);
-        $commentaries = $entityManager->getRepository(Commentary::class)->findBy(['linkedCommentary' => null , "campagne" => $campagne->getId()]);
+        $commentaries = $entityManager->getRepository(Commentary::class)->findBy(['linkedCommentary' => null , "campagne" => $campagne->getId()],null,4);
         foreach ($campagne->getCommentaries() as $commentaire){
             if ($commentaire->getUser() == $campagne->getCommercant()){
                 $commercantReponse = true;
             }
         }
-        dump($commentaries, $commercantReponse);
         if($campagne){
             return $this->render('mvp/view.html.twig', [
                 'campagne' => $campagne,
@@ -476,6 +475,22 @@ class MVPController extends AbstractController
       $entityManager->persist($commentary);
       $entityManager->flush();
       return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/xhr/allCommentary", name="allCommentary")
+     */
+    public function allCommentary(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $campagne = $entityManager->getRepository(Campagne::class)->find($request->get('idCampagne'));
+        $commentaries = $entityManager->getRepository(Commentary::class)->findBy(['linkedCommentary' => null , "campagne" => $campagne->getId()]);
+        if($campagne){
+            return $this->render('mvp/component/allComments.html.twig', [
+                'campagne' => $campagne,
+                'comments' => $commentaries,
+            ]);
+        }
+
     }
 
 

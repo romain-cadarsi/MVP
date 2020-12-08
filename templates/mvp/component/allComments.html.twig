@@ -1,0 +1,25 @@
+{% macro recursiveComments(comment,campagne) %}
+    <div class="comment">
+        <div class="image"><img alt="" src="{{ comment.getUser.pictureUrl }}" class="avatar"></div>
+        <div class="text">
+            <h5 class="name">{{ comment.getUser.pseudo }} {% if campagne.commercant == comment.getUser %}<span class="fa fa-crown" style="color: yellow"></span> {% endif %} </h5>
+            <span class="comment_date">{{ comment.datetime | date('à H:i , d M') }}</span>
+            <a class="comment-reply-link"  style="cursor: pointer" data-related="{{ comment.id }}" data-name="{{ comment.getUser.pseudo }}">Répondre</a>
+            <div class="text_holder">
+                <p>{{ comment.commentary }}</p>
+            </div>
+        </div>
+        {% if comment.commentaries |length %}
+            {% for linkedComment in comment.commentaries %}
+                {{ _self.recursiveComments(linkedComment,campagne) }}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+                                        {% if comments %}
+                                            {% for comment in comments %}
+                                                <!-- Comment -->
+                                                {{ _self.recursiveComments(comment,campagne) }}
+                                            {% endfor %}
+                                        {% endif %}
