@@ -47,8 +47,13 @@ class FacebookController extends AbstractController
 
         $this->addFlash('success', "Bienvenu chez Shoppon " . $this->getUser()->getUsername() . " ! Vous pouvez maintenant prendre place à des offres groupées");
 
-        dump($request->cookies);
-        return $this->redirect($request->cookies->get('referer'));
+        if($request->cookies->get('referer')){
+            return $this->redirect($request->cookies->get('referer'));
+        }
+        else{
+            return $this->redirectToRoute('home');
+        }
+
 
     }
 }
