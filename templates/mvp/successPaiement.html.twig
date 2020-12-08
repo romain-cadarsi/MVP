@@ -197,8 +197,8 @@
     <div class="container special">
         <div class="content">
             <img src="{{ asset('imgs/tick2.png') }}" class="c-0" alt="">
-            <h3>Demande de participation enregistrée</h3>
-            <h3>Votre participation sera validée dès que le paiement sera verifié</h3>
+            <h3>Participation Confirmée</h3>
+            <h3>Votre participation est confirmée, vous serez tenu au courant de l'avancement de la campagne</h3>
             <p class="small">Order number: #9876543</p>
             <div class="c-1">
                 <div  style="height: 60px ; width: 60px; background-image: url('/{{ participation.campagne.logo.asset }}') ; background-size: cover ;" ></div>
@@ -217,7 +217,7 @@
                 <p>Total</p>
                 <p>{{ participation.campagne.prixPromotion * participation.quantity }} euros</p>
             </div>
-            <a class="btn" id="checkout-button">Payer {{ participation.campagne.prixPromotion * participation.quantity }} € </a>
+            <h3 class="center"> Payé par carte </h3>
             <div class="space"></div>
 
             <div class="c3-content">
@@ -253,58 +253,9 @@
             <a data-target="#modal-share" data-toggle="modal" class="product-page-actions action-share"><button class="btn">Inviter</button></a>
         </div>
     </div>
-<div class="space"></div>
+    <div class="space"></div>
     {% include ('mvp/component/shareIt.html.twig') %}
 {% endblock %}
 {% block js %}
-    <script src="https://js.stripe.com/v3/"></script>
-    <script>
-        let stripe = Stripe('pk_test_51Hs83lFxEIGkLsaFZGsezqoSH7dngauohzyGH1PXIBLTuxmWbDCktv97EaevMOIXD4EWYAdGmfEsz0prXrcF7GiJ0054cj0mdk');
-        var checkoutButton = document.getElementById('checkout-button');
 
-        function storeOrder(){
-
-            let url = "{{ path('createOrder') }}" +"?participationId={{ participation.id }}&session_id=" + checkoutButton.dataset.secret;
-            let request = new XMLHttpRequest();
-            request.open('GET', url, true);
-            request.addEventListener('load',function(){
-                        stripe.redirectToCheckout({
-                            sessionId:  checkoutButton.dataset.secret
-                        }).then(function (result) {
-                            console.log(result);
-                        });
-            });
-            request.send();
-
-        }
-
-        function getSessionId(){
-            let url = "{{ path('getStripeSession') }}?participationId={{ participation.id }}";
-            let request = new XMLHttpRequest();
-            request.open('GET', url, true);
-            request.addEventListener('load',function(){
-                try {
-                    if(request.responseText === "alreadyPaid"){
-                        INSPIRO.elements.notification("Cette commande est déjà réglée.","Il semble que cette commande soit déjà réglée, vous devriez trouver votre confirmation dans vos mails",'danger')
-                    }
-                    else{
-                        checkoutButton.dataset.secret = JSON.parse(request.responseText).id;
-                    }
-                }catch (e){
-                    INSPIRO.elements.notification("Une erreur est survenue, veuillez recharger la page  ","",'danger')
-                }
-
-
-
-
-            });
-            request.send();
-        }
-
-        checkoutButton.addEventListener('click', function() {
-            storeOrder('card');
-        });
-
-        getSessionId();
-    </script>
 {% endblock %}

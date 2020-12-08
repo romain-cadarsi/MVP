@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Campagne;
+use App\Entity\Commentary;
 use App\Entity\Commercant;
 use App\Entity\Participant;
 use App\Entity\Participation;
@@ -17,10 +18,12 @@ use App\Service\ImageService;
 use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\This;
+use Stripe\Stripe;
 use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -80,7 +83,7 @@ class MVPController extends AbstractController
             ->setTitre($request->get('titre'))
             ->setVille('Mèze')
             ->setCommercant($entityManager->getRepository(Commercant::class)->findOneBy(['email' => $this->getUser()->getUsername()]))
-            ;
+        ;
         $index = 0;
         foreach ($request->files as $file){
             if($index == 0){
@@ -143,14 +146,24 @@ class MVPController extends AbstractController
      */
     public function viewCampagne($id,EntityManagerInterface $entityManager, Request $request): Response
     {
+        $commercantReponse = false;
         $campagne = $entityManager->getRepository(Campagne::class)->find($id);
         $backUrl = $request->headers->get('referer');
         $shareLink = $this->generateUrl('viewCampagne',['id' => $campagne->getId()],UrlGeneratorInterface::ABSOLUTE_URL);
+        $commentaries = $entityManager->getRepository(Commentary::class)->findBy(['linkedCommentary' => null , "campagne" => $campagne->getId()]);
+        foreach ($campagne->getCommentaries() as $commentaire){
+            if ($commentaire->getUser() == $campagne->getCommercant()){
+                $commercantReponse = true;
+            }
+        }
+        dump($commentaries, $commercantReponse);
         if($campagne){
             return $this->render('mvp/view.html.twig', [
                 'campagne' => $campagne,
                 'backurl' => $backUrl,
-                'shareLink' => $shareLink
+                'shareLink' => $shareLink,
+                'comments' => $commentaries,
+                'commercantReponse' => $commercantReponse
             ]);
         }
         else{
@@ -214,6 +227,7 @@ class MVPController extends AbstractController
         $participation->setQuantity($quantity);
         $participation->setCampagne($campagne)->setParticipant($user);
         $entityManager->persist($participation);
+        $participation->setPaid(false)->setOrderId("noOrderId");
         $entityManager->flush();
         $response = $mailService->mailConfirmation($participation,$this->renderView('mvp/mailConfirmation.html.twig'));
         if($response == "0"){
@@ -235,8 +249,12 @@ class MVPController extends AbstractController
      */
     public function participationEffectue(Request $request, EntityManagerInterface $entityManager , $id = null): Response
     {
+        if($request->get('cancelled')){
+            $this->addFlash('danger',"Le paiement n'a pas abouti, veuillez recommencer");
+        }
+
         if(is_null($id)){
-           $id = $request->get('id');
+            $id = $request->get('id');
         }
         $participation = $entityManager->getRepository(Participation::class)->find($id);
         $idCampagne = $participation->getId();
@@ -337,15 +355,16 @@ class MVPController extends AbstractController
                 $this->redirect($request->headers->get('referer'));
             }
         }
-            return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('app_login');
     }
 
     /**
      * @Route("/testMail", name="testMail")
      */
-    public function testMail(MailService $mailService): Response
+    public function testMail(MailService $mailService)
     {
-
+        $participation = $this->getDoctrine()->getRepository(Participation::class)->find("59");
+        $mailService->mailConfirmation($participation,$this->renderView('mvp/mailConfirmation.html.twig'));
     }
 
     /**
@@ -360,6 +379,105 @@ class MVPController extends AbstractController
             'word' => $word
         ]);
     }
+
+    /**
+     * @Route("/paiementConfirme", name="paiementConfirme")
+     */
+    public function paiementConfirme(Request $request,ParticipationRepository $participationRepository,MailService $mailService): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $participation = $participationRepository->find($request->get('id'));
+        if($request->get('session_id') == $participation->getOrderId()){
+            $participation->setPaid(true);
+        }
+        $em->persist($participation);
+        $em->flush();
+        $mailService->mailPaye($participation);
+        $url = $shareLink = $this->generateUrl('viewCampagne',['id' => $participation->getCampagne()->getId()],UrlGeneratorInterface::ABSOLUTE_URL);
+        return $this->render('mvp/successPaiement.html.twig',[
+            'participation' => $participation,
+            'shareLink' => $url
+        ]);
+    }
+
+    /**
+     * @Route("/getStripeSession", name="getStripeSession")
+     */
+    public function getStripeSession( EntityManagerInterface $entityManager,Request $request,ParticipationRepository $participationRepository)
+    {
+        $participation = $participationRepository->find($request->get('participationId'));
+        if($participation->getPaid()){
+            return new Response('alreadyPaid');
+        }
+        Stripe::setApiKey('sk_test_51Hs83lFxEIGkLsaFTjw4xNqV16HQq8klCxbABCdhd326eaPSY1mwBJ0anhMTy9pF4h87XmWjN9sW1f9UnOYPEd0k002veln1bt');
+        $options = [
+            'payment_method_types' => ['card'],
+            'line_items' => [],
+            'mode' => 'payment',
+            'success_url' => $this->generateUrl("paiementConfirme",[],UrlGeneratorInterface::ABSOLUTE_URL) ."?session_id={CHECKOUT_SESSION_ID}&id=".$participation->getId(),
+            'cancel_url' => $this->generateUrl("participationEffectue",['cancelled' => true],UrlGeneratorInterface::ABSOLUTE_URL) ."&id=".$participation->getId(),
+        ];
+
+        $campagne = $participation->getCampagne();
+
+        array_push($options['line_items'],
+            [
+                'price_data' => [
+                    'currency' => 'eur',
+                    'product_data' => [
+                        'name' => $campagne->getTitre()  ,
+                        'images' => [
+                            $campagne->getLogo()->getUrlPath()
+                        ]
+                    ],
+                    'unit_amount' => $campagne->getPrixPromotion() * 100,
+                ],
+                'quantity' => $participation->getQuantity(),
+            ]);
+        return new Response(json_encode(\Stripe\Checkout\Session::create($options)));
+
+    }
+
+    /**
+     * @Route("/createOrder", name="createOrder")
+     */
+    public function createOrder( EntityManagerInterface $entityManager,Request $request,ParticipationRepository $participationRepository)
+    {
+        $participation = $participationRepository->find($request->get('participationId'));
+        $participation->setOrderId($request->get('session_id'));
+        $entityManager->persist($participation);
+        $entityManager->flush();
+        return new Response();
+    }
+
+    /**
+     * @Route("/createCommentary", name="createCommentary")
+     */
+    public function createCommentary( EntityManagerInterface $entityManager,Request $request,MailService $mailService)
+    {
+
+      $commentary = new Commentary();
+      $campagne = $entityManager->getRepository(Campagne::class)->find($request->get('campagneId'));
+      if($request->get('participantId')){
+          $commentary->setParticipant($entityManager->getRepository(Participant::class)->find($request->get('participantId')));
+      }
+      else{
+          $commentary->setCommercant($entityManager->getRepository(Commercant::class)->find($request->get('commercantId')));
+      }
+      if($request->get('linkedCommentary')){
+          $linkedCommentary = $entityManager->getRepository(Commentary::class)->find($request->get('linkedCommentary'));
+          $commentary->setLinkedCommentary($linkedCommentary);
+          $mailService->reponseQuestion($commentary->getUser(),$campagne,$this->generateUrl('viewCampagne',['id' => $campagne->getId()],UrlGeneratorInterface::ABSOLUTE_URL));
+
+      }
+      $commentary->setCampagne($campagne)
+          ->setCommentary($request->get('comment'))
+          ->setDatetime(new \DateTime());
+      $entityManager->persist($commentary);
+      $entityManager->flush();
+      return $this->redirect($request->headers->get('referer'));
+    }
+
 
 
 

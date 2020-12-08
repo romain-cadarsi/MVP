@@ -38,6 +38,11 @@ class Commercant implements UserInterface
      */
     private $pictureUrl;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $username;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,5 +139,16 @@ class Commercant implements UserInterface
         $this->pictureUrl = $pictureUrl;
 
         return $this;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getPseudo(){
+        return $this->username;
     }
 }

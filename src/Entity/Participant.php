@@ -272,5 +272,8 @@ class Participant implements UserInterface
 
         return $this;
     }
+    public function getPseudo(){
+        return $this->username;
+    }
 }
 

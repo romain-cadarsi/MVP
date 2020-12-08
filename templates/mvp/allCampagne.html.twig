@@ -119,6 +119,9 @@
             position: relative !important;
             width: 289px;
         }
+        #splide4 img{
+            width: 100%;
+        }
 
         .splide__slide.populaire-item :first-child{
             padding-bottom: 20px;
@@ -211,25 +214,31 @@
 {% endblock %}
 {% block bodycontent  %}
 
-    <section>
+    <section style="padding-bottom: unset;">
         <div class="container">
             <a id="btn-search" href="#"> <i class="icon-search"></i></a>
             <div style="float : right">
-                <p style="font-size: 27px ; color: #194238">Montpellier     <span class="fa fa-map-marker"></span> </p>
+                <p style="font-size: 23px ; color: #194238">Montpellier     <span class="fa fa-map-marker"></span> </p>
             </div>
             <!-- post content -->
         </div>
     </section>
-    <section style="background-image: url('{{ asset('marketplaceBG.png') }}');background-size: contain;background-repeat: no-repeat;background-position: center;">
-        <div class="container">
-            <div id="floatText" >
-                <h3 class="t27" style=" color: black">Achat en Groupe</h3>
-                <p class="t14" style="color: black ; ">Proposer les meilleurs prix de produits disponibles dans votre ville. Acheter ensemble pour profiters des offres les plus attractives.</p>
-                <a class="t22" href="#" style=" color: black">Nous Contacter</a>
+    <section style="padding-top: unset">
+        <div id="splide4">
+            <div class="splide__track">
+                <ul class="splide__list" style="display: inline-flex">
+                    <li class="splide__slide">
+                        <img src="{{ asset('pub1.png') }}">
+                    </li>
+                    <li class="splide__slide">
+                        <img src="{{ asset('pub2.png') }}">
+                    </li>
+                </ul>
             </div>
         </div>
-
     </section>
+
+
     <section style="padding:  0">
         <div class="container" style="padding-right: 0;">
             <h3  class="heading-title">Populaire</h3>
@@ -312,7 +321,7 @@
             <div class="row">
                 <p class="category-description col-8">{{masterCategorie.description}}</p>
             </div>
-            <div id="splide3">
+            <div id="splidem{{ loop.index }}">
                 <div class="splide__track">
                     <ul class="splide__list" style="display: inline-flex">
                         {% for category in masterCategorie.sousCategories %}
@@ -328,8 +337,20 @@
             </div>
         </div>
     </section>
-    {% endfor %}
 
+    {% endfor %}
+    <section style="background-image: url('{{ asset('marketplaceBG.png') }}');background-size: contain;background-repeat: no-repeat;background-position: center;">
+        <div class="container">
+            <div id="floatText" >
+                <h3 class="t27" style=" color: black">Achat en Groupe</h3>
+                <p class="t14" style="color: black ; ">Proposer les meilleurs prix de produits disponibles dans votre ville. Acheter ensemble pour profiters des offres les plus attractives.</p>
+                <a class="t22" href="#" style=" color: black">Nous Contacter</a>
+            </div>
+        </div>
+
+    </section>
+    <div class="space"></div>
+    <div class="space"></div>
 {% endblock %}
 {% block js %}
     <script>
@@ -350,11 +371,20 @@
             perMove : 1,
             arrows : false
         } ).mount();
-        new Splide( '#splide3', {
+        {% for master in masterCategories %}
+        new Splide( '#splidem{{ loop.index }}', {
             type     : 'loop',
             height   : 'auto',
             autoWidth: true,
             perPage: 4,
+            perMove : 1,
+            arrows : false
+        } ).mount();
+        {% endfor %}
+        new Splide( '#splide4', {
+            type     : 'loop',
+            perPage: 1,
+            width: '100vw',
             perMove : 1,
             arrows : false
         } ).mount();

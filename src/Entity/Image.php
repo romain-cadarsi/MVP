@@ -78,4 +78,8 @@ class Image
         return $this;
     }
 
+    public function getUrlPath(){
+        return 'http://localhost:8003/uploads/images/' . $this->getName();
+    }
+
 }

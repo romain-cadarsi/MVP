@@ -34,6 +34,16 @@ class Participation
      */
     private $quantity;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $orderId;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $paid;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +81,30 @@ class Participation
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getOrderId(): ?string
+    {
+        return $this->orderId;
+    }
+
+    public function setOrderId(string $orderId): self
+    {
+        $this->orderId = $orderId;
+
+        return $this;
+    }
+
+    public function getPaid(): ?bool
+    {
+        return $this->paid;
+    }
+
+    public function setPaid(bool $paid): self
+    {
+        $this->paid = $paid;
 
         return $this;
     }

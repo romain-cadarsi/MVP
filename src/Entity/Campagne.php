@@ -107,11 +107,17 @@ class Campagne
      */
     private $imagesAdditionnelles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentary::class, mappedBy="campagne")
+     */
+    private $commentaries;
+
 
     public function __construct()
     {
         $this->participations = new ArrayCollection();
         $this->imagesAdditionnelles = new ArrayCollection();
+        $this->commentaries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -386,6 +392,36 @@ class Campagne
             // set the owning side to null (unless already changed)
             if ($imagesAdditionnelle->getCampagne() === $this) {
                 $imagesAdditionnelle->setCampagne(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentary[]
+     */
+    public function getCommentaries(): Collection
+    {
+        return $this->commentaries;
+    }
+
+    public function addCommentary(Commentary $commentary): self
+    {
+        if (!$this->commentaries->contains($commentary)) {
+            $this->commentaries[] = $commentary;
+            $commentary->setCampagne($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentary(Commentary $commentary): self
+    {
+        if ($this->commentaries->removeElement($commentary)) {
+            // set the owning side to null (unless already changed)
+            if ($commentary->getCampagne() === $this) {
+                $commentary->setCampagne(null);
             }
         }
 
