@@ -689,12 +689,18 @@
                 $('.comment-list').html(data)
                 $('#commentary-loading').hide();
                 $('#showCommentary').hide();
+                $('.comment-reply-link').on('click',function (e){
+                    $('#linkedCommentary').val($(e.target).data('related'))
+                    $('#respondTo').html('> Répondre à ' + $(e.target).data('name') )
+                    $('#comment').focus()
+                })
             })
 
         }
         $('.comment-reply-link').on('click',function (e){
             $('#linkedCommentary').val($(e.target).data('related'))
             $('#respondTo').html('> Répondre à ' + $(e.target).data('name') )
+            $('#comment').focus()
         })
         $('.minus').on('click',function (){
             if($('.qty').val() > 1 ){
