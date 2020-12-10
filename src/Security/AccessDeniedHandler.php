@@ -23,7 +23,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
     }
     public function handle(Request $request, AccessDeniedException $accessDeniedException)
     {
-        $this->session->getFlashBag()->add('danger', 'Vous devez avoir un compte participant pour accéder à cette page.');
+        $this->session->getFlashBag()->add('danger', 'Vous devez avoir un compte Commercant pour accéder à cette page.');
         return new RedirectResponse($this->urlGenerator->generate('app_login'));
     }
 }

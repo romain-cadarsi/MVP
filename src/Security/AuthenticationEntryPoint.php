@@ -23,7 +23,7 @@ $this->session = $session;
 public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
 {
 // add a custom flash message and redirect to the login page
-$this->session->getFlashBag()->add('danger', 'Vous devez avoir un compte participant pour accéder à cette page.');
+$this->session->getFlashBag()->add('danger', 'Vous devez avoir un compte Commercant pour accéder à cette page.');
 
 return new RedirectResponse($this->urlGenerator->generate('app_login'));
 }
