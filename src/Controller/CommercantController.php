@@ -15,7 +15,7 @@ class CommercantController extends ShopponController
 {
 
     /**
-     * @Route("/campagne", name="landingCommercant")
+     * @Route("/commercant", name="landingCommercant")
      */
     public function index(): Response
     {
