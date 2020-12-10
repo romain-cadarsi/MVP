@@ -52,6 +52,13 @@
             border-radius: 15px;
 
         }
+        .background-image.cover {
+            background-repeat: no-repeat;
+            background-position: top ;
+            background-size: cover;
+            border-radius: 15px;
+
+        }
         a:hover{
             color: #0ee6b0; !important;
         }
@@ -105,6 +112,10 @@
         .populaire-item{
             width: 250px;
             height: 100px;
+            margin-right: 8px;
+        }
+        .slide-item.top{
+            margin-bottom: 35px;
         }
         .populaire-item p{
             font-size: 20px;
@@ -123,9 +134,6 @@
             width: 100%;
         }
 
-        .splide__slide.populaire-item :first-child{
-            padding-bottom: 20px;
-        }
         .slide-item{
             padding: 0 20px;
         }
@@ -134,15 +142,21 @@
             font-size: 30px;
         }
         #splide1 .slide-item{
-            height: 120px;
+            height: 79px;
         }
         .cover{
             background-size: cover !important;
             border-radius: 15px;
         }
+        .achatEnGroupe{
+            padding: 50px;
+        }
         @media all and (min-width: 0px) and (max-width: 1000px){
             .heading-title{
                 font-size: 27px;
+            }
+            .achatEnGroupe{
+                padding: 30px;
             }
             .product-card h4
             {
@@ -250,11 +264,11 @@
                         {% for categories in categoriesBag %}
                             <li class="splide__slide populaire-item ">
                                 {% for category in categories  %}
-                                    <div class="slide-item row">
-                                        <a href="{{ path('search',{'q' : category.name}) }}" class="col-6 background-image" style="background-image:url('{{ asset(category.image) }}')">
+                                    <div class="slide-item{% if (loop.index % 2) == 1 %} top {% endif %} row">
+                                        <a href="{{ path('search',{'q' : category.name}) }}" class="col-6 background-image cover" style="background-image:url('{{ asset(category.image) }}')">
                                         </a>
                                         <div class="col-6">
-                                            <p><a href="{{ path('search',{'q' : category.name}) }}" style="color: black"> {{category.name}}</a></p>
+                                            <p><a href="{{ path('search',{'q' : category.name}) }}" style="color: black; font-size: 20px"> {{category.name}}</a></p>
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -266,7 +280,7 @@
             </div>
         </div>
     </section>
-    <section style="padding-bottom: 0;">
+    <section style="padding-bottom: 0; padding-top: 0;">
         <div class="container" style="padding-right: 0;">
             <h3  class="heading-title">Recommendation</h3>
             <div id="splide2">
@@ -315,11 +329,11 @@
         </div>
     </section>
     {% for masterCategorie in masterCategories %}
-    <section>
+    <section style="padding-bottom: 0;padding-top: 0">
         <div class="container" style="padding-right: 0;">
-            <h3 class="heading-title">{{ masterCategorie.name }}</h3>
+            <h3 class="heading-title" style="margin-bottom: 0px">{{ masterCategorie.name }}</h3>
             <div class="row">
-                <p class="category-description col-8">{{masterCategorie.description}}</p>
+                <p class="category-description col-8" style="font-family: Roboto !important; line-height: 20px">{{masterCategorie.description}}</p>
             </div>
             <div id="splidem{{ loop.index }}">
                 <div class="splide__track">
@@ -339,15 +353,14 @@
     </section>
 
     {% endfor %}
-    <section style="background-image: url('{{ asset('marketplaceBG.png') }}');background-size: contain;background-repeat: no-repeat;background-position: center;">
-        <div class="container">
+    <section >
+        <div class="container achatEnGroupe" style=" background-image: url('{{ asset('marketplaceBG.png') }}');background-size: contain;background-repeat: no-repeat;background-position: center;">
             <div id="floatText" >
                 <h3 class="t27" style=" color: black">Achat en Groupe</h3>
                 <p class="t14" style="color: black ; ">Proposer les meilleurs prix de produits disponibles dans votre ville. Acheter ensemble pour profiters des offres les plus attractives.</p>
                 <a class="t22" href="#" style=" color: black">Nous Contacter</a>
             </div>
         </div>
-
     </section>
     <div class="space"></div>
     <div class="space"></div>
@@ -357,7 +370,7 @@
 
         new Splide( '#splide1', {
             type     : 'loop',
-            height   : '250px',
+            height   : '196px',
             autoWidth: true,
             perPage: 4,
             perMove : 1,

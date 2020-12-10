@@ -27,15 +27,52 @@
             background-repeat: no-repeat;
             margin: 0 auto;
         }
-
-
-        .participer
-        {
+        .buttons-action-shop-row>.btnspecial{
+            border-radius: 5px !important;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .btnspecial{
+            width: 50% !important;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .btnspecial .prix{
+            color: white;
             line-height: 56px !important ;
-        }
-        #participer{
             font-size: 28px;
+            text-transform: none !important;
+            font-weight: 700;
+            letter-spacing: -0.03px !important ;
         }
+        .btnspecial .sousphrase{
+            font-size: 10px;
+            line-height: 12px;
+            text-align: center;
+            color: white;
+        }
+        .buttons-action-shop-row>.prixFort {
+
+            background-color: #8DF4DA;
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+        .buttons-action-shop-row>.prixFort:hover {
+            background-color: #74cbb5;
+        }
+
+        .buttons-action-shop-row>#participer{
+            background-color:  #5BE7C4;
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+        .buttons-action-shop-row>#participer:hover{
+            background-color: #41a78d;
+        }
+
+        .buttons-action-shop-row{
+            display: inline-flex;
+        }
+
         p,a,h1,h2,h3,h4,h5,h6,label{
             font-family: Cabin !important;
         }
@@ -88,6 +125,7 @@
             border-color: #4CD964;
             color: #4CD964;
         }
+
         .has-success .input::after{
             content: "✓";
             position: relative;
@@ -128,6 +166,7 @@
         }
         #preview-titre{
             font-size: 3vh;
+            line-height: 41px;
         }
         .product-header-actions>a{
             padding: unset;
@@ -293,11 +332,49 @@
         .comments .comment {
             background-color: #f9f9f9;
         }
+        .chatroom{
+            cursor: pointer;
+        }
+        .chatroom>img{
+            width: 80px !important;
+            height: 80px;
+            margin-top: 15px;
+        }
+        .chatroom::before{
+            content: '5';
+            position: absolute;
+            color: #0ee6b0;
+            left: 30px;
+            top:45px;
+            font-size: 25px;
+            font-weight : bold;
+        }
+        .btnspecial .prix{
+            font-size: 25px !important;
+            line-height: 1em !important;
+            margin-bottom: 0;
+        }
+        .btnspecial>.text{
+            position: relative;
+            top:12px;
+        }
+        .shoppingIcon{
+            width: 35px;
+            height: 35px;
+        }
+
+
 
 
 
         @media all and (max-width: 1000px)
         {
+            .chatroom::before{
+                left: 21px;
+                top:35px;
+                font-size: 19px;
+
+            }
             .objectif-participatif>p{
                 font-size: 18px
             }
@@ -323,17 +400,34 @@
             {
                 margin-top: 0;
             }
-            #participer{
-                font-size: 20px;
+
+            .buttons-action-shop-row>.btnspecial{
+
+                height: 57px !important;
+
             }
+            .btnspecial .prix{
+                font-size: 20px !important;
+                line-height: 1em !important;
+                margin-bottom: 0;
+            }
+            .btnspecial>.text{
+                position: relative;
+                top:15px;
+            }
+            .shoppingIcon{
+                width: 35px;
+                height: 35px;
+            }
+
             .last-timeline-item
             {
                 position: absolute;
             }
 
             #previewMethod{
-                height: 60px;
-                width: 60px;
+                height: 50px;
+                width: 50px;
             }
             #product-page{
                 background-color: #E5E5E5;
@@ -348,12 +442,17 @@
             #preview-titre{
                 font-size: 2.3vh;
             }
+            .chatroom>img{
+                width: 60px !important;
+                height: 60px;
+            }
             .price-desc{
-                padding : 15px 0 ;
+                padding-top:unset;
+                padding-bottom: 10px;
             }
 
             .barres>div{
-                height: 10px;
+                height: 15px;
             }
             .barres{
                 width: 100%;
@@ -363,10 +462,7 @@
                 margin: 0 auto !important;
                 text-align: center;
             }
-            .participer{
-                line-height: 50px !important;
-                padding : 0 50px 50px !important;
-            }
+
             .minicontainer{
                 padding: 0px;
             }
@@ -374,6 +470,9 @@
                 height: 100%;
                 width: auto;
                 margin : 0 auto;
+            }
+            .product-header.row{
+                margin-top: 13px ;
             }
             .product .product-image {
                 height: 30vh;
@@ -386,6 +485,13 @@
                 background-color: white;
                 padding-top: 20px;
                 border-radius: 40px 40px 0 0 ;
+            }
+            #preview-titre{
+                line-height: 27px
+            }
+
+            .description-container, .commentaryContainer{
+                padding : 0 65px;
             }
 
         }
@@ -447,31 +553,32 @@
                             <h6 style="font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;color: #73c9cf; float: right " class="ma-unset" >
                                 Meze  <span class="fa fa-map-marker"></span>
                             </h6>
-                            <h6 style="font-style: normal;font-weight: 400;font-size: 13px;line-height: 20px;color: #979797;" class="ma-unset">
+                            <h6 style="font-style: normal;font-weight: 400;font-size: 15px;line-height: 20px;color: #979797;" class="ma-unset">
                                 {{ campagne.nomVendeur }}
                             </h6>
                         </div>
                         <div class="product-header row">
-                            <div class="product-header-description col-11" style="padding-right: 0px;">
+
+                            <div class="product-header-description col-8" style="padding-right: 0px;">
 
                                 <div class="product-title">
-                                    <h3  style="width : 80%;font-weight: 700;letter-spacing: 0.1px;color: #304c44;" id="preview-titre">{{ campagne.titre }}</h3>
+                                    <h3  style="font-weight: 700;letter-spacing: 0.1px;color: #304c44;" id="preview-titre">{{ campagne.titre }}</h3>
                                 </div>
-                                <div class="price-desc row">
-                                    <div class="product-pricee col-6">
+                                <div class="price-desc row" style="margin-left: 0;">
+                                    <div class="product-pricee">
                                         <p>
                                             <span style="color: black">€ </span>
                                             {{ campagne.prixPromotion }}
                                         </p>
                                     </div>
 
-                                    <div class="product-reviews col-6"><ins href="#" style="text-decoration: line-through ; color:#C2BECB;" > € {{ campagne.valeurProduit }}</ins>
+                                    <div class="product-reviews"><ins href="#" style="text-decoration: line-through ; color:#C2BECB;line-height:48px" > € {{ campagne.valeurProduit }}</ins>
                                     </div>
                                 </div>
                             </div>
-                            <div class="product-header-actions col-1 row" style="padding : unset">
-                                <a  class="col-6">
-
+                            <div class="product-header-actions col-4 row" style="padding : unset">
+                                <a href="#comments" class="col-6 chatroom">
+                                    <img alt="chatroom" src="{{ asset('chatroom.png') }}">
                                 </a>
                                 <a class="col-6">
                                     <img id="previewMethod" alt="methode de livraison"  src="{% if campagne.moyen == "collect"%}  {{ asset('collect.png') }} {% else %} {{ asset('livraison.png') }} {% endif %}">
@@ -483,7 +590,7 @@
                         <div class="product-description-body">
                             <p id="product-description">{{ campagne.description }}</p>
                             <div class="objectif-participatif">
-                                <p style="font-weight: 600;line-height: 30px;color: #194238;"> Objectif Participatif
+                                <p style="font-weight: 600;line-height: 30px;color: #194238;font-size: 24px"> Achat Groupé
                                     <a data-lightbox="ajax" href="{{ path('helpBoost') }}"><span class="fa fa-question-circle" style="font-size: 17px;color: grey;" aria-hidden="true"></span></a>
                                 </p>
                                 <div class="barres" style=" position: relative;height: 40px;">
@@ -520,8 +627,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 text-center">
-                                    <button id="participer" class="btn btn-rounded btn-reveal btn-lg participer" style="text-transform: none ;font-weight: 700; letter-spacing: -0.03px ; border-radius: 30px !important;" ><span>Acheter {{ campagne.prixPromotion}}€ <img src="{{ asset('shoppingCart.png') }}"></span><i class="icon-chevron-right"></i></button>
+                                <div class="col-lg-6 text-center buttons-action-shop-row">
+                                    <a class="btnspecial prixFort">
+                                        <div class="text">
+                                            <p class="prix"> {{ campagne.valeurProduit }} €</p>
+                                            <p class="sousphrase"> Acheter Maintenant </p>
+                                        </div>
+
+                                    </a>
+                                    <a id="participer" class="btnspecial participer " >
+                                        <div class="text" style="display: inline-flex">
+                                            <div style="width: 78%">
+                                                <p class="prix">{{ campagne.prixPromotion}} €</p>
+                                                <p class="sousphrase"> Acheter ensemble </p>
+                                            </div>
+                                            <img class="shoppingIcon" src="{{ asset('shoppingCart.png') }}">
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -870,9 +992,6 @@
                 messages.appendChild(block);
             }
             function goTo100(action){
-                $(action).each(function (){
-
-                })
                 $('#avancee').css('width','0%');
                 $('#action').html(action)
                 let percentage = 0;
@@ -881,20 +1000,24 @@
                         clearInterval(interval)
                     }
                     else{
-                        percentage += 1;
+                        percentage += 2;
                         $('#avancee').css('width',(percentage / 100) * 300 +'px');
                         $('#avanceenb').html(percentage)
                     }
-                },15)
+                },30)
             }
 
             $('#participer').on('click',function () {
                 if(isConnected){
+                    launchAnimation();
                     $.ajax({
                         url: '{{ path('createParticipation') }}' + '?idCampagne=' + {{ campagne.id }} + '&quantity=' + $('.qty').val(),
                         type: 'POST',
                         success: function (data){
-                            window.location = data;
+                            $('#loader').on('animationFinished',function (){
+                                window.location = data;
+                            })
+
                         },
                         error : function (){
                             INSPIRO.elements.notification("Echec de l'envoi de mail","Une erreur est survenue pendant l'envoi de mail, néanmoins, votre participation est prise en compte")
@@ -910,7 +1033,7 @@
             })
 
             function launchAnimation(){
-                $('#loader').show();
+                $('#loader').show(300);
                 goTo100("Création de la participation")
                 setTimeout(function (){
                     goTo100("Notification vendeur")
