@@ -60,6 +60,12 @@
             background-color: #74cbb5;
         }
 
+        .centered-axis-x {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0) !important;
+        }
+
         .buttons-action-shop-row>#participer{
             background-color:  #5BE7C4;
             border-top-left-radius: 0 !important;
@@ -330,7 +336,7 @@
             font-size: 24px
         }
         .comments .comment {
-            background-color: #f9f9f9;
+            background-color: white;
         }
         .chatroom{
             cursor: pointer;
@@ -341,7 +347,7 @@
             margin-top: 15px;
         }
         .chatroom::before{
-            content: '5';
+            content: '{{ comments | length }}';
             position: absolute;
             color: #0ee6b0;
             left: 30px;
@@ -362,6 +368,9 @@
             width: 35px;
             height: 35px;
         }
+        .commentaryContainer{
+            background-color: white;
+        }
 
 
 
@@ -370,10 +379,9 @@
         @media all and (max-width: 1000px)
         {
             .chatroom::before{
-                left: 21px;
+                left: 17px;
                 top:35px;
                 font-size: 19px;
-
             }
             .objectif-participatif>p{
                 font-size: 18px
@@ -443,8 +451,9 @@
                 font-size: 2.3vh;
             }
             .chatroom>img{
-                width: 60px !important;
-                height: 60px;
+                margin-top: 20px;
+                width: 50px !important;
+                height: 50px;
             }
             .price-desc{
                 padding-top:unset;
@@ -516,7 +525,10 @@
 </div>
 <section id="product-page" class="product-page p-b-0" >
     <a href="{{ backurl }}" class="product-page-actions action-back"><span class="fa fa-arrow-left center"></span></a>
-    <a data-target="#modal-share" data-toggle="modal" class="product-page-actions action-share"><span class="fa fa-share-alt center"></span> </a>
+    <a id="modal-click-open" data-target="#modal-share" data-toggle="modal" class=""></a>
+
+    <div class="product-page-actions action-share" id="share"> <span class="fa fa-share-alt center"></span></div>
+
     <div class="product no-margin-bottom">
         <div class="row">
             <div class="col-lg-5 " style="padding-bottom: 20px">
@@ -650,16 +662,21 @@
                     </div>
                 </div>
             </div>
-            <div class="container commentaryContainer">
-                <div class="separator"></div>
-                <div class="">
-                    <div class="ac-item">
-                        <h5 class="ac-title">  Questions sur le produit <span style="color: #0ee6b0">({{ comments | length }})</span> {% if commercantReponse %}| Petit vin à répondu <span class="fa fa-crown" style="color: yellow"></span>{% endif %} </h5>
-                        <div class="" >
-                            <div class="comments" id="comments">
 
-                                <div class="comment-list">
-                                    {% for comment in comments %}
+        </div>
+    </div>
+</section>
+    <section style="padding-bottom: 0 ; padding-top: 0">
+        <div class="container commentaryContainer">
+            <div class="separator"></div>
+            <div class="">
+                <div class="ac-item">
+                    <h5 class="ac-title">  Questions sur le produit <span style="color: #0ee6b0">({{ comments | length }})</span> {% if commercantReponse %}| Petit vin à répondu <span class="fa fa-crown" style="color: yellow"></span>{% endif %} </h5>
+                    <div class="" >
+                        <div class="comments" id="comments">
+
+                            <div class="comment-list">
+                                {% for comment in comments %}
                                     <div class="comment">
                                         <div class="image"><img alt="" src="{{ comment.getUser.pictureUrl }}" class="avatar"></div>
                                         <div class="text">
@@ -671,66 +688,63 @@
                                             </div>
                                         </div>
                                         {% for linkedComment in comment.commentaries %}
-                                        <div class="comment">
-                                            <div class="image"><img alt="" src="{{ linkedComment.getUser.pictureUrl }}" class="avatar"></div>
-                                            <div class="text">
-                                                <h5 class="name">{{ linkedComment.getUser.pseudo }} {% if campagne.commercant == linkedComment.getUser %}<span class="fa fa-crown" style="color: yellow"></span> {% endif %} </h5>
-                                                <span class="comment_date">{{ linkedComment.datetime | date('à H:i , d M') }}</span>
-                                                <a class="comment-reply-link"  style="cursor: pointer" data-related="{{ linkedComment.id }}" data-name="{{ linkedComment.getUser.pseudo }}">Répondre</a>
-                                                <div class="text_holder">
-                                                    <p>{{ linkedComment.commentary }}</p>
+                                            <div class="comment">
+                                                <div class="image"><img alt="" src="{{ linkedComment.getUser.pictureUrl }}" class="avatar"></div>
+                                                <div class="text">
+                                                    <h5 class="name">{{ linkedComment.getUser.pseudo }} {% if campagne.commercant == linkedComment.getUser %}<span class="fa fa-crown" style="color: yellow"></span> {% endif %} </h5>
+                                                    <span class="comment_date">{{ linkedComment.datetime | date('à H:i , d M') }}</span>
+                                                    <a class="comment-reply-link"  style="cursor: pointer" data-related="{{ linkedComment.id }}" data-name="{{ linkedComment.getUser.pseudo }}">Répondre</a>
+                                                    <div class="text_holder">
+                                                        <p>{{ linkedComment.commentary }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a style="font-size: 1em;font-weight : 600;cursor: pointer" onclick="showAllCommentary();" id="showCommentary"> Voir toutes les questions <span class="fa fa-arrow-down"></span></a>
+                            <div class="spinner-border text-success hidden" id="commentary-loading" role="status">
+                                <span class="sr-only">Chargement...</span>
+                            </div>
+                            <div class="respond-form" id="respond">
+                                <div class="respond-comment">
+                                    Poser une <span>Question</span></div>
+                                <h5 id="respondTo"></h5>
+                                {% if is_granted('ROLE_USER') %}
+                                    <form class="form-gray-fields" action="{{ path('createCommentary') }}">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control required"  name="comment" rows="9" placeholder="Posez votre question" id="comment" aria-required="true">
+                                                    <input type="text" hidden id="linkedCommentary" name="linkedCommentary">
+                                                    {% if is_granted('ROLE_COMMERCANT') %}
+                                                        <input type="text" hidden  name="commercantId" value="{{ app.user.id }}">
+                                                    {% else %}
+                                                        <input type="text" hidden  name="participantId" value="{{ app.user.id }}">
+                                                    {% endif %}
+                                                    <input type="text" hidden  name="campagneId" value="{{ campagne.id }}">
                                                 </div>
                                             </div>
                                         </div>
-                                        {% endfor %}
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                                <a style="font-size: 1em;font-weight : 600;cursor: pointer" onclick="showAllCommentary();" id="showCommentary"> Voir toutes les questions <span class="fa fa-arrow-down"></span></a>
-                                    <div class="spinner-border text-success hidden" id="commentary-loading" role="status">
-                                        <span class="sr-only">Chargement...</span>
-                                    </div>
-                                <div class="respond-form" id="respond">
-                                    <div class="respond-comment">
-                                        Poser une <span>Question</span></div>
-                                    <h5 id="respondTo"></h5>
-                                    {% if is_granted('ROLE_USER') %}
-                                        <form class="form-gray-fields" action="{{ path('createCommentary') }}">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control required"  name="comment" rows="9" placeholder="Posez votre question" id="comment" aria-required="true">
-                                                        <input type="text" hidden id="linkedCommentary" name="linkedCommentary">
-                                                        {% if is_granted('ROLE_COMMERCANT') %}
-                                                            <input type="text" hidden  name="commercantId" value="{{ app.user.id }}">
-                                                        {% else %}
-                                                            <input type="text" hidden  name="participantId" value="{{ app.user.id }}">
-                                                        {% endif %}
-                                                        <input type="text" hidden  name="campagneId" value="{{ campagne.id }}">
-                                                    </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group text-center">
+                                                    <button class="btn" type="submit">Poser la question</button>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group text-center">
-                                                        <button class="btn" type="submit">Poser la question</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    {% else %}
-                                        <a class="btn" href="{{ path('app_login') }}">Se connecter</a>
-                                    {% endif %}
-                                </div>
+                                        </div>
+                                    </form>
+                                {% else %}
+                                    <a class="btn" href="{{ path('app_login') }}">Se connecter</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-    </div>
-</section>
+    </section>
 <section id="how" style=" overflow: visible">
     <div class="container">
         <ul class="timeline">
@@ -842,6 +856,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="{{ asset('Template/plugins/validate/validate.js') }}"></script>
     <script>
+        document.cookie = "referer=" + window.location+";path=/;";
         let isConnected = {% if is_granted('ROLE_USER') %} true {% else %} false {% endif %};
         let canParticipate = true;
         (function () {
@@ -1076,5 +1091,42 @@
 
         })();
 
+    </script>
+    <script>
+        let actionshare = $('.action-share');
+        if (navigator.share) {
+            $('#search').on('click',function (){
+                navigator.share({
+                    title: 'Shoppon - {{ campagne.titre }}',
+                    text: '{{ campagne.description | u.truncate(100,'...') }}',
+                    url: '{{ shareLink }}',
+                })
+                    .then(() => INSPIRO.elements.notification(',','Lien partagé avec succès','success'))
+                    .catch((error) => INSPIRO.elements.notification(',','Problème pendant le partage', 'danger'));
+            })
+
+        }
+        else{
+           $('#share').on('click',function (){
+               $('#modal-click-open').click()
+           })
+        }
+
+
+        var copyTextareaBtn = $('#textToCopyBtn')
+        copyTextareaBtn.on('click',function (event){
+            var copyTextarea = $('#textToCopy')
+            copyTextarea.focus();
+            copyTextarea.select();
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'succès' : 'une erreur';
+                $('#close-modal').click()
+                INSPIRO.elements.notification('','lien copié avec ' + msg + " dans le presse papier",msg === "succès" ? 'success' : 'danger')
+
+            } catch (err) {
+                console.log('Oops, unable to copy');
+            }
+        })
     </script>
 {% endblock %}

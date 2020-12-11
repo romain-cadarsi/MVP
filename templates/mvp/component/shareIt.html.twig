@@ -1,9 +1,9 @@
 <div class="modal fade" id="modal-share" tabindex="-1" role="modal" aria-labelledby="modal-share" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg centered-axis-x" style="position:absolute; bottom: 0">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header " style="display: none !important;">
                 <h4 id="modal-label-3" class="modal-title">Partagez cette campagne</h4>
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <button id="close-modal" aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
             </div>
             <div class="modal-body">
                 <p class="titleCard" style="font-size: 25px; text-align: center">Partages cette campagne à ton entourage !</p>
@@ -14,13 +14,13 @@
                 </div>
                 <br>
                 <div class="row">
-                    <div class="col-1"></div>
-                    <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('sms.png') }}')"></div></div>
-                    <div class="col-5"><div class="minicard" style="background-image: url('{{ asset('instagram.png') }}')"></div></div>
-                    <div class="col-1"></div>
+                    <div class="col-4"></div>
+                    <div class="col-4"><div class="minicard" id="textToCopyBtn" style="background-image: url('{{ asset('sms.png') }}') ; cursor: pointer"></div></div>
+                    <div class="col-4"></div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <textarea id="textToCopy" class="hidden">{{ shareLink }}</textarea>
+            <div class="modal-footer hidden">
                 <button data-dismiss="modal" class="btn btn-b" type="button">Fermer</button>
             </div>
         </div>
