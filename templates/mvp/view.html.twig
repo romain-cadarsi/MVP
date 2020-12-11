@@ -383,6 +383,11 @@
                 top:35px;
                 font-size: 19px;
             }
+            .centered-axis-x {
+                position: relative;
+                left: unset;
+                transform: unset !important;
+            }
             .objectif-participatif>p{
                 font-size: 18px
             }
@@ -1095,7 +1100,7 @@
     <script>
         let actionshare = $('.action-share');
         if (navigator.share) {
-            $('#search').on('click',function (){
+            $('#share').on('click',function (){
                 navigator.share({
                     title: 'Shoppon - {{ campagne.titre }}',
                     text: '{{ campagne.description | u.truncate(100,'...') }}',
