@@ -3,227 +3,68 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/styleForCards.css') }}">
     <style>
-        .green{
-            color: #0ee6b0;
-        }
-        .grey{
-            color: #C2BECB;
-        }
-        #textLanding{
-            font-family: Manrope !important;
-            font-size: 4em;
-        }
-        #landingImg{
-            height: 80vh;
-        }
-
-        .post-item-wrap{
-            border-radius: 20px;
-        }
-
-        .card-padded{
-            width: 90% !important;
-            height: 90% !important;
-            margin: 5%;
-            border-radius: 20px !important;
-        }
-        .category-description{
-            font-size: 17px;
-            color: black;
-            font-weight: 300;
-        }
-
-        .darkblue{
-            color: #194238 !important;
-        }
-        .imageCard{
-            width: 200px; margin : 0 auto;
-            height: 250px;
-            background-repeat: no-repeat;
-            background-position: center ;
-            background-size: contain;
-            border-radius: 20px;
-        }
-        .background-image {
-            background-repeat: no-repeat;
-            background-position: top ;
-            background-size: contain;
-            border-radius: 15px;
-
-        }
-        .background-image.cover {
-            background-repeat: no-repeat;
-            background-position: top ;
-            background-size: cover;
-            border-radius: 15px;
-
-        }
-        a:hover{
-            color: #0ee6b0; !important;
-        }
-        .paddedPostItem{
-            padding: 0px 20px 20px 0px;
-            position: absolute;
-            left: 0px;
-            top: 0px;
-        }
-        .product-card
-        {
-            width: 200px;
-            height: 100px;
-            margin-right: 25px;
-        }
-        .product-card h4
-        {
-            font-size: 17px;
-            position: absolute;
-            bottom: 15px ;
-            right: 45px;
-            color: white;
-        }
-        .barres>div{
-            height: 20px;
-        }
-        .greenfade{
-            color: rgba(76, 197, 166, 1);
-        }
-        .grey{
-            color: #C9CDD0;
-        }
-
-        .prix{
-            font-size: 1.349rem;
-            line-height: 0.9;
-        }
-        .icon-search{
-            font-size: 30px;
-            color:#194238;
-        }
-        .t27{
-            font-size: 27px;
-        }
-        .t14{
-            font-size: 14px;
-        }
-        .t22{
-            font-size: 22px;
-        }
-        .populaire-item{
-            width: 250px;
-            height: 100px;
-            margin-right: 8px;
-        }
-        .slide-item.top{
-            margin-bottom: 35px;
-        }
-        .populaire-item p{
-            font-size: 20px;
-            color: black;
-        }
-
-        #floatText{
-            max-width: 401px ;
-            margin : 0 auto
-        }
         .no-absolute{
             position: relative !important;
             width: 289px;
         }
-        #splide4 img{
-            width: 100%;
+        .imgparticipation0{
+            filter : blur(0.9px)
         }
-
-        .slide-item{
-            padding: 0 20px;
+        .imgparticipation1{
+            left: 10%;
+            filter : blur(0.9px)
         }
-        .heading-title{
-            font-width: 500;
-            font-size: 30px;
+        .imgparticipation2{
+            left: 20%;
+            filter : blur(0.9px)
         }
-        #splide1 .slide-item{
-            height: 79px;
+        .imgparticipation3{
+            left: 30%;
+            filter : blur(0.9px)
         }
-        .cover{
-            background-size: cover !important;
-            border-radius: 15px;
+        .imgparticipation4{
+            left: 40%;
         }
-        .achatEnGroupe{
-            padding: 50px;
+        .portfolio-item.img-zoom{
+            width: 200px;
+        }
+        .portfolio-item.img-zoom .background-image{
+            width: 200px;
+        }
+        .imagesParticipations>div
+        {
+            width: 30px;
+            height: 30px;
+            border-radius: 50px;
+            background-color: white;
+            position: absolute;
+            background-size: contain;
+            font-weight: 600;
+            font-size: 1.2vh;
         }
         @media all and (min-width: 0px) and (max-width: 1000px){
-            .heading-title{
-                font-size: 27px;
+            .portfolio-item.img-zoom{
+                width: 160px;
             }
-            .achatEnGroupe{
-                padding: 30px;
+            .portfolio-item.img-zoom .background-image{
+                width: 160px;
             }
-            .product-card h4
+            .imagesParticipations>div
             {
-                font-size: 14px;
-                right: 25px;
+                width: 25px;
+                height: 25px;
+                font-size: 15px;
 
             }
-            .product-card{
-                width: 160px;
-                margin-right: 15px;
+            .paddedPostItem{
+                height: 100%;
             }
             .no-absolute{
                 width: 170px;
             }
-            .barres>div{
-                height: 10px;
-            }
-            #floatText{
-                max-width: 300px;
-            }
-            #page-content>.container{
-                padding : 0 15px;
-            }
-            #textLanding{
-                font-size: 3em;
-                text-align: center;
-            }
-            .paddedPostItem{
-                padding: 0 10px 10px 0 !important;
-            }
-
-            .imageCard{
-                width: unset;
-                height: 150px;
-            }
-
-            #landingImg{
-                width: 100%;
-                height: unset;
-            }
-
-            .groupTextLanding{
-                text-align: center;
-            }
-            .grid-6-columns .grid-item, .post-6-columns .post-item, .portfolio-6-columns .portfolio-item, .grid-5-columns .grid-item, .post-5-columns .post-item, .portfolio-5-columns .portfolio-item, .grid-4-columns .grid-item, .post-4-columns .post-item, .portfolio-4-columns .portfolio-item, .grid-3-columns .grid-item, .post-3-columns .post-item, .portfolio-3-columns .portfolio-item, .grid-2-columns .grid-item, .post-2-columns .post-item, .portfolio-2-columns .portfolio-item {
-                width: 50% !important;
-            }
-            .post-item .post-item-description{
-                padding : 25px 15px !important
-            }
-            #splide1 .col-6>p{
-                font-size: 17px;
-            }
-            .t27{
-                font-size: 24px;
-            }
-            .t14{
-                font-size: 10px;
-            }
-            .t22{
-                font-size: 18px;
-            }
-            .populaire-item{
-                width: 220px;
-            }
         }
-
     </style>
 {% endblock %}
 {% block bodycontent  %}
@@ -231,8 +72,8 @@
     <section style="padding-bottom: unset;padding-top: 0;">
         <div class="container">
             <a id="btn-search" href="#"> <i class="icon-search"></i></a>
-            <div style="float : right">
-                <p style="font-size: 23px ; color: #194238">Montpellier     <span class="fa fa-map-marker"></span> </p>
+            <div class="float-right">
+                <p class="marker">Montpellier     <span class="fa fa-map-marker"></span> </p>
             </div>
             <!-- post content -->
         </div>
@@ -240,7 +81,7 @@
     <section style="padding-top: unset">
         <div id="splide4">
             <div class="splide__track">
-                <ul class="splide__list" style="display: inline-flex">
+                <ul class="splide__list flex" >
                     <li class="splide__slide">
                         <img src="{{ asset('pub1.png') }}">
                     </li>
@@ -254,12 +95,12 @@
 
 
     <section style="padding:  0">
-        <div class="container" style="padding-right: 0;">
+        <div class="container np-r">
             <h3  class="heading-title">Populaire</h3>
 
             <div id="splide1">
                 <div class="splide__track">
-                    <ul class="splide__list" style="display: inline-flex">
+                    <ul class="splide__list flex">
 
                         {% for categories in categoriesBag %}
                             <li class="splide__slide populaire-item ">
@@ -280,45 +121,15 @@
             </div>
         </div>
     </section>
-    <section style="padding-bottom: 0; padding-top: 0;">
-        <div class="container" style="padding-right: 0;">
+    <section class="np-b np-t ">
+        <div class="container np-r">
             <h3  class="heading-title">Recommendation</h3>
             <div id="splide2">
                 <div class="splide__track">
-                    <ul class="splide__list" style="display: inline-flex">
+                    <ul class="splide__list flex">
                         {% for campagne in mostAdvancedCampagne %}
                             <li class="splide__slide">
-                                <div class="post-item border paddedPostItem no-absolute">
-                                    <div class="post-image">
-                                        <div>
-                                            <p style="background-color: #A5D7CA;float: right;margin-top: 15px;margin-right: 15px;color: #5AB19C;padding: 5px;border-radius: 10px;">-{{ campagne.discount }}%</p>
-                                        </div>
-                                        <a href="{{ path('viewCampagne',{id: campagne.id}) }}">
-                                            <div style="background-image:url('{{ asset(campagne.logo.asset) }}') " class="imageCard"></div>
-                                        </a>
-                                    </div>
-                                    <div class="post-item-description card card-padded" style="width: 90% !important;">
-                                        <div>
-                                            <p style="float: right;height: 0.2em" class="green prix">€{{ campagne.prixPromotion }}</p>
-                                            <a href="{{ path('viewCampagne',{id: campagne.id}) }}" class="darkblue" style="float:left ; font-weight: 100;display: block;margin-bottom: 0; line-height: 24px;font-size: 1.308rem;">{{ campagne.titre }}
-                                            </a>
-
-                                        </div>
-
-                                        <div class="participationCount">
-                                            <p  style="float: left ; margin-bottom: 2px" href="#" class="grey" >{{ campagne.nomVendeur }}</p>
-                                            <p style="float: right; margin-bottom: unset" class="grey">{{ campagne.nombreParticipations }}/{{ campagne.nombreParticipants }}</p>
-                                        </div>
-
-                                        <div class="barres" style="width: 80%; height: 20px">
-                                            <div style="position: absolute;width: 80%;background-color: #F2F3F5;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
-                                            </div>
-
-                                            <div style="position: absolute;width:{{ campagne.getPourcentageParticipation80 }}%;background-color: #5be7c4;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% include('mvp/component/productCard.html.twig') %}
                             </li>
                         {% endfor %}
 
@@ -329,28 +140,55 @@
         </div>
     </section>
     {% for masterCategorie in masterCategories %}
-    <section style="padding-bottom: 0;padding-top: 0">
-        <div class="container" style="padding-right: 0;">
-            <h3 class="heading-title" style="margin-bottom: 0px">{{ masterCategorie.name }}</h3>
-            <div class="row">
-                <p class="category-description col-8" style="font-family: Roboto !important; line-height: 20px">{{masterCategorie.description}}</p>
-            </div>
-            <div id="splidem{{ loop.index }}">
-                <div class="splide__track">
-                    <ul class="splide__list" style="display: inline-flex">
-                        {% for category in masterCategorie.sousCategories %}
-                        <li class="splide__slide">
-                            <div href="{{ path('search',{'q' : category.name}) }}" class="product-card background-image cover" style="background-image:url('{{ asset( category.image ) }}')">
-                                <h4><a href="{{ path('search',{'q' : category.name}) }}" style="color: white"> Voir plus > </a> </h4>
-                            </div>
-                        </li>
+        <section class="np-b np-t">
+            <div class="container np-r">
+                <h3> <span class="heading-title masterCategorie" style="border-color: {{ masterCategorie.masterCategory.couleur }} ;margin-bottom: 0px">{{ masterCategorie.masterCategory.name }} </span></h3>
+                <div class="row">
+                    <p class="category-description col-8" style="font-family: Roboto !important; line-height: 20px">{{masterCategorie.masterCategory.description}}</p>
+                </div>
+                <div id="splidem{{ loop.index }}">
+                    <div class="splide__track">
+                        <ul class="splide__list" style="display: inline-flex">
+                            {% for category in masterCategorie.masterCategory.sousCategories %}
+                                <li class="splide__slide">
+                                    <div href="{{ path('search',{'q' : category.name}) }}" class="product-card background-image cover" style="background-image:url('{{ asset( category.image ) }}')">
+                                        <h4><a href="{{ path('search',{'q' : category.name}) }}" style="color: white"> Voir plus > </a> </h4>
+                                    </div>
+                                </li>
                             {% endfor %}
 
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
+                {% if masterCategorie.advancedCampagne | length > 0 %}
+                    <div id="splidem{{ loop.index }}1">
+                        <div class="splide__track">
+                            <ul class="splide__list" style="display: inline-flex">
+                                {% for campagne in masterCategorie.advancedCampagne %}
+                                    <li class="splide__slide">
+                                        <div class="portfolio-item img-zoom" style=" height: 100px; border-radius: 10px">
+                                            <div class="portfolio-item-wrap">
+                                                <div class="portfolio-image" style="border-radius: 15px">
+                                                    <a href="{{ path('viewCampagne',{id: campagne.id}) }}" class="background-image" style="background-image: url('{{ asset(campagne.logo.asset) }}') ; height: 100px;display: block"></a>
+                                                </div>
+                                                <div class="portfolio-description" style="padding : 0 ">
+                                                    <a href="{{ path('viewCampagne',{id: campagne.id}) }}">
+                                                        <h3>{{ campagne.titre }}</h3>
+                                                        <span> {{ campagne.prixPromotion }}€ | {{ campagne.nombreParticipations }}/{{ campagne.nombreParticipants }}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+
             </div>
-        </div>
-    </section>
+        </section>
 
     {% endfor %}
     <section >
@@ -393,6 +231,16 @@
             perMove : 1,
             arrows : false
         } ).mount();
+        {% if master.advancedCampagne | length > 0 %}
+        new Splide( '#splidem{{ loop.index }}1', {
+            type     : 'loop',
+            height   : 'auto',
+            autoWidth: true,
+            perPage: 4,
+            perMove : 1,
+            arrows : false
+        } ).mount();
+        {% endif %}
         {% endfor %}
         new Splide( '#splide4', {
             type     : 'loop',

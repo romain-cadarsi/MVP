@@ -23,8 +23,12 @@ class ShopponController extends AbstractController
     public function allCampagne(CampagneRepository $campagneRepository,CategorieRepository $categorieRepository, MasterCategorieRepository $masterCategorieRepository): Response
     {
         $mostAdvancedCampagne = $campagneRepository->getMostAdvancedCampagne();
-        $categories = $categorieRepository->findBy([],["id" => 'DESC'],8);
+        $categories = $categorieRepository->findBy([],["id" => 'DESC']);
         $masterCategories = $masterCategorieRepository->findBy([],['id' => 'DESC']);
+        $mcs = (array_map(function ($mc) use ($campagneRepository,$masterCategorieRepository) {
+            return ['masterCategory' => $mc,
+                'advancedCampagne' => $campagneRepository->findBy(['id' => $masterCategorieRepository->getMostAdvancedCampagne($mc->getId())])];
+        },$masterCategories));
         $campagnes = $campagneRepository->findAll();
         $campagnesValides = [];
         foreach ($campagnes as $campagne){
@@ -36,7 +40,7 @@ class ShopponController extends AbstractController
             'mostAdvancedCampagne' => $mostAdvancedCampagne,
             'campagnes' => $campagnesValides,
             'categoriesBag' => array_chunk($categories,2),
-            'masterCategories' => $masterCategories
+            'masterCategories' => $mcs
         ]);
 
     }

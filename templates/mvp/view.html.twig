@@ -165,13 +165,13 @@
             height: 20px;
         }
         .price-desc>.product-price{
-            font-size: 3.084vh;
+            font-size: 34px;
             line-height: 0.5;
             font-weight: 900;
             color: #54c2a5;
         }
         #preview-titre{
-            font-size: 3vh;
+            font-size: 25px;
             line-height: 41px;
         }
         .product-header-actions>a{
@@ -257,7 +257,7 @@
         .price-desc>.product-pricee>p{
             margin-top: 0;
             text-align: left;
-            font-size: 4.5vh;
+            font-size: 35px;
             font-weight: 500 ;
             width: unset;
             padding-right: 15px;
@@ -266,8 +266,12 @@
             margin-bottom : 0px;
         }
         .price-desc>.product-reviews{
-            font-size: 2.959vh;
-            line-height: 1em;
+            font-size: 24px;
+            line-height: 39px;
+        }
+        .price-desc>.product-reviews>ins{
+            font-size: 24px;
+            line-height: 29px;
         }
         .price-desc>.product-reviews>ins{
             position: absolute;
@@ -371,13 +375,30 @@
         .commentaryContainer{
             background-color: white;
         }
+        .imgparticipation0{
+            filter : blur(0.9px)
+        }
+        .imgparticipation1{
+            left: 4%;
+            filter : blur(0.9px)
+        }
+        .imgparticipation2{
+            left: 8%;
+            filter : blur(0.9px)
+        }
+        .imgparticipation3{
+            left: 12%;
+            filter : blur(0.9px)
+        }
+        .imgparticipation4{
+            left: 16%;
 
-
-
-
-
+        }
         @media all and (max-width: 1000px)
         {
+            .price-desc>.product-reviews>ins{
+                line-height: 48px;
+            }
             .chatroom::before{
                 left: 17px;
                 top:35px;
@@ -402,7 +423,7 @@
                 margin-bottom: 200px;
             }
             .price-desc>.product-pricee>p{
-                font-size: 4vh;
+                font-size: 34px;
             }
 
 
@@ -453,7 +474,7 @@
 
             }
             #preview-titre{
-                font-size: 2.3vh;
+                font-size: 19px;
             }
             .chatroom>img{
                 margin-top: 20px;
@@ -589,12 +610,12 @@
                                         </p>
                                     </div>
 
-                                    <div class="product-reviews"><ins href="#" style="text-decoration: line-through ; color:#C2BECB;line-height:48px" > € {{ campagne.valeurProduit }}</ins>
+                                    <div class="product-reviews"><ins href="#" style="text-decoration: line-through ; color:#C2BECB" > € {{ campagne.valeurProduit }}</ins>
                                     </div>
                                 </div>
                             </div>
                             <div class="product-header-actions col-4 row" style="padding : unset">
-                                <a href="#comments" class="col-6 chatroom">
+                                <a href="#comments" class="col-6 chatroom scroll-to">
                                     <img alt="chatroom" src="{{ asset('chatroom.png') }}">
                                 </a>
                                 <a class="col-6">
@@ -618,17 +639,16 @@
                                     </div>
                                 </div>
                                 <div class="imagesParticipations" style="position: relative;height: 60px/*! left: 80px; */">
-                                    <div style=" background-image: url('{{ asset('Ellipse.png') }}')">
-                                    </div>
-                                    <div style="left: 4% ;background-image: url('{{ asset('Ellipse(1).png') }}')">
-                                    </div>
-                                    <div style="left: 8%;background-image: url('{{ asset('Ellipse(2).png') }}') ">
-                                    </div>
-                                    <div style="left: 12%;background-image: url('{{ asset('Ellipse(3).png') }}')">
-                                    </div>
-                                    <div style="left: 16%;color: white;background-color: #5ae5c2">
-                                        <span id="nbParticipantsPreview" class="center">+{{ campagne.nombreParticipations }}</span>
-                                    </div>
+                                    {% for participation in campagne.participations | slice(-4) %}
+                                        <div class="imgparticipation{{ loop.index0 }}" style=" background-image: url('{{ asset(participation.participant.pictureUrl) }}')">
+                                        </div>
+                                        {% if loop.index == 4 %}
+                                            <div class=" imgparticipation4" style= "color: white;background-color: #5ae5c2">
+                                                <span id="nbParticipantsPreview" class="center">+{{ campagne.nombreParticipations }}</span>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+
                                 </div>
                             </div>
 
@@ -1106,8 +1126,8 @@
                     text: '{{ campagne.description | u.truncate(100,'...') }}',
                     url: '{{ shareLink }}',
                 })
-                    .then(() => INSPIRO.elements.notification(',','Lien partagé avec succès','success'))
-                    .catch((error) => INSPIRO.elements.notification(',','Problème pendant le partage', 'danger'));
+                    .then(() => INSPIRO.elements.notification('','Lien partagé avec succès','success'))
+                    .catch((error) => INSPIRO.elements.notification('','Problème pendant le partage', 'danger'));
             })
 
         }

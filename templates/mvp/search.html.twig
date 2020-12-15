@@ -3,6 +3,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/styleForCards.css') }}"></link>
     <style>
         .green{
             color: #0ee6b0;
@@ -143,7 +144,7 @@
 {% endblock %}
 {% block bodycontent  %}
 
-    <section>
+    <section class="np-t np-b">
         <div class="container">
             <a id="btn-search" href="#"> <i class="icon-search"></i></a>
             <div style="float : right">
@@ -160,44 +161,11 @@
                 <!-- Page title -->
                 <div class="page-title post-item">
                     <h2 class="grey" style="font-weight: 100;">Près de chez vous</h2>
-                    <h1 class="greenfade" style="line-height: 0.7em ; padding-bottom: 20px">{{ word | capitalize }}</h1>
+                    <h1 class="greenfade" style="line-height: 1em ; padding-bottom: 20px">{{ word | capitalize }}</h1>
                 </div>
                 <!-- end: Page title -->
                 {% for campagne in campagnes %}
-                    <div class="post-item border paddedPostItem">
-                        <div class="post-item-wrap">
-                            <div class="post-image">
-                                <div>
-                                    <p style="background-color: #A5D7CA;float: right;margin-top: 15px;margin-right: 15px;color: #5AB19C;padding: 5px;border-radius: 10px;">-{{ campagne.discount }}%</p>
-                                </div>
-                                <a href="{{ path('viewCampagne',{id: campagne.id}) }}">
-                                    <div style="background-image: url('{{ asset(campagne.logo.asset) }}') " class="imageCard"></div>
-                                </a>
-                            </div>
-                            <div class="post-item-description card card-padded" style="width: 90% !important;">
-                                <div>
-                                    <p style="float: right;height: 0.2em" class="green prix">€{{ campagne.prixPromotion }}</p>
-                                    <a href="{{ path('viewCampagne',{id: campagne.id}) }}" class="darkblue" style="float:left ; font-weight: 100;display: block;margin-bottom: 0; line-height: 24px;font-size: 1.308rem;">{{ campagne.titre }}
-                                    </a>
-
-                                </div>
-
-                                <div class="participationCount">
-                                    <p  style="float: left ; margin-bottom: 2px" class="grey" >{{ campagne.nomVendeur }}</p>
-                                    <p style="float: right; margin-bottom: unset" class="grey">{{ campagne.nombreParticipations }}/{{ campagne.nombreParticipants }}</p>
-                                </div>
-
-                                <div class="barres" style="width: 80%; height: 20px">
-                                    <div style="position: absolute;width: 80%;background-color: #F2F3F5;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
-                                    </div>
-
-                                    <div style="position: absolute;width: {{ campagne.getPourcentageParticipation80 }}%;background-color: #5be7c4;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    {% include('mvp/component/productCard.html.twig') %}
                 {% endfor %}
 
                 <div class="grid-loader"></div></div>

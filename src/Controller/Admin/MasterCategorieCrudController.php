@@ -6,6 +6,7 @@ use App\Entity\Image;
 use App\Entity\MasterCategorie;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ColorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -25,7 +26,8 @@ class MasterCategorieCrudController extends AbstractCrudController
             TextField::new('name'),
             TextareaField::new('description'),
             ImageField::new('image')->setUploadDir('/public'),
-            AssociationField::new('sousCategories')
+            AssociationField::new('sousCategories'),
+            ColorField::new('couleur')
         ];
     }
 }

@@ -39,6 +39,11 @@ class MasterCategorie
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $couleur;
+
     public function __construct()
     {
         $this->sousCategories = new ArrayCollection();
@@ -105,6 +110,18 @@ class MasterCategorie
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCouleur(): ?string
+    {
+        return $this->couleur;
+    }
+
+    public function setCouleur(string $couleur): self
+    {
+        $this->couleur = $couleur;
 
         return $this;
     }
