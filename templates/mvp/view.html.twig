@@ -667,7 +667,7 @@
                                 <div class="col-lg-6 text-center buttons-action-shop-row">
                                     <a class="btnspecial prixFort">
                                         <div class="text">
-                                            <p class="prix"> {{ campagne.valeurProduit }} €</p>
+                                            <p class="prix" id="valeurProduit" data-prix="{{ campagne.valeurProduit }}"> {{ campagne.valeurProduit }} €</p>
                                             <p class="sousphrase"> Acheter Maintenant </p>
                                         </div>
 
@@ -675,7 +675,7 @@
                                     <a id="participer" class="btnspecial participer " >
                                         <div class="text" style="display: inline-flex">
                                             <div style="width: 78%">
-                                                <p class="prix">{{ campagne.prixPromotion}} €</p>
+                                                <p class="prix" id="prixPromotion" data-prix="{{ campagne.prixPromotion}}">{{ campagne.prixPromotion}} €</p>
                                                 <p class="sousphrase"> Acheter ensemble </p>
                                             </div>
                                             <img class="shoppingIcon" src="{{ asset('shoppingCart.png') }}">
@@ -866,11 +866,15 @@
         $('.minus').on('click',function (){
             if($('.qty').val() > 1 ){
                 $('.qty').val($('.qty').val() * 1 - 1)
+                $('#prixPromotion').html($('.qty').val() * $('#prixPromotion').data('prix') + "€")
+                $('#valeurProduit').html($('.qty').val() * $('#valeurProduit').data('prix') + "€")
             }
         })
 
         $('.plus').on('click',function (){
             $('.qty').val($('.qty').val() * 1 + 1)
+            $('#prixPromotion').html($('.qty').val() * $('#prixPromotion').data('prix') + "€")
+            $('#valeurProduit').html($('.qty').val() * $('#valeurProduit').data('prix') + "€")
         })
 
         $('.product-image').find('.preview-image-product').css('height',$('.description-container').height() + 'px')
