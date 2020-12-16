@@ -866,15 +866,15 @@
         $('.minus').on('click',function (){
             if($('.qty').val() > 1 ){
                 $('.qty').val($('.qty').val() * 1 - 1)
-                $('#prixPromotion').html($('.qty').val() * $('#prixPromotion').data('prix') + "€")
-                $('#valeurProduit').html($('.qty').val() * $('#valeurProduit').data('prix') + "€")
+                $('#prixPromotion').html(($('.qty').val() * $('#prixPromotion').data('prix')).toFixed(2) + "€")
+                $('#valeurProduit').html(($('.qty').val() * $('#valeurProduit').data('prix')).toFixed(2) + "€")
             }
         })
 
         $('.plus').on('click',function (){
             $('.qty').val($('.qty').val() * 1 + 1)
-            $('#prixPromotion').html($('.qty').val() * $('#prixPromotion').data('prix') + "€")
-            $('#valeurProduit').html($('.qty').val() * $('#valeurProduit').data('prix') + "€")
+            $('#prixPromotion').html(($('.qty').val() * $('#prixPromotion').data('prix')).toFixed(2) + "€")
+            $('#valeurProduit').html(($('.qty').val() * $('#valeurProduit').data('prix')).toFixed(2) + "€")
         })
 
         $('.product-image').find('.preview-image-product').css('height',$('.description-container').height() + 'px')
