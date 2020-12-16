@@ -219,7 +219,8 @@
             autoWidth: true,
             perPage: 4,
             perMove : 1,
-            arrows : false
+            arrows : false,
+            pagination : false
         } ).mount();
         new Splide( '#splide2', {
             type     : 'loop',
@@ -227,7 +228,8 @@
             autoWidth: true,
             perPage: 4,
             perMove : 1,
-            arrows : false
+            arrows : false,
+            pagination : false
         } ).mount();
         {% for master in masterCategories %}
         new Splide( '#splidem{{ loop.index }}', {
@@ -236,7 +238,8 @@
             autoWidth: true,
             perPage: 4,
             perMove : 1,
-            arrows : false
+            arrows : false,
+            pagination : false
         } ).mount();
         {% if master.advancedCampagne | length > 0 %}
         new Splide( '#splidem{{ loop.index }}1', {
@@ -245,7 +248,8 @@
             autoWidth: true,
             perPage: 4,
             perMove : 1,
-            arrows : false
+            arrows : false,
+            pagination : false
         } ).mount();
         {% endif %}
         {% endfor %}
@@ -254,7 +258,8 @@
             perPage: 1,
             width: '100vw',
             perMove : 1,
-            arrows : false
+            arrows : false,
+            pagination : false
         } ).mount();
     </script>
 
