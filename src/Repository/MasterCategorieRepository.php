@@ -27,7 +27,7 @@ class MasterCategorieRepository extends ServiceEntityRepository
             ->getConnection();
         $sql = "SELECT c.id
             FROM campagne c 
-            Join participation p on p.campagne_id = c.id 
+            left Join participation p on p.campagne_id = c.id 
             where ".implode(" OR ", $words) ."
             GROUP BY c.id
             ORDER BY SUM(p.quantity) DESC

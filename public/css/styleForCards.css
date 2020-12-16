@@ -90,7 +90,7 @@ a:hover{
 
 .prix{
     font-size: 1.349rem;
-    line-height: 0.9;
+    line-height: 1.3em;
 }
 .icon-search{
     font-size: 30px;
@@ -134,14 +134,10 @@ a:hover{
     font-size: 30px;
 }
 .card-product-title{
-    width: 75%;
-    float:left ;
     font-weight: 100;
-    display: block;
     margin-bottom: 0;
     line-height: 24px;
     font-size: 1.308rem;
-    min-height: 72px;
 }
 .card-product-price{
     float: right;
@@ -210,23 +206,24 @@ a:hover{
 
 
 @media all and (min-width: 0px) and (max-width: 1000px){
+    .participationCount{
 
+    }
     .heading-title{
         font-size: 27px;
     }
     .post-item-description{
-        height: calc(100% - 150px)
+
     }
     .header-card{
-        height: 100%;
+
     }
     .prix{
         font-size: 1.1rem;
-        line-height: 0.9;
+        line-height: 2em;
     }
     .card-product-title{
         font-size: 1.2rem;
-        width: 65%;
     }
     .card-product-price{
 
