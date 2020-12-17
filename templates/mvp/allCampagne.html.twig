@@ -29,6 +29,7 @@
         }
         .portfolio-item.img-zoom{
             width: 200px;
+            margin-right: 25px;
         }
         .portfolio-item.img-zoom .background-image{
             width: 200px;
@@ -44,9 +45,19 @@
             font-weight: 600;
             font-size: 1.2vh;
         }
+        .imageCard.cover{
+            background-size: cover;
+        }
+        .post-image{
+            margin-bottom: 0;
+        }
+        .img-zoom{
+
+        }
         @media all and (min-width: 0px) and (max-width: 1000px){
             .portfolio-item.img-zoom{
                 width: 160px;
+                margin-right: 15px;
             }
             .portfolio-item.img-zoom .background-image{
                 width: 160px;
@@ -166,15 +177,29 @@
                             <ul class="splide__list" style="display: inline-flex">
                                 {% for campagne in masterCategorie.advancedCampagne %}
                                     <li class="splide__slide">
-                                        <div class="portfolio-item img-zoom" style=" height: 100px; border-radius: 10px">
+                                        <div class="portfolio-item img-zoom" style="border-radius: 10px">
                                             <div class="portfolio-item-wrap">
                                                 <div class="portfolio-image" style="border-radius: 15px">
-                                                    <a href="{{ path('viewCampagne',{id: campagne.id}) }}" class="background-image" style="background-image: url('{{ asset(campagne.logo.asset) }}') ; height: 100px;display: block"></a>
+                                                    <div class="post-image">
+                                                        <div>
+                                                            <p class="card-product-discount">-{{ campagne.discount }}%</p>
+                                                        </div>
+                                                        <a href="{{ path('viewCampagne',{id: campagne.id}) }}">
+                                                            <div style="background-image:url('{{ asset(campagne.logo.asset) }}') " class="imageCard cover"></div>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                                 <div class="portfolio-description" style="padding : 0 ">
                                                     <a href="{{ path('viewCampagne',{id: campagne.id}) }}">
                                                         <h3>{{ campagne.titre }}</h3>
-                                                        <span> {{ campagne.prixPromotion }}€ | {{ campagne.nombreParticipations }}/{{ campagne.nombreParticipants }}</span>
+                                                        <span class="greenfade" style="font-size: 21px;line-height: 33px;letter-spacing: 0.031em;font-weight: 900;"> {{ campagne.prixPromotion }}€ </span>
+                                                        <div class="barres" style="width: 80%; height: 20px; margin: 0 auto">
+                                                            <div style="position: absolute;width: 80%;background-color: #F2F3F5;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
+                                                            </div>
+
+                                                            <div style="position: absolute;width:{{ campagne.getPourcentageParticipation80 }}%;background-color: #5be7c4;border-radius: 20px;/*! top: 370px; *//*! left: 80px; */">
+                                                            </div>
+                                                        </div>
                                                     </a>
                                                 </div>
                                             </div>

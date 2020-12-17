@@ -82,7 +82,7 @@ a:hover{
     padding-bottom: 35px;
 }
 .greenfade{
-    color: rgba(76, 197, 166, 1);
+    color: rgba(76, 197, 166, 1) !important;
 }
 .grey{
     color: #C9CDD0;
